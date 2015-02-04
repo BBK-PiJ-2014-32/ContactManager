@@ -1,4 +1,4 @@
-package cw4;
+package contactManager;
 
 /**
 * A meeting that was held in the past.

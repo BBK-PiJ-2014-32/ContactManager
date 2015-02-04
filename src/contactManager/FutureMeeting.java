@@ -1,4 +1,4 @@
-package cw4;
+package contactManager;
 
 /**
 * A meeting to be held in the future
