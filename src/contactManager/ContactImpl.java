@@ -11,6 +11,18 @@ public class ContactImpl implements Contact {
 		public String getName(){
 			return name;
 		}
+
+		public int getId() {
+				return 0;
+		}
+
+		public String getNotes() {
+			return null;
+		}
+
+		public void addNotes(String note) {
+		
+		}
 		
 		
 }
