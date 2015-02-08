@@ -4,9 +4,15 @@ public class ContactImpl implements Contact {
 
 		private String name;
 		private String notes;
+		private int id = 0;
+		private static int lastId = 0;
 		
 		public ContactImpl(String name){
+			if (this.getClass() == ContactImpl.class){
+				lastId++;
+			}
 			this.name = name;
+			this.id = lastId;
 		}
 		
 		public String getName(){
@@ -14,7 +20,7 @@ public class ContactImpl implements Contact {
 		}
 
 		public int getId() {
-				return 0;
+				return id;
 		}
 
 		public String getNotes() {
@@ -25,5 +31,7 @@ public class ContactImpl implements Contact {
 			this.notes = note;
 		}
 		
-		
+		private static int getLastId(){
+			return lastId;
+		}
 }
