@@ -12,7 +12,7 @@ public class ContactImpl implements Contact {
 				lastId++;
 			}
 			this.name = name;
-			this.id = lastId;
+			this.id = getLastId();
 		}
 		
 		public String getName(){
