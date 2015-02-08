@@ -3,6 +3,7 @@ package contactManager;
 public class ContactImpl implements Contact {
 
 		private String name;
+		private String notes;
 		
 		public ContactImpl(String name){
 			this.name = name;
@@ -17,11 +18,11 @@ public class ContactImpl implements Contact {
 		}
 
 		public String getNotes() {
-			return null;
+			return notes;
 		}
 
 		public void addNotes(String note) {
-		
+			this.notes = note;
 		}
 		
 		
