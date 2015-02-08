@@ -14,5 +14,13 @@ public class ContactTest {
 		String expected = "Joe Bloggs";
 		assertEquals(expected, output);
 	}
-
+	
+	@Test
+	public void addGetNotesTest(){
+		Contact testCon = new ContactImpl("Joe Bloggs");
+		testCon.addNotes("Test note input");
+		String output = testCon.getNotes();
+		String expected = "Test note input";
+		assertEquals(expected, output);
+	}
 }
