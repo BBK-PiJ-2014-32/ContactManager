@@ -23,4 +23,12 @@ public class ContactTest {
 		String expected = "Test note input";
 		assertEquals(expected, output);
 	}
+	
+	@Test
+	public void getIDTest(){
+		Contact testCon = new ContactImpl("Joe Bloggs");
+		int output = testCon.getId();
+		int expected = 23;
+		assertEquals(expected, output);
+	}
 }
