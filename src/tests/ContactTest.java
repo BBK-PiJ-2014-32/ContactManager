@@ -27,8 +27,11 @@ public class ContactTest {
 	@Test
 	public void getIDTest(){
 		Contact testCon = new ContactImpl("Joe Bloggs");
+		Contact testCon1 = new ContactImpl("John Smith");
+		Contact testCon2 = new ContactImpl("Mrs Something");
+		Contact testCon3 = new ContactImpl("Mr Nobody");
 		int output = testCon.getId();
-		int expected = 23;
+		int expected = 4;
 		assertEquals(expected, output);
 	}
 }
