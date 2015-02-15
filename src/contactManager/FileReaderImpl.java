@@ -13,7 +13,7 @@ public class FileReaderImpl implements FileReader{
 	 */
 	public boolean checkForFile(){
 		try{
-			File dataStore = new File("contactManager.csv");
+			File dataStore = new File("contactManager.xml");
 				if(dataStore.exists() == true){
 					return true;
 				} else {
