@@ -1,5 +1,6 @@
 package contactManager;
 
+// TODO: Auto-generated Javadoc
 /**
 * A contact is a person we are making business with or may do in the future.
 *
@@ -38,4 +39,12 @@ public interface Contact {
 * @param note the notes to be added
 */
 	void addNotes(String note);
+	
+/**
+ * Resets the last id.
+ *
+ * @return true, if successful
+ */
+	boolean resetLastId();
+	
 }
