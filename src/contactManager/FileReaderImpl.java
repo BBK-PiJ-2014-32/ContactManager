@@ -1,6 +1,7 @@
 package contactManager;
 
 import java.io.*;
+import javax.xml.*;
 
 /**
  * The Class FileReaderImpl.
@@ -25,8 +26,9 @@ public class FileReaderImpl implements FileReader{
 		return false;
 	}
 	
-	public String getContactName(int id){
-		return "";
+	public Contact getContact(int id){
+		Contact newCon = new ContactImpl(null);
+		return newCon;
 	}
 	
 }
