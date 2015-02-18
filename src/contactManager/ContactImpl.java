@@ -35,4 +35,9 @@ public class ContactImpl implements Contact {
 			//Code to be added to retrieve lastId from stored csv			
 			return lastId;
 		}
+
+		public boolean resetLastId() {
+			lastId = 0;
+			return true;
+		}
 }
