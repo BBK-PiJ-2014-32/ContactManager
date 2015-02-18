@@ -24,4 +24,9 @@ public class FileReaderImpl implements FileReader{
 		}
 		return false;
 	}
+	
+	public String getContactName(int id){
+		return "";
+	}
+	
 }
