@@ -33,8 +33,18 @@ public class ReaderFileImpl implements ReaderFile{
 	}
 	
 	public Contact getContact(int id){
-		Contact newCon = new ContactImpl(null);
-		return newCon;
+		try{
+			JAXBContext context = JAXBContext.newInstance(Contact.class);
+			Unmarshaller um = context.createUnmarshaller();
+			Contact newCon = (Contact) um.unmarshal(new FileReader("ContactManager.xml"));
+			return newCon;
+		} catch (IOException ex) {
+	        ex.printStackTrace();
+		} catch (JAXBException ex){
+			ex.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 }
