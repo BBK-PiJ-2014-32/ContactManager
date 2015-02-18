@@ -20,6 +20,6 @@ boolean checkForFile();
  * @param id of the contact being retreived.
  * @return the contact name
  */
-String getContactName(int id);
+Contact getContact(int id);
 
 }
