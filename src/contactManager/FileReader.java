@@ -14,4 +14,12 @@ public interface FileReader {
  */
 boolean checkForFile();	
 
+/**
+ * Gets the contact name.
+ *
+ * @param id of the contact being retreived.
+ * @return the contact name
+ */
+String getContactName(int id);
+
 }
