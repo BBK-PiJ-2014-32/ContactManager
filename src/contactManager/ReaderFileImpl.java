@@ -40,8 +40,6 @@ public class ReaderFileImpl implements ReaderFile{
 			ContactImpl newCon = (ContactImpl) um.unmarshal(file);
 				
 			return newCon;
-		//} catch (IOException ex) {
-	  //      ex.printStackTrace();
 		} catch (JAXBException ex){
 			ex.printStackTrace();
 		}
