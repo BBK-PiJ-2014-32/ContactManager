@@ -3,7 +3,7 @@ package contactManager;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "ContactManager")
+@XmlRootElement(name = "CONTACT")
 public class ContactImpl implements Contact {
 
 		private String name;
@@ -17,16 +17,16 @@ public class ContactImpl implements Contact {
 			}
 			this.id = getLastId();
 		}
-		@XmlElement
+		@XmlElement(name = "NAME")
 		public String getName(){
 			return name;
 		}
-		@XmlElement
+		@XmlElement(name = "ID")
 		public int getId() {
 				return id;
 		}
 		
-		@XmlElement
+		@XmlElement(name = "NOTES")
 		public String getNotes() {
 			return notes;
 		}

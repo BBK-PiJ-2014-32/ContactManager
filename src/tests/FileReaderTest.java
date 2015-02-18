@@ -9,7 +9,7 @@ import contactManager.ContactImpl;
 
 import org.junit.Test;
 
-public class ReaderFileTest {
+public class FileReaderTest {
 
 	@Test
 	public void checkForFiletest() {
