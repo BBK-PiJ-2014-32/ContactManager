@@ -18,4 +18,11 @@ public class FileReaderTest {
 
 	}
 
+	@Test
+	public void contactNameRetreive(){
+		FileReader testReader = new FileReaderImpl();
+		String output = getContactName(1);
+		String expected = "Joe Bloggs";
+		assertEquals(expected, output);
+	}
 }
