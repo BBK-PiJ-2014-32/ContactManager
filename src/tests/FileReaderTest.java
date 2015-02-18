@@ -24,7 +24,7 @@ public class FileReaderTest {
 	public void contactRetreive(){
 		FileReader testReader = new FileReaderImpl();
 		Contact output = testReader.getContact(1);
-		Contact expected = new ContactImpl("Joe Bloggs", 1, "Some Notes");
+		Contact expected = new ContactImpl("Joe Bloggs", 1);
 		assertEquals(expected, output);
 	}
 }
