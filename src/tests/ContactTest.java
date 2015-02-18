@@ -4,12 +4,21 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Test;
+import org.junit.Before;
 
 import contactManager.Contact;
 import contactManager.ContactImpl;
 
 public class ContactTest {
 
+	@Before
+	public void resetLastIdTest(){
+		Contact testCon = new ContactImpl(null);
+		boolean output = testCon.resetLastId();
+		boolean expected = true;
+		assertEquals(expected, output);
+	}
+	
 	@Test
 	public void getNameTest() {
 		Contact testCon = new ContactImpl("Joe Bloggs");
