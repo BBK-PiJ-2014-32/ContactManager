@@ -1,5 +1,9 @@
 package contactManager;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "contact")
 public class ContactImpl implements Contact {
 
 		private String name;
@@ -14,15 +18,16 @@ public class ContactImpl implements Contact {
 			this.name = name;
 			this.id = getLastId();
 		}
-		
+		@XmlElement(name = "name")
 		public String getName(){
 			return name;
 		}
-
+		@XmlElement(name = "Id")
 		public int getId() {
 				return id;
 		}
-
+		
+		@XmlElement(name = "notes")
 		public String getNotes() {
 			return notes;
 		}
