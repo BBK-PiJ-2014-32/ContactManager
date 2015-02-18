@@ -2,18 +2,18 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import contactManager.FileReader;
-import contactManager.FileReaderImpl;
+import contactManager.ReaderFile;
+import contactManager.ReaderFileImpl;
 import contactManager.Contact;
 import contactManager.ContactImpl;
 
 import org.junit.Test;
 
-public class FileReaderTest {
+public class ReaderFileTest {
 
 	@Test
 	public void checkForFiletest() {
-		FileReader testReader = new FileReaderImpl();
+		ReaderFile testReader = new ReaderFileImpl();
 		boolean output = testReader.checkForFile();
 		boolean expected = true;
 		assertEquals(expected, output);
@@ -22,7 +22,7 @@ public class FileReaderTest {
 
 	@Test
 	public void contactRetreive(){
-		FileReader testReader = new FileReaderImpl();
+		ReaderFile testReader = new ReaderFileImpl();
 		Contact contact = testReader.getContact(1);
 		String output = contact.getName();
 		String expected = "Joe Bloggs";

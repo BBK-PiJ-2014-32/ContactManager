@@ -1,12 +1,18 @@
 package contactManager;
 
-import java.io.*;
-import javax.xml.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 /**
  * The Class FileReaderImpl.
  */
-public class FileReaderImpl implements FileReader{
+public class ReaderFileImpl implements ReaderFile{
 
 	
 	/* (non-Javadoc)

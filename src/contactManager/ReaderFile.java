@@ -4,7 +4,7 @@ package contactManager;
  * The FileReader checks if a file where the contacts and meeting are stored already exists,
  * if it does not it will use a method from the FileWriter class and create a new file.
  */
-public interface FileReader {
+public interface ReaderFile {
 
 	
 /**
