@@ -3,7 +3,7 @@ package contactManager;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "contact")
+@XmlRootElement(name = "ContactManager")
 public class ContactImpl implements Contact {
 
 		private String name;
@@ -11,23 +11,22 @@ public class ContactImpl implements Contact {
 		private int id = 0;
 		private static int lastId = 0; //Needs to not be static, should be updated from stored csv
 		
-		public ContactImpl(String name){
+		public ContactImpl(){
 			if (this.getClass() == ContactImpl.class){
 				lastId++;
 			}
-			this.name = name;
 			this.id = getLastId();
 		}
-		@XmlElement(name = "name")
+		@XmlElement
 		public String getName(){
 			return name;
 		}
-		@XmlElement(name = "Id")
+		@XmlElement
 		public int getId() {
 				return id;
 		}
 		
-		@XmlElement(name = "notes")
+		@XmlElement
 		public String getNotes() {
 			return notes;
 		}
@@ -44,5 +43,9 @@ public class ContactImpl implements Contact {
 		public boolean resetLastId() {
 			lastId = 0;
 			return true;
+		}
+		
+		public void setName(String name){
+			this.name = name;
 		}
 }

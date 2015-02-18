@@ -13,7 +13,7 @@ public class ContactTest {
 
 	@Before
 	public void resetLastIdTest(){
-		Contact testCon = new ContactImpl(null);
+		Contact testCon = new ContactImpl();
 		boolean output = testCon.resetLastId();
 		boolean expected = true;
 		assertEquals(expected, output);
@@ -21,7 +21,8 @@ public class ContactTest {
 	
 	@Test
 	public void getNameTest() {
-		Contact testCon = new ContactImpl("Joe Bloggs");
+		ContactImpl testCon = new ContactImpl();
+		testCon.setName("joe Bloggs");
 		String output = testCon.getName();
 		String expected = "Joe Bloggs";
 		assertEquals(expected, output);
@@ -29,7 +30,8 @@ public class ContactTest {
 
 	@Test
 	public void addGetNotesTest(){
-		Contact testCon = new ContactImpl("Joe Bloggs");
+		ContactImpl testCon = new ContactImpl();
+		testCon.setName("joe Bloggs");
 		testCon.addNotes("Test note input");
 		String output = testCon.getNotes();
 		String expected = "Test note input";
@@ -38,10 +40,14 @@ public class ContactTest {
 	
 	@Test
 	public void getIDTest(){
-		Contact testCon = new ContactImpl("Joe Bloggs");
-		Contact testCon1 = new ContactImpl("John Smith");
-		Contact testCon2 = new ContactImpl("Mrs Something");
-		Contact testCon3 = new ContactImpl("Mr Nobody");
+		ContactImpl testCon1 = new ContactImpl();
+		testCon1.setName("joe Bloggs");
+		ContactImpl testCon2 = new ContactImpl();
+		testCon2.setName("John Smith");
+		ContactImpl testCon3 = new ContactImpl();
+		testCon3.setName("Mrs Something");
+		ContactImpl testCon4 = new ContactImpl();
+		testCon4.setName("Mr Nobody");
 		int output = testCon3.getId();
 		int expected = 4;
 		assertEquals(expected, output);
