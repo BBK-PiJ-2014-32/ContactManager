@@ -9,11 +9,12 @@ public class MeetingImpl implements Meeting {
 	private Calendar date;
 	private static int lastId = 0;
 	
-	public MeetingImpl(){
+	public MeetingImpl(Calendar date){
 		if (this.getClass() == MeetingImpl.class){
 			lastId++;
 		}
 		this.Id = lastId;
+		this.date = date;
 	}
 	
 	@Override
@@ -23,7 +24,7 @@ public class MeetingImpl implements Meeting {
 
 	@Override
 	public Calendar getDate() {
-		return null;
+		return date;
 	}
 
 	@Override
