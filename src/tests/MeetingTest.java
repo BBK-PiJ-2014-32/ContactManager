@@ -2,8 +2,12 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.text.*;
+import java.time.*;
+
 
 import org.junit.Test;
 
@@ -18,6 +22,16 @@ public class MeetingTest {
 		int output = testMeet.getId();
 		int expected = 1;
 		assertEquals(expected, output);
+	}
+	
+	@Test
+	public void getDateTest(){
+		Meeting testMeet = new MeetingImpl("12/04/2015");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar output = testMeet.getDate();
+		Calendar expected = new GregorianCalendar(2015,03,12);
+		assertEquals(expected, output);
+		
 	}
 
 }
