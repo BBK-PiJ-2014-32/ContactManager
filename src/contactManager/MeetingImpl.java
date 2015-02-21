@@ -9,12 +9,15 @@ public class MeetingImpl implements Meeting {
 	private Calendar date;
 	private static int lastId = 0;
 	
-	public MeetingImpl(Calendar date){
+	public MeetingImpl(int day, int month, int year){
 		if (this.getClass() == MeetingImpl.class){
 			lastId++;
 		}
 		this.Id = lastId;
-		this.date = date;
+		this.date = Calendar.getInstance();
+		this.date.set(Calendar.YEAR, year);
+		this.date.set(Calendar.MONTH, month);
+		this.date.set(Calendar.DAY_OF_MONTH, day);
 	}
 	
 	@Override
