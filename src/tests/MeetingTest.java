@@ -26,8 +26,8 @@ public class MeetingTest {
 	
 	@Test
 	public void getDateTest(){
-		Meeting testMeet = new MeetingImpl("12/04/2015");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Meeting testMeet = new MeetingImpl(12,4,2015);
+		//SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar output = testMeet.getDate();
 		Calendar expected = new GregorianCalendar(2015,03,12);
 		assertEquals(expected, output);
