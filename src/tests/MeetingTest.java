@@ -18,7 +18,7 @@ public class MeetingTest {
 
 	@Test
 	public void getIdTest() {
-		Meeting testMeet = new MeetingImpl();
+		Meeting testMeet = new MeetingImpl(12,4,2015);
 		int output = testMeet.getId();
 		int expected = 1;
 		assertEquals(expected, output);
@@ -27,9 +27,11 @@ public class MeetingTest {
 	@Test
 	public void getDateTest(){
 		Meeting testMeet = new MeetingImpl(12,4,2015);
-		//SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar output = testMeet.getDate();
-		Calendar expected = new GregorianCalendar(2015,03,12);
+		Calendar expected = Calendar.getInstance();
+		expected.set(Calendar.YEAR, 2015);
+		expected.set(Calendar.MONTH, 4);
+		expected.set(Calendar.DAY_OF_MONTH, 12);
 		assertEquals(expected, output);
 		
 	}
