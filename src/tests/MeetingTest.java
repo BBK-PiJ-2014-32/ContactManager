@@ -27,11 +27,14 @@ public class MeetingTest {
 	@Test
 	public void getDateTest(){
 		Meeting testMeet = new MeetingImpl(12,4,2015);
-		Calendar output = testMeet.getDate();
-		Calendar expected = Calendar.getInstance();
-		expected.set(Calendar.YEAR, 2015);
-		expected.set(Calendar.MONTH, 4);
-		expected.set(Calendar.DAY_OF_MONTH, 12);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar outputCal = testMeet.getDate();
+		String output = sdf.format(outputCal.getTime());
+		Calendar expectedCal = sdf.getCalendar();
+		expectedCal.set(Calendar.YEAR, 2015);
+		expectedCal.set(Calendar.MONTH, 4);
+		expectedCal.set(Calendar.DAY_OF_MONTH, 12);
+		String expected = sdf.format(expectedCal.getTime());
 		assertEquals(expected, output);
 		
 	}
