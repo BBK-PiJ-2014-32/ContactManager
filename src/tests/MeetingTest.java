@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.text.*;
 import java.time.*;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class MeetingTest {
 	
 	@Test
 	public void getContactsTest(){
-		Set<Contact> contactSet = new HashSet<Contact>();
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
 		Contact contact2 = new ContactImpl("Miss Miss");
 		Contact contact3 = new ContactImpl("Mr Smith");
@@ -55,12 +56,13 @@ public class MeetingTest {
 		contactSet.add(contact4);
 		Meeting testMeet = new MeetingImpl(12,4,2015,contactSet);
 		Set<Contact> outputSet = testMeet.getContacts();
-		Iterator it = outputSet.iterator();
+		Iterator<Contact> it = outputSet.iterator();
 		String output = "";
 		while(it.hasNext()){
-		  output = it.next() + ", ";
+		  Contact loopCon = it.next();
+		  output += loopCon.getName() + ", ";
 		}
-		String expected = "Mr Man, Miss Miss, Mr Smith, Mrs Ladyla";
+		String expected = "Mr Man, Miss Miss, Mr Smith, Mrs Ladyla, ";
 		assertEquals(expected, output);
 	}
 
