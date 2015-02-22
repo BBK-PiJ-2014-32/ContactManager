@@ -23,7 +23,7 @@ public class MeetingTest {
 
 	@Test
 	public void getIdTest() {
-		Meeting testMeet = new MeetingImpl(12,4,2015);
+		Meeting testMeet = new MeetingImpl(12,4,2015, null);
 		int output = testMeet.getId();
 		int expected = 1;
 		assertEquals(expected, output);
@@ -31,7 +31,7 @@ public class MeetingTest {
 	
 	@Test
 	public void getDateTest(){
-		Meeting testMeet = new MeetingImpl(12,4,2015);
+		Meeting testMeet = new MeetingImpl(12,4,2015,null);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar outputCal = testMeet.getDate();
 		String output = sdf.format(outputCal.getTime());
