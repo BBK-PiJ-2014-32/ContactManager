@@ -5,12 +5,16 @@ import static org.junit.Assert.*;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.text.*;
 import java.time.*;
-
+import java.util.Set;
 
 import org.junit.Test;
 
+import contactManager.Contact;
+import contactManager.ContactImpl;
 import contactManager.Meeting;
 import contactManager.MeetingImpl;
 
@@ -35,8 +39,29 @@ public class MeetingTest {
 		expectedCal.set(Calendar.MONTH, 4);
 		expectedCal.set(Calendar.DAY_OF_MONTH, 12);
 		String expected = sdf.format(expectedCal.getTime());
+		assertEquals(expected, output);	
+	}
+	
+	@Test
+	public void getContactsTest(){
+		Set<Contact> contactSet = new HashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact2 = new ContactImpl("Miss Miss");
+		Contact contact3 = new ContactImpl("Mr Smith");
+		Contact contact4 = new ContactImpl("Mrs Ladyla");
+		contactSet.add(contact1);
+		contactSet.add(contact2);
+		contactSet.add(contact3);
+		contactSet.add(contact4);
+		Meeting testMeet = new MeetingImpl(12,4,2015,contactSet);
+		Set<Contact> outputSet = testMeet.getContacts();
+		Iterator it = outputSet.iterator();
+		String output = "";
+		while(it.hasNext()){
+		  output = it.next() + ", ";
+		}
+		String expected = "Mr Man, Miss Miss, Mr Smith, Mrs Ladyla";
 		assertEquals(expected, output);
-		
 	}
 
 }
