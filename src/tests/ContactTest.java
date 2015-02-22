@@ -42,7 +42,7 @@ public class ContactTest {
 		ContactImpl testCon2 = new ContactImpl("John Smith");
 		ContactImpl testCon3 = new ContactImpl("Mrs Something");
 		ContactImpl testCon4 = new ContactImpl("Mr Nobody");
-		int output = testCon3.getId();
+		int output = testCon4.getId();
 		int expected = 4;
 		assertEquals(expected, output);
 	}
