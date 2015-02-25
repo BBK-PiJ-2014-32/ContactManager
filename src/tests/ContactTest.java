@@ -47,7 +47,7 @@ public class ContactTest {
 		assertEquals(expected, output);
 	}
 	
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void nullContactTest(){
 		Contact testCon = new ContactImpl(null);
 	}
