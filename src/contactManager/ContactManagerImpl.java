@@ -13,7 +13,7 @@ public class ContactManagerImpl implements ContactManager {
 		int month = date.MONTH;
 		int year = date.YEAR;
 		FutureMeeting newFutureMeeting = new FutureMeetingImpl(day, month, year, contacts);
-		return newFutureMeeting.getId();
+		return newFutureMeeting.getId(); 
 	}
 
 	@Override

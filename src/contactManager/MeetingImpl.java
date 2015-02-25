@@ -11,7 +11,7 @@ public class MeetingImpl implements Meeting {
 	private Set<Contact> contactSet;
 	
 	public MeetingImpl(int day, int month, int year, Set<Contact> contactSet){
-		if (this.getClass() == MeetingImpl.class){
+		if (this.getClass() == MeetingImpl.class || this.getClass() == FutureMeetingImpl.class){
 			lastId++;
 		}
 		this.Id = lastId;
