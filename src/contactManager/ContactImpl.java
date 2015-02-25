@@ -12,11 +12,16 @@ public class ContactImpl implements Contact {
 		private static int lastId = 0; //Needs to not be static, should be updated from stored csv
 		
 		public ContactImpl(String name){
-			if (this.getClass() == ContactImpl.class){
-				lastId++;
+			System.out.println(name);
+			if(name == null){
+				throw (new IllegalArgumentException("test"));
 			}
-			this.id = getLastId();
-			this.name = name;
+				if (this.getClass() == ContactImpl.class){
+					lastId++;
+				}
+				this.id = getLastId();
+				this.name = name;
+			
 		}
 		@XmlElement(name = "NAME")
 		public String getName(){

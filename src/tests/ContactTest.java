@@ -13,7 +13,7 @@ public class ContactTest {
 
 	@Before
 	public void resetLastIdTest(){
-		Contact testCon = new ContactImpl(null);
+		Contact testCon = new ContactImpl("");
 		boolean output = testCon.resetLastId();
 		boolean expected = true;
 		assertEquals(expected, output);
