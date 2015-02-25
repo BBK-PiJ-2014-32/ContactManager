@@ -1,5 +1,6 @@
 package contactManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -8,8 +9,11 @@ public class ContactManagerImpl implements ContactManager {
 
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		// TODO Auto-generated method stub
-		return 0;
+		int day = date.DAY_OF_MONTH;
+		int month = date.MONTH;
+		int year = date.YEAR;
+		FutureMeeting newFutureMeeting = new FutureMeetingImpl(day, month, year, contacts);
+		return newFutureMeeting.getId();
 	}
 
 	@Override
