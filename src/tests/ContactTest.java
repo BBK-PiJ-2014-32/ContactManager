@@ -46,4 +46,9 @@ public class ContactTest {
 		int expected = 4;
 		assertEquals(expected, output);
 	}
+	
+	@Test(expected = NullPointerException.class)
+	public void nullContactTest(){
+		Contact testCon = new ContactImpl(null);
+	}
 }
