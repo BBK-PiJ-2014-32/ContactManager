@@ -24,7 +24,9 @@ public class MeetingTest {
 	@Test
 	public void getIdTest() {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
-		Meeting testMeet = new MeetingImpl(date, null);
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		Meeting testMeet = new MeetingImpl(date, contactSet);
 		int output = testMeet.getId();
 		int expected = 1;
 		assertEquals(expected, output);
@@ -33,7 +35,9 @@ public class MeetingTest {
 	@Test
 	public void getDateTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
-		Meeting testMeet = new MeetingImpl(date,null);
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		Meeting testMeet = new MeetingImpl(date, contactSet);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar outputCal = testMeet.getDate();
 		String output = sdf.format(outputCal.getTime());
