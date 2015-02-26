@@ -23,7 +23,8 @@ public class MeetingTest {
 
 	@Test
 	public void getIdTest() {
-		Meeting testMeet = new MeetingImpl(12,4,2015, null);
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		Meeting testMeet = new MeetingImpl(date, null);
 		int output = testMeet.getId();
 		int expected = 1;
 		assertEquals(expected, output);
@@ -31,7 +32,8 @@ public class MeetingTest {
 	
 	@Test
 	public void getDateTest(){
-		Meeting testMeet = new MeetingImpl(12,4,2015,null);
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		Meeting testMeet = new MeetingImpl(date,null);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar outputCal = testMeet.getDate();
 		String output = sdf.format(outputCal.getTime());
@@ -54,7 +56,8 @@ public class MeetingTest {
 		contactSet.add(contact2);
 		contactSet.add(contact3);
 		contactSet.add(contact4);
-		Meeting testMeet = new MeetingImpl(12,4,2015,contactSet);
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		Meeting testMeet = new MeetingImpl(date,contactSet);
 		Set<Contact> outputSet = testMeet.getContacts();
 		Iterator<Contact> it = outputSet.iterator();
 		String output = "";
