@@ -34,4 +34,14 @@ public class PastMeetingTest {
 		assertEquals(expected, output);
 	}
 
+	@Test
+	public void getPastMeetingNotesTest(){
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		PastMeeting testPM = new PastMeetingImpl(date, contactSet, "Some Notes");
+		String output = testPM.getNotes();
+		String expected = "Some Notes";
+		assertEquals(expected, output);
+	}
 }
