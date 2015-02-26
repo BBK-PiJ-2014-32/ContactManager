@@ -11,6 +11,9 @@ public class MeetingImpl implements Meeting {
 	private Set<Contact> contactSet;
 	
 	public MeetingImpl(Calendar date, Set<Contact> contactSet){
+		if(contactSet == null){
+			throw new IllegalArgumentException("One or more contacts must be added");
+		}
 		if (this.getClass() == MeetingImpl.class || this.getClass() == FutureMeetingImpl.class){
 			lastId++;
 		}
