@@ -26,6 +26,7 @@ public class MeetingTest {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
+		contactSet.add(contact1);
 		Meeting testMeet = new MeetingImpl(date, contactSet);
 		int output = testMeet.getId();
 		int expected = 1;
@@ -37,6 +38,7 @@ public class MeetingTest {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
+		contactSet.add(contact1);
 		Meeting testMeet = new MeetingImpl(date, contactSet);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar outputCal = testMeet.getDate();
