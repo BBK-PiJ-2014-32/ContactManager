@@ -6,13 +6,15 @@ import java.util.List;
 import java.util.Set;
 
 public class ContactManagerImpl implements ContactManager {
-
+	
+	private Calendar currentTime = Calendar.getInstance();
+	
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		int day = date.DAY_OF_MONTH;
-		int month = date.MONTH;
-		int year = date.YEAR;
-		FutureMeeting newFutureMeeting = new FutureMeetingImpl(day, month, year, contacts);
+		if(currentTime.after(date)){
+			throw new IllegalArgumentException("Date cannot be in the past");	
+		}
+		FutureMeeting newFutureMeeting = new FutureMeetingImpl(date, contacts);
 		return newFutureMeeting.getId(); 
 	}
 
