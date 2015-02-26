@@ -68,5 +68,10 @@ public class MeetingTest {
 		String expected = "Mr Man, Miss Miss, Mr Smith, Mrs Ladyla, ";
 		assertEquals(expected, output);
 	}
-
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void nullContactSetTest(){
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		Meeting testMeet = new MeetingImpl(date, null);
+	}
 }
