@@ -25,7 +25,7 @@ public class PastMeetingTest {
 		Contact contact3 = new ContactImpl("Mr Smith");
 		Contact contact4 = new ContactImpl("Mrs Ladyla");
 		Calendar date = new GregorianCalendar(2015, 4, 12);
-		PastMeeting testPM = new PastMeetingImp(date, contactSet, "Some Notes");
+		PastMeeting testPM = new PastMeetingImpl(date, contactSet, "Some Notes");
 		Calendar outputDate = testPM.getDate();
 		String output = sdf.format(outputDate.getTime());
 		Calendar expectedCal = sdf.getCalendar();
