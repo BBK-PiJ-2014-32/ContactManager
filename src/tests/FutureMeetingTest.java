@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -18,6 +20,7 @@ public class FutureMeetingTest {
 
 	@Test
 	public void futureMeetingTest() {
+		Calendar date = new GregorianCalendar(2015, 4, 12);
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
 		Contact contact2 = new ContactImpl("Miss Miss");
@@ -27,7 +30,7 @@ public class FutureMeetingTest {
 		contactSet.add(contact2);
 		contactSet.add(contact3);
 		contactSet.add(contact4);
-		FutureMeeting testMeet = new FutureMeetingImpl(12,4,2015,contactSet);
+		FutureMeeting testMeet = new FutureMeetingImpl(date,contactSet);
 		Set<Contact> outputSet = testMeet.getContacts();
 		Iterator<Contact> it = outputSet.iterator();
 		String output = "";
