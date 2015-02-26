@@ -1,11 +1,12 @@
 package contactManager;
 
 import java.util.Set;
+import java.util.Calendar;
 
 public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 
-	public FutureMeetingImpl(int day, int month, int year, Set<Contact> contactSet){
-		super(day, month, year, contactSet);
+	public FutureMeetingImpl(Calendar date, Set<Contact> contactSet){
+		super(date, contactSet);
 	}
 	
 }
