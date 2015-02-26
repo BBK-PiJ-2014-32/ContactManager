@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -16,6 +17,8 @@ import contactManager.ContactManager;
 import contactManager.ContactManagerImpl;
 import contactManager.FutureMeeting;
 import contactManager.FutureMeetingImpl;
+import contactManager.Meeting;
+import contactManager.MeetingImpl;
 
 
 public class ContactManagerTest {
@@ -40,6 +43,16 @@ public class ContactManagerTest {
 		int output = testCM.addFutureMeeting(contactSet, date);
 		int expected = 1;
 		assertEquals(expected, output);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void dateInThePastTest(){
+		Calendar date = new GregorianCalendar(2014, 4, 12);
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		contactSet.add(contact1);
+		ContactManager testCM = new ContactManagerImpl();
+		testCM.addFutureMeeting(contactSet, date);
 	}
 
 }
