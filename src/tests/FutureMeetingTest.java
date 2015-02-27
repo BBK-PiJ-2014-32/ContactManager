@@ -16,8 +16,15 @@ import contactManager.FutureMeeting;
 import contactManager.FutureMeetingImpl;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FutureMeetingTest.
+ */
 public class FutureMeetingTest {
 
+	/**
+	 * Future meeting test.
+	 */
 	@Test
 	public void futureMeetingTest() {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
