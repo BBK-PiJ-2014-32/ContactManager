@@ -9,8 +9,15 @@ import org.junit.Before;
 import contactManager.Contact;
 import contactManager.ContactImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContactTest.
+ */
 public class ContactTest {
 
+	/**
+	 * Reset last id test.
+	 */
 	@Before
 	public void resetLastIdTest(){
 		Contact testCon = new ContactImpl("");
@@ -19,6 +26,11 @@ public class ContactTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Gets the name test.
+	 *
+	 * @return the name test
+	 */
 	@Test
 	public void getNameTest() {
 		ContactImpl testCon = new ContactImpl("Joe Bloggs");
@@ -27,6 +39,9 @@ public class ContactTest {
 		assertEquals(expected, output);
 	} 
 
+	/**
+	 * Adds the get notes test.
+	 */
 	@Test
 	public void addGetNotesTest(){
 		ContactImpl testCon = new ContactImpl("Joe Bloggs");
@@ -36,6 +51,11 @@ public class ContactTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Gets the ID test.
+	 *
+	 * @return the ID test
+	 */
 	@Test
 	public void getIDTest(){
 		ContactImpl testCon1 = new ContactImpl("joe Bloggs");
@@ -47,6 +67,9 @@ public class ContactTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Null contact test.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullContactTest(){
 		Contact testCon = new ContactImpl(null);
