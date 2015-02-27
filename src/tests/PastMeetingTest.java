@@ -14,8 +14,15 @@ import org.junit.Test;
 
 import contactManager.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PastMeetingTest.
+ */
 public class PastMeetingTest {
 
+	/**
+	 * Adds the past meeting test.
+	 */
 	@Test
 	public void addPastMeetingTest(){
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
@@ -34,6 +41,11 @@ public class PastMeetingTest {
 		assertEquals(expected, output);
 	}
 
+	/**
+	 * Gets the past meeting notes test.
+	 *
+	 * @return the past meeting notes test
+	 */
 	@Test
 	public void getPastMeetingNotesTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
