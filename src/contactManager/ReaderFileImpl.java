@@ -9,6 +9,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class FileReaderImpl.
  */
@@ -32,6 +33,9 @@ public class ReaderFileImpl implements ReaderFile{
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see contactManager.ReaderFile#getContact(int)
+	 */
 	public Contact getContact(int id){
 		try{
 			File file = new File("ContactManager.xml");
