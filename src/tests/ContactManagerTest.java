@@ -21,8 +21,15 @@ import contactManager.Meeting;
 import contactManager.MeetingImpl;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ContactManagerTest.
+ */
 public class ContactManagerTest {
 
+	/**
+	 * Adds the future meeting test.
+	 */
 	@Test
 	public void addFutureMeetingTest() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -45,6 +52,9 @@ public class ContactManagerTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Date in the past test.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void dateInThePastTest(){
 		Calendar date = new GregorianCalendar(2014, 4, 12);
