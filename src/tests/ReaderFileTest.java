@@ -9,8 +9,15 @@ import contactManager.ContactImpl;
 
 import org.junit.Test;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReaderFileTest.
+ */
 public class ReaderFileTest {
 
+	/**
+	 * Check for filetest.
+	 */
 	@Test
 	public void checkForFiletest() {
 		ReaderFile testReader = new ReaderFileImpl();
@@ -20,6 +27,9 @@ public class ReaderFileTest {
 
 	}
 
+	/**
+	 * Contact retreive.
+	 */
 	@Test
 	public void contactRetreive(){
 		ReaderFile testReader = new ReaderFileImpl();
