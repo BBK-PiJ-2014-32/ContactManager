@@ -19,8 +19,17 @@ import contactManager.ContactImpl;
 import contactManager.Meeting;
 import contactManager.MeetingImpl;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MeetingTest.
+ */
 public class MeetingTest {
 
+	/**
+	 * Gets the id test.
+	 *
+	 * @return the id test
+	 */
 	@Test
 	public void getIdTest() {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
@@ -33,6 +42,11 @@ public class MeetingTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Gets the date test.
+	 *
+	 * @return the date test
+	 */
 	@Test
 	public void getDateTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
@@ -51,6 +65,11 @@ public class MeetingTest {
 		assertEquals(expected, output);	
 	}
 	
+	/**
+	 * Gets the contacts test.
+	 *
+	 * @return the contacts test
+	 */
 	@Test
 	public void getContactsTest(){
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
@@ -75,6 +94,9 @@ public class MeetingTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Null contact set test.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullContactSetTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
