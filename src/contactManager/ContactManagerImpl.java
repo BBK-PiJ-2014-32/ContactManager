@@ -2,6 +2,8 @@ package contactManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +15,7 @@ public class ContactManagerImpl implements ContactManager {
 	
 	/** The current time. */
 	private Calendar currentTime = Calendar.getInstance();
-	private Set<Contact> contactSet;
+	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
 	
 		
 	/**
@@ -163,7 +165,17 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
-		// TODO Auto-generated method stub
+		Iterator<Contact> it = contactSet.iterator();
+		while(it.hasNext()){
+			Contact next = it.next();
+			if(next.getName() == name){
+				Set<Contact> returnSet = new LinkedHashSet<Contact>();;
+				returnSet.add(next);
+				return returnSet;
+			} else {
+				return null;
+			}
+		}
 		return null;
 	}
 
