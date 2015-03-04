@@ -64,5 +64,9 @@ public class ContactManagerTest {
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addFutureMeeting(contactSet, date);
 	}
-
+	
+	@Test
+	public void addContactTest(){
+		
+	}
 }
