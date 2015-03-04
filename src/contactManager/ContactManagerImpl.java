@@ -13,7 +13,9 @@ public class ContactManagerImpl implements ContactManager {
 	
 	/** The current time. */
 	private Calendar currentTime = Calendar.getInstance();
+	private Set<Contact> contactSet;
 	
+		
 	/**
 	 * Adds the future meeting.
 	 *
@@ -136,8 +138,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void addNewContact(String name, String notes) {
-		// TODO Auto-generated method stub
-		
+		Contact newContact = new ContactImpl(name);
+		newContact.addNotes(notes);
+		contactSet.add(newContact);
 	}
 
 	/**
