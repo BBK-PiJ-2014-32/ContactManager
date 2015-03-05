@@ -79,4 +79,10 @@ public class ContactManagerTest {
 		String expected = "Mr Man";
 		assertEquals(expected, output);
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void addNullContactNameTest(){
+		ContactManager testCM = new ContactManagerImpl();
+		testCM.addNewContact(null, "notes");
+	}
 }
