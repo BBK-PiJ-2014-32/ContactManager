@@ -140,6 +140,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void addNewContact(String name, String notes) {
+		if(name == null || notes == null){
+			throw (new IllegalArgumentException("test"));
+		}
 		Contact newContact = new ContactImpl(name);
 		newContact.addNotes(notes);
 		contactSet.add(newContact);
