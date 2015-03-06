@@ -85,4 +85,10 @@ public class ContactManagerTest {
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact(null, "notes");
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void addNullContactNotesTest(){
+		ContactManager testCM = new ContactManagerImpl();
+		testCM.addNewContact("Anon", null);
+	}
 }
