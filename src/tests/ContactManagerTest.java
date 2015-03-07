@@ -118,5 +118,20 @@ public class ContactManagerTest {
 		assertEquals(expected, output);
 		
 	}
+	@Test
+	public void getMeetingTest(){
+		ContactManager testCM = new ContactManagerImpl();
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		contactSet.add(contact1);
+		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 4, 12));
+		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
+		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
+		int testId = testCM.addFutureMeeting(contactSet, new GregorianCalendar(2016, 11, 19));
+		Meeting outMeet = testCM.getMeeting(testId);
+		Calendar output = outMeet.getDate();
+		Calendar expected = new GregorianCalendar(2016, 11, 19);
+		assertEquals(expected, output);
+	}
 
 }
