@@ -91,4 +91,10 @@ public class ContactManagerTest {
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("Anon", null);
 	}
+	
+	@Test
+	public void addNewPastMeetingTest(){
+		
+	}
+
 }
