@@ -133,5 +133,9 @@ public class ContactManagerTest {
 		Calendar expected = new GregorianCalendar(2016, 11, 19);
 		assertEquals(expected, output);
 	}
-
+	
+	@Test
+	public void getFutureMeetingListTest(){
+		
+	}
 }
