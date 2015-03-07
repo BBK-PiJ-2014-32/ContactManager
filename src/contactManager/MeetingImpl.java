@@ -31,7 +31,7 @@ public class MeetingImpl implements Meeting {
 		if(contactSet == null){
 			throw new IllegalArgumentException("One or more contacts must be added");
 		}
-		if (this.getClass() == MeetingImpl.class || this.getClass() == FutureMeetingImpl.class){
+		if (this.getClass() == MeetingImpl.class || this.getClass() == FutureMeetingImpl.class || this.getClass() == PastMeetingImpl.class){
 			lastId++;
 		}
 		this.Id = lastId;

@@ -116,8 +116,7 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
-		// TODO Auto-generated method stub
-		
+		PastMeeting newPastMeeting = new PastMeetingImpl(date, contacts, text);
 	}
 
 	/**
