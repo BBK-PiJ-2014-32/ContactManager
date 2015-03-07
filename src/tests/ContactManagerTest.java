@@ -9,7 +9,10 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import contactManager.Contact;
 import contactManager.ContactImpl;
@@ -19,14 +22,17 @@ import contactManager.FutureMeeting;
 import contactManager.FutureMeetingImpl;
 import contactManager.Meeting;
 import contactManager.MeetingImpl;
+import contactManager.PastMeeting;
+import contactManager.PastMeetingImpl;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ContactManagerTest.
  */
-public class ContactManagerTest {
-
+public class ContactManagerTest {	
+	
 	/**
 	 * Adds the future meeting test.
 	 */
@@ -94,6 +100,22 @@ public class ContactManagerTest {
 	
 	@Test
 	public void addNewPastMeetingTest(){
+		ContactManager testCM = new ContactManagerImpl();
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact2 = new ContactImpl("Miss Miss");
+		Contact contact3 = new ContactImpl("Mr Smith");
+		Contact contact4 = new ContactImpl("Mrs Ladyla");
+		contactSet.add(contact1);
+		contactSet.add(contact2);
+		contactSet.add(contact3);
+		contactSet.add(contact4);
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		testCM.addNewPastMeeting(contactSet, date, "Notes from the meeting!!");
+		Meeting outMeetCheck = new MeetingImpl(date, contactSet);
+		int output = outMeetCheck.getId();
+		int expected = 3;
+		assertEquals(expected, output);
 		
 	}
 
