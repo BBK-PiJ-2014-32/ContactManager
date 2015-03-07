@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class ContactManagerImpl implements ContactManager {
 	/** The current time. */
 	private Calendar currentTime = Calendar.getInstance();
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
+	private List<Meeting> meetingList = new LinkedList<Meeting>();
 	
 		
 	/**
@@ -31,6 +33,7 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException("Date cannot be in the past");	
 		}
 		FutureMeeting newFutureMeeting = new FutureMeetingImpl(date, contacts);
+		meetingList.add(newFutureMeeting);
 		return newFutureMeeting.getId(); 
 	}
 
@@ -66,7 +69,14 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Meeting getMeeting(int id) {
-		// TODO Auto-generated method stub
+		Iterator<Meeting> it = meetingList.iterator();
+		while(it.hasNext()){
+			Meeting next = it.next();
+				if(next.getId() == id){
+					return next;
+				}
+			
+		}
 		return null;
 	}
 
