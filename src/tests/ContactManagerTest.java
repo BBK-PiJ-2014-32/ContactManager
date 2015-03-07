@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -136,6 +138,19 @@ public class ContactManagerTest {
 	
 	@Test
 	public void getFutureMeetingListTest(){
-		
+		ContactManager testCM = new ContactManagerImpl();
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man");
+		contactSet.add(contact1);
+		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 4, 12));
+		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
+		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
+		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 1, 1), "Notes from the meeting!!");
+		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2014, 1, 1), "Notes from the meeting!!");
+		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2012, 3, 23), "Notes from the meeting!!");
+		List<Meeting> outList = new LinkedList<Meeting>();
+		List<Meeting> expectList = new LinkedList<Meeting>();
+		outList = testCM.getFutureMeetingList(new GregorianCalendar(2015, 1, 1));
+
 	}
 }
