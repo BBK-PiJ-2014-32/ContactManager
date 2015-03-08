@@ -18,7 +18,6 @@ public class ContactManagerImpl implements ContactManager {
 	private Calendar currentTime = Calendar.getInstance();
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
-	
 		
 	/**
 	 * Adds the future meeting.
@@ -45,8 +44,14 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<Meeting> it = meetingList.iterator();
+		while(it.hasNext()){
+			Meeting next = it.next();
+			if(next.getId() == id){
+				PastMeeting returnPM = (PastMeeting) next;
+				return returnPM;
+			}
+		} return null;
 	}
 
 	/**
