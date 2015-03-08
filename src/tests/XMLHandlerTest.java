@@ -13,6 +13,10 @@ public class XMLHandlerTest {
 		boolean output = testWTX.checkForFile();
 		boolean expected = true;
 		assertEquals(expected, output);
-
+	}
+	
+	@Test
+	public void contactWriteAndLastIdGetTest(){
+		
 	}
 }
