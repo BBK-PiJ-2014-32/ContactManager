@@ -1,5 +1,7 @@
 package contactManager;
 
+import java.util.Set;
+
 
 
 // TODO: Auto-generated Javadoc
@@ -18,8 +20,10 @@ boolean checkForFile();
 
 /**
  * writes the all contacts stored in the contactSet to XML.
+ *
+ * @param contactSet the contact set
  */
-void contactWrite();
+void contactWrite(Set<Contact> contactSet);
 
 /**
  * Gets the value of the id for the last contact stored.
@@ -30,4 +34,3 @@ int getLastContactId();
 	
 }
 
-}
