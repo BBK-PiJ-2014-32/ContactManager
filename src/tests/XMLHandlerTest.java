@@ -5,7 +5,7 @@ import contactManager.*;
 
 import org.junit.Test;
 
-public class XMLHandler {
+public class XMLHandlerTest {
 
 	@Test
 	public void checkForFiletest() {
