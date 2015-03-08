@@ -151,7 +151,7 @@ public class ContactManagerTest {
 		List<Meeting> outList = new LinkedList<Meeting>();
 		int i = 0;
 		Calendar [] expectDate = {new GregorianCalendar(2015, 4, 12), new GregorianCalendar(2019, 5, 01),new GregorianCalendar(2015, 9, 17)};  
-		outList = testCM.getFutureMeetingList(new GregorianCalendar(2015, 1, 1));
+		outList = testCM.getFutureMeetingList(new GregorianCalendar(2015, 3, 17));
 		Iterator<Meeting> it = outList.iterator();
 		while(it.hasNext()){
 			Calendar outDate = it.next().getDate();
