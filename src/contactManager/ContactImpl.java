@@ -28,7 +28,6 @@ public class ContactImpl implements Contact {
 		 * @param name the name
 		 */
 		public ContactImpl(String name){
-			System.out.println(name);
 			if(name == null){
 				throw (new IllegalArgumentException("test"));
 			}
