@@ -145,12 +145,18 @@ public class ContactManagerTest {
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 4, 12));
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
-		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 1, 1), "Notes from the meeting!!");
-		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2014, 1, 1), "Notes from the meeting!!");
-		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2012, 3, 23), "Notes from the meeting!!");
+		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 1, 1), "Notes");
+		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2014, 1, 1), "Notes");
+		testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2012, 3, 23), "Notes");
 		List<Meeting> outList = new LinkedList<Meeting>();
-		List<Meeting> expectList = new LinkedList<Meeting>();
+		int i = 0;
+		Calendar [] expectDate = {new GregorianCalendar(2015, 4, 12), new GregorianCalendar(2019, 5, 01),new GregorianCalendar(2015, 9, 17)};  
 		outList = testCM.getFutureMeetingList(new GregorianCalendar(2015, 1, 1));
-
-	}
+		Iterator<Meeting> it = outList.iterator();
+		while(it.hasNext()){
+			Calendar outDate = it.next().getDate();
+			assertEquals(expectDate[i], outDate);
+			i++;
+			}
+		}
 }
