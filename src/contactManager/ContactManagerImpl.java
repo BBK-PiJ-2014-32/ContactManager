@@ -100,7 +100,15 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
-		// TODO Auto-generated method stub
+		List<Meeting> returnList = new LinkedList<Meeting>();
+		Iterator<Meeting> it = meetingList.iterator();
+		while(it.hasNext()){
+			Meeting next = it.next();
+			if(next.getClass() == FutureMeeting.class){
+				returnList.add(next);
+			}
+		return returnList;	
+		}
 		return null;
 	}
 
