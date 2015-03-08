@@ -159,4 +159,9 @@ public class ContactManagerTest {
 			i++;
 			}
 		}
+		
+		@Test
+		public void addMeetingNotesTest(){
+			
+		}
 }
