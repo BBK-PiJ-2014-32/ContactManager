@@ -2,16 +2,19 @@ package contactManager;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ContactImpl.
  */
 @XmlRootElement(name = "CONTACT")
+@XmlJavaTypeAdapter(ContactAdapter.class)
 public class ContactImpl implements Contact {
 
 		/** The name. */
-		private String name;
+		private final String name;
 		
 		/** The notes. */
 		private String notes;
@@ -21,6 +24,9 @@ public class ContactImpl implements Contact {
 		
 		/** The last id. */
 		private static int lastId = 0; //Needs to not be static, should be updated from stored csv
+		
+
+		
 		
 		/**
 		 * Instantiates a new contact impl.
@@ -88,12 +94,4 @@ public class ContactImpl implements Contact {
 			return true;
 		}
 		
-		/**
-		 * Sets the name.
-		 *
-		 * @param name the new name
-		 */
-		public void setName(String name){
-			this.name = name;
-		}
 }
