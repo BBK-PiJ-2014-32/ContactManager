@@ -169,8 +169,8 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
-			testCM.addMeetingNotes(17, "Some text about the meeting");
-			String output = testCM.getPastMeeting(17).getNotes();
+			testCM.addMeetingNotes(6, "Some text about the meeting");
+			String output = testCM.getPastMeeting(6).getNotes();
 			String expected = "Some text about the meeting";
 			assertEquals(expected, output);
 		}

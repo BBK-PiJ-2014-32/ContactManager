@@ -31,7 +31,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(currentTime.after(date)){
 			throw new IllegalArgumentException("Date cannot be in the past");	
 		}
-		FutureMeeting newFutureMeeting = new FutureMeetingImpl(date, contacts);
+		Meeting newFutureMeeting = new FutureMeetingImpl(date, contacts);
 		meetingList.add(newFutureMeeting);
 		return newFutureMeeting.getId(); 
 	}
@@ -47,6 +47,7 @@ public class ContactManagerImpl implements ContactManager {
 		Iterator<Meeting> it = meetingList.iterator();
 		while(it.hasNext()){
 			Meeting next = it.next();
+			System.out.println(next.getId());
 			if(next.getId() == id){
 				PastMeeting returnPM = (PastMeeting) next;
 				return returnPM;
@@ -150,7 +151,14 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
-		// TODO Auto-generated method stub
+		Iterator<Meeting> it = meetingList.iterator();
+		while(it.hasNext()){
+			Meeting next = it.next();
+			if(next.getId() == id){
+				PastMeetingImpl nowPM = (PastMeetingImpl) next;
+				nowPM.setNotes(text);
+			}
+		}
 		
 	}
 
