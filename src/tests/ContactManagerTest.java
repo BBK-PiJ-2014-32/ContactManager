@@ -101,7 +101,7 @@ public class ContactManagerTest {
 	}
 	
 	@Test
-	public void add2NewPastMeetingTest(){
+	public void add2NewPastMeetingTest(){ 
 		ContactManager testCM = new ContactManagerImpl();
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
@@ -161,7 +161,7 @@ public class ContactManagerTest {
 		}
 		
 		@Test
-		public void addMeetingNotesTest(){
+		public void addMeetingNotesTest(){ //Also uses getPastMeeting for the first time.
 			ContactManager testCM = new ContactManagerImpl();
 			Set<Contact> contactSet = new LinkedHashSet<Contact>();
 			Contact contact1 = new ContactImpl("Mr Man");
