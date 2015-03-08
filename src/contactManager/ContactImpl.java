@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * The Class ContactImpl.
  */
-@XmlRootElement(name = "CONTACT")
+
 @XmlJavaTypeAdapter(ContactAdapter.class)
 public class ContactImpl implements Contact {
 
