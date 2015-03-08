@@ -39,7 +39,7 @@ public class ContactManagerTest {
 	 * Adds the future meeting test.
 	 */
 	@Test
-	public void addFutureMeetingTest() {
+	public void add1FutureMeetingTest() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
@@ -101,7 +101,7 @@ public class ContactManagerTest {
 	}
 	
 	@Test
-	public void addNewPastMeetingTest(){
+	public void add2NewPastMeetingTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
 		Contact contact1 = new ContactImpl("Mr Man");
@@ -162,6 +162,16 @@ public class ContactManagerTest {
 		
 		@Test
 		public void addMeetingNotesTest(){
-			
+			ContactManager testCM = new ContactManagerImpl();
+			Set<Contact> contactSet = new LinkedHashSet<Contact>();
+			Contact contact1 = new ContactImpl("Mr Man");
+			contactSet.add(contact1);
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
+			testCM.addMeetingNotes(17, "Some text about the meeting");
+			String output = testCM.getPastMeeting(17).getNotes();
+			String expected = "Some text about the meeting";
+			assertEquals(expected, output);
 		}
 }
