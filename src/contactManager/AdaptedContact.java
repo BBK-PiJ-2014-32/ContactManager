@@ -1,22 +1,40 @@
 package contactManager;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "CONTACT")
 public class AdaptedContact {
-	
-	private String name;
 
-	@XmlAttribute
+    private Contact con ;
+    private String name;
+    private int id;
+    private String notes;
+
+    public Contact getContact() {
+        return con;
+    }
+
+    public void setContact(Contact con) {
+        this.con = con;
+    }
+    
+	@XmlElement(name = "NAME")
 	public String getName(){
-		System.out.println("aaaaaaaaaaaaaaaaa");
+		name = con.getName();
 		return name;
 	}
-
-	public void setName(String name){
-		System.out.println("aaaaaaaaaaaaaaaaa");
-		this.name = name;
+	
+	@XmlElement(name = "ID")
+	public int getId() {
+		id = con.getId();
+		return id;
 	}
+	
+	@XmlElement(name = "NOTES")
+	public String getNotes() {
+		notes = con.getNotes();
+		return notes;
+	}                      
 
 }

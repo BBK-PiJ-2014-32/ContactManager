@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * The Class ContactImpl.
  */
 
-@XmlJavaTypeAdapter(ContactAdapter.class)
 public class ContactImpl implements Contact {
 
 		/** The name. */

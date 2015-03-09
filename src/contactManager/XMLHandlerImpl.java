@@ -33,16 +33,17 @@ public class XMLHandlerImpl implements XMLHandler {
 	public void contactWrite(Set<Contact> contactSet) {
 		try {
 			File dataStore = new File ("ContactManager.xml");
-			JAXBContext jaxbContext = JAXBContext.newInstance(ContactImpl.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(AdaptedContact.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			
 			//format pretty print
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			
+			AdaptedContact adapCon = new AdaptedContact();
 			Iterator<Contact> it = contactSet.iterator();
-			while(it.hasNext()){
-				jaxbMarshaller.marshal(it.next(), dataStore);
-			}
+			adapCon.setContact(it.next());
+			jaxbMarshaller.marshal(adapCon, dataStore);
+			
 		} catch (JAXBException ex){
 			ex.printStackTrace();
 		}
