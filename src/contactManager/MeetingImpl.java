@@ -9,14 +9,11 @@ import java.util.Set;
  */
 public class MeetingImpl implements Meeting {
 
-	/** The Id. */
-	private int Id = 0;
+	/** The id. */
+	private int id = 0;
 	
 	/** The date. */
 	private Calendar date;
-	
-	/** The last id. */
-	private static int lastId = 0;
 	
 	/** The contact set. */
 	private Set<Contact> contactSet;
@@ -27,14 +24,11 @@ public class MeetingImpl implements Meeting {
 	 * @param date the date
 	 * @param contactSet the contact set
 	 */
-	public MeetingImpl(Calendar date, Set<Contact> contactSet){
+	public MeetingImpl(Calendar date, Set<Contact> contactSet, int id){
 		if(contactSet == null){
 			throw new IllegalArgumentException("One or more contacts must be added");
 		}
-		if (this.getClass() == MeetingImpl.class || this.getClass() == FutureMeetingImpl.class || this.getClass() == PastMeetingImpl.class){
-			lastId++;
-		}
-		this.Id = lastId;
+		this.id = id;
 		this.date = date; 
 		this.contactSet = contactSet;
 	}
@@ -44,7 +38,7 @@ public class MeetingImpl implements Meeting {
 	 */
 	@Override
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	/* (non-Javadoc)
