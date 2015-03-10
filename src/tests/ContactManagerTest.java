@@ -41,16 +41,12 @@ public class ContactManagerTest {
 	@Test
 	public void add1FutureMeetingTest() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
-		Contact contact2 = new ContactImpl("Miss Miss");
-		Contact contact3 = new ContactImpl("Mr Smith");
-		Contact contact4 = new ContactImpl("Mrs Ladyla");
-		contactSet.add(contact1);
-		contactSet.add(contact2);
-		contactSet.add(contact3);
-		contactSet.add(contact4);
 		ContactManager testCM = new ContactManagerImpl();
+		testCM.addNewContact("Mr Man", "none");
+		testCM.addNewContact("Miss Miss", "none");
+		testCM.addNewContact("Mr Smith", "none");
+		testCM.addNewContact("Mrs Ladyla", "none");
+		Set<Contact> contactSet = testCM.getContacts(1, 2, 3, 4);
 		Calendar date = sdf.getCalendar();
 		date.set(Calendar.YEAR, 2015);
 		date.set(Calendar.MONTH, 4);
