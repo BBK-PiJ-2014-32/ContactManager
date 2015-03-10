@@ -22,7 +22,7 @@ public class ContactTest {
 	 */
 	@Test
 	public void getNameTest() {
-		ContactImpl testCon = new ContactImpl("Joe Bloggs");
+		ContactImpl testCon = new ContactImpl("Joe Bloggs", 1);
 		String output = testCon.getName();
 		String expected = "Joe Bloggs";
 		assertEquals(expected, output);
@@ -33,7 +33,7 @@ public class ContactTest {
 	 */
 	@Test
 	public void addGetNotesTest(){
-		ContactImpl testCon = new ContactImpl("Joe Bloggs");
+		ContactImpl testCon = new ContactImpl("Joe Bloggs", 1);
 		testCon.addNotes("Test note input");
 		String output = testCon.getNotes();
 		String expected = "Test note input";
@@ -47,8 +47,8 @@ public class ContactTest {
 	 */
 	@Test
 	public void getIDTest(){
-		ContactImpl testCon1 = new ContactImpl("joe Bloggs", 1);
-		int output = testCon4.getId();
+		ContactImpl testCon = new ContactImpl("joe Bloggs", 1);
+		int output = testCon.getId();
 		int expected = 1;
 		assertEquals(expected, output);
 	}
@@ -58,6 +58,6 @@ public class ContactTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullContactTest(){
-		Contact testCon = new ContactImpl(null);
+		Contact testCon = new ContactImpl(null, 0);
 	}
 }
