@@ -19,8 +19,8 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	 * @param contactSet the contact set
 	 * @param notes the notes
 	 */
-	public PastMeetingImpl(Calendar date, Set<Contact> contactSet, String notes){
-		super(date, contactSet);
+	public PastMeetingImpl(Calendar date, Set<Contact> contactSet, String notes, int id){
+		super(date, contactSet, id);
 		this.notes = notes;
 }
 
