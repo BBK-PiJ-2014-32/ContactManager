@@ -47,18 +47,8 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
-		Iterator<Meeting> it = meetingList.iterator();
-		while(it.hasNext()){
-			Meeting next = it.next();
-			if(next.getClass() == Meeting.class){
-			System.out.println(next.getId());
-			if(next.getId() == id){
-				Meeting meet = futureToPastMeeting(next);
-				PastMeetingImpl nowPM = (PastMeetingImpl) meet;
-				return nowPM;
-			}
-			}
-		} return null;
+		PastMeeting returnPM = (PastMeeting) getMeeting(id);
+		return returnPM;
 	}
 
 	
@@ -145,9 +135,10 @@ public class ContactManagerImpl implements ContactManager {
 	 * @param text the text
 	 */
 	@Override
-	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
-			String text) {
-		new PastMeetingImpl(date, contacts, text);
+	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, meetingId);
+		System.out.println(newMeet.getNotes());
+		meetingList.add(newMeet);
 	}
 
 	/**
@@ -172,7 +163,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public Meeting futureToPastMeeting(Meeting meeting){
-		Meeting newPM = new PastMeetingImpl(meeting.getDate(), meeting.getContacts(), null);
+		Meeting newPM = new PastMeetingImpl(meeting.getDate(), meeting.getContacts(), meeting.getId());
 		return newPM;
 	}
 
