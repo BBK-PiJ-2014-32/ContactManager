@@ -101,20 +101,15 @@ public class ContactManagerTest {
 	@Test
 	public void add2NewPastMeetingTest(){ 
 		ContactManager testCM = new ContactManagerImpl();
-		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
-		Contact contact2 = new ContactImpl("Miss Miss");
-		Contact contact3 = new ContactImpl("Mr Smith");
-		Contact contact4 = new ContactImpl("Mrs Ladyla");
-		contactSet.add(contact1);
-		contactSet.add(contact2);
-		contactSet.add(contact3);
-		contactSet.add(contact4);
+		testCM.addNewContact("Mr Man", "none");
+		testCM.addNewContact("Miss Miss", "none");
+		testCM.addNewContact("Mr Smith", "none");
+		testCM.addNewContact("Mrs Ladyla", "none");
+		Set<Contact> contactSet = testCM.getContacts(1, 2, 3, 4);
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		testCM.addNewPastMeeting(contactSet, date, "Notes from the meeting!!");
-		Meeting outMeetCheck = new MeetingImpl(date, contactSet);
-		int output = outMeetCheck.getId();
-		int expected = 3;
+		String output = testCM.getPastMeeting(1).getNotes();
+		String expected = "Notes from the meeting!!";
 		assertEquals(expected, output);
 		
 	}
