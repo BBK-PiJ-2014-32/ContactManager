@@ -77,14 +77,16 @@ public class ContactManagerTest {
 	public void addContactTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("Mr Man", "He's the man");
-		Set<Contact> outputSet = testCM.getContacts("Mr Man");
+		testCM.addNewContact("Miss SomeOne", "She's not a man");
+		testCM.addNewContact("Mr Testy", "Testing");
+		Set<Contact> outputSet = testCM.getContacts("Mr Testy");
 		Iterator<Contact> it = outputSet.iterator();
 		int output = 0;
 		while(it.hasNext()){
 		  Contact loopCon = it.next();
 		  output = loopCon.getId();
 		}
-		int expected = 1;
+		int expected = 3;
 		assertEquals(expected, output);
 	}
 	
