@@ -21,25 +21,16 @@ public class ContactImpl implements Contact {
 		/** The id. */
 		private int id = 0;
 		
-		/** The last id. */
-		private static int lastId = 0; //Needs to not be static, should be updated from stored csv
-		
-
-		
-		
 		/**
 		 * Instantiates a new contact impl.
 		 *
 		 * @param name the name
 		 */
-		public ContactImpl(String name){
+		public ContactImpl(String name, int id){
 			if(name == null){
 				throw (new IllegalArgumentException("test"));
 			}
-				if (this.getClass() == ContactImpl.class){
-					lastId++;
-				}
-				this.id = getLastId();
+				this.id = id;
 				this.name = name;
 			
 		}
@@ -75,22 +66,5 @@ public class ContactImpl implements Contact {
 			this.notes = note;
 		}
 		
-		/**
-		 * Gets the last id.
-		 *
-		 * @return the last id
-		 */
-		private static int getLastId(){
-			//Code to be added to retrieve lastId from stored csv			
-			return lastId;
-		}
-
-		/* (non-Javadoc)
-		 * @see contactManager.Contact#resetLastId()
-		 */
-		public boolean resetLastId() {
-			lastId = 0;
-			return true;
-		}
 		
 }
