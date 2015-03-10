@@ -109,7 +109,6 @@ public class ContactManagerTest {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		testCM.addNewPastMeeting(contactSet, date, "Notes from the meeting!!");
 		PastMeeting outMeet = testCM.getPastMeeting(1);
-		System.out.println(outMeet.getNotes());
 		String output = outMeet.getNotes();
 		String expected = "Notes from the meeting!!";
 		assertEquals(expected, output);
@@ -164,7 +163,7 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
-			testCM.addMeetingNotes(6, "Some text about the meeting");
+			testCM.addMeetingNotes(3, "Some text about the meeting");
 			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";
 			assertEquals(expected, output);
