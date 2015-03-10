@@ -39,12 +39,6 @@ public interface Contact {
 * @param note the notes to be added
 */
 	void addNotes(String note);
-	
-/**
- * Resets the last id.
- *
- * @return true, if successful
- */
-	boolean resetLastId();
+
 	
 }
