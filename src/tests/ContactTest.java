@@ -16,17 +16,6 @@ import contactManager.ContactImpl;
 public class ContactTest {
 
 	/**
-	 * Reset last id test.
-	 */
-	@Before
-	public void resetLastIdTest(){
-		Contact testCon = new ContactImpl("");
-		boolean output = testCon.resetLastId();
-		boolean expected = true;
-		assertEquals(expected, output);
-	}
-	
-	/**
 	 * Gets the name test.
 	 *
 	 * @return the name test
@@ -58,12 +47,9 @@ public class ContactTest {
 	 */
 	@Test
 	public void getIDTest(){
-		ContactImpl testCon1 = new ContactImpl("joe Bloggs");
-		ContactImpl testCon2 = new ContactImpl("John Smith");
-		ContactImpl testCon3 = new ContactImpl("Mrs Something");
-		ContactImpl testCon4 = new ContactImpl("Mr Nobody");
+		ContactImpl testCon1 = new ContactImpl("joe Bloggs", 1);
 		int output = testCon4.getId();
-		int expected = 4;
+		int expected = 1;
 		assertEquals(expected, output);
 	}
 	
