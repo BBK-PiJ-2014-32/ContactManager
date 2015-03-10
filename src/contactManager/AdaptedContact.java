@@ -15,7 +15,7 @@ public class AdaptedContact {
         return con;
     }
 
-    public void setContact(Contact con) {
+    public void setCon(Contact con) {
         this.con = con;
     }
     
@@ -35,6 +35,7 @@ public class AdaptedContact {
 	public String getNotes() {
 		notes = con.getNotes();
 		return notes;
-	}                      
+	}                
+	
 
 }

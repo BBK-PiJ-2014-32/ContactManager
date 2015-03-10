@@ -41,7 +41,7 @@ public class XMLHandlerImpl implements XMLHandler {
 			
 			AdaptedContact adapCon = new AdaptedContact();
 			Iterator<Contact> it = contactSet.iterator();
-			adapCon.setContact(it.next());
+			adapCon.setCon(it.next());
 			jaxbMarshaller.marshal(adapCon, dataStore);
 			
 		} catch (JAXBException ex){
