@@ -34,9 +34,9 @@ public class MeetingTest {
 	public void getIdTest() {
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact1 = new ContactImpl("Mr Man", 1);
 		contactSet.add(contact1);
-		Meeting testMeet = new MeetingImpl(date, contactSet);
+		Meeting testMeet = new MeetingImpl(date, contactSet, 1);
 		int output = testMeet.getId();
 		int expected = 1;
 		assertEquals(expected, output);
