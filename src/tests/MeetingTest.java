@@ -51,9 +51,9 @@ public class MeetingTest {
 	public void getDateTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact1 = new ContactImpl("Mr Man", 1);
 		contactSet.add(contact1);
-		Meeting testMeet = new MeetingImpl(date, contactSet);
+		Meeting testMeet = new MeetingImpl(date, contactSet, 1);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar outputCal = testMeet.getDate();
 		String output = sdf.format(outputCal.getTime());
@@ -73,16 +73,16 @@ public class MeetingTest {
 	@Test
 	public void getContactsTest(){
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
-		Contact contact2 = new ContactImpl("Miss Miss");
-		Contact contact3 = new ContactImpl("Mr Smith");
-		Contact contact4 = new ContactImpl("Mrs Ladyla");
+		Contact contact1 = new ContactImpl("Mr Man", 1);
+		Contact contact2 = new ContactImpl("Miss Miss", 2);
+		Contact contact3 = new ContactImpl("Mr Smith", 3);
+		Contact contact4 = new ContactImpl("Mrs Ladyla", 4);
 		contactSet.add(contact1);
 		contactSet.add(contact2);
 		contactSet.add(contact3);
 		contactSet.add(contact4);
 		Calendar date = new GregorianCalendar(2015, 4, 12);
-		Meeting testMeet = new MeetingImpl(date,contactSet);
+		Meeting testMeet = new MeetingImpl(date,contactSet, 11);
 		Set<Contact> outputSet = testMeet.getContacts();
 		Iterator<Contact> it = outputSet.iterator();
 		String output = "";
@@ -100,6 +100,6 @@ public class MeetingTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void nullContactSetTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
-		Meeting testMeet = new MeetingImpl(date, null);
+		Meeting testMeet = new MeetingImpl(date, null, 0);
 	}
 }
