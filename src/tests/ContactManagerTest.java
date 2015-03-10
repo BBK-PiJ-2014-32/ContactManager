@@ -63,7 +63,7 @@ public class ContactManagerTest {
 	public void dateInThePastTest(){
 		Calendar date = new GregorianCalendar(2014, 4, 12);
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact1 = new ContactImpl("Mr Man", 1);
 		contactSet.add(contact1);
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addFutureMeeting(contactSet, date);
@@ -108,7 +108,9 @@ public class ContactManagerTest {
 		Set<Contact> contactSet = testCM.getContacts(1, 2, 3, 4);
 		Calendar date = new GregorianCalendar(2015, 4, 12);
 		testCM.addNewPastMeeting(contactSet, date, "Notes from the meeting!!");
-		String output = testCM.getPastMeeting(1).getNotes();
+		PastMeeting outMeet = testCM.getPastMeeting(1);
+		System.out.println(outMeet.getNotes());
+		String output = outMeet.getNotes();
 		String expected = "Notes from the meeting!!";
 		assertEquals(expected, output);
 		
@@ -117,7 +119,7 @@ public class ContactManagerTest {
 	public void getMeetingTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact1 = new ContactImpl("Mr Man", 1);
 		contactSet.add(contact1);
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 4, 12));
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
@@ -133,7 +135,7 @@ public class ContactManagerTest {
 	public void getFutureMeetingListTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		Set<Contact> contactSet = new LinkedHashSet<Contact>();
-		Contact contact1 = new ContactImpl("Mr Man");
+		Contact contact1 = new ContactImpl("Mr Man", 1);
 		contactSet.add(contact1);
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 4, 12));
 		testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
@@ -157,13 +159,13 @@ public class ContactManagerTest {
 		public void addMeetingNotesTest(){ //Also uses getPastMeeting for the first time.
 			ContactManager testCM = new ContactManagerImpl();
 			Set<Contact> contactSet = new LinkedHashSet<Contact>();
-			Contact contact1 = new ContactImpl("Mr Man");
+			Contact contact1 = new ContactImpl("Mr Man", 1);
 			contactSet.add(contact1);
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 9, 17));
 			testCM.addMeetingNotes(6, "Some text about the meeting");
-			String output = testCM.getPastMeeting(6).getNotes();
+			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";
 			assertEquals(expected, output);
 		}
