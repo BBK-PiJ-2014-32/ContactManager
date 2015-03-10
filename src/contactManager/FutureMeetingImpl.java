@@ -15,8 +15,8 @@ public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 	 * @param date the date
 	 * @param contactSet the contact set
 	 */
-	public FutureMeetingImpl(Calendar date, Set<Contact> contactSet){
-		super(date, contactSet);
+	public FutureMeetingImpl(Calendar date, Set<Contact> contactSet, int id){
+		super(date, contactSet, id);
 	}
 	
 }
