@@ -79,12 +79,12 @@ public class ContactManagerTest {
 		testCM.addNewContact("Mr Man", "He's the man");
 		Set<Contact> outputSet = testCM.getContacts("Mr Man");
 		Iterator<Contact> it = outputSet.iterator();
-		String output = "";
+		int output = 0;
 		while(it.hasNext()){
 		  Contact loopCon = it.next();
-		  output = loopCon.getName();
+		  output = loopCon.getId();
 		}
-		String expected = "Mr Man";
+		int expected = 1;
 		assertEquals(expected, output);
 	}
 	
