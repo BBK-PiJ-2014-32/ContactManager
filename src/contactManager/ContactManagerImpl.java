@@ -18,6 +18,7 @@ public class ContactManagerImpl implements ContactManager {
 	private Calendar currentTime = Calendar.getInstance();
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
+	private int lastId = 1;
 		
 	/**
 	 * Adds the future meeting.
@@ -31,8 +32,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(currentTime.after(date)){
 			throw new IllegalArgumentException("Date cannot be in the past");	
 		}
-		Meeting newFutureMeeting = new FutureMeetingImpl(date, contacts);
-		meetingList.add(newFutureMeeting);
+		Meeting newFutureMeeting = new MeetingImpl(date, contacts);
+		FutureMeeting newFM = newFutureMeeting;
+		meetingList.add(newFM);
 		return newFutureMeeting.getId(); 
 	}
 
@@ -47,14 +49,18 @@ public class ContactManagerImpl implements ContactManager {
 		Iterator<Meeting> it = meetingList.iterator();
 		while(it.hasNext()){
 			Meeting next = it.next();
+			if(next.getClass() == Meeting.class){
 			System.out.println(next.getId());
 			if(next.getId() == id){
-				PastMeeting returnPM = (PastMeeting) next;
-				return returnPM;
+				Meeting meet = futureToPastMeeting(next);
+				PastMeetingImpl nowPM = (PastMeetingImpl) meet;
+				return nowPM;
+			}
 			}
 		} return null;
 	}
 
+	
 	/**
 	 * Gets the future meeting.
 	 *
@@ -140,7 +146,7 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
-		PastMeeting newPastMeeting = new PastMeetingImpl(date, contacts, text);
+		new PastMeetingImpl(date, contacts, text);
 	}
 
 	/**
@@ -155,11 +161,18 @@ public class ContactManagerImpl implements ContactManager {
 		while(it.hasNext()){
 			Meeting next = it.next();
 			if(next.getId() == id){
-				PastMeetingImpl nowPM = (PastMeetingImpl) next;
+				Meeting meet = futureToPastMeeting(next);
+				PastMeetingImpl nowPM = (PastMeetingImpl) meet;
 				nowPM.setNotes(text);
+				System.out.println(nowPM.getId());
 			}
 		}
 		
+	}
+	
+	public Meeting futureToPastMeeting(Meeting meeting){
+		Meeting newPM = new PastMeetingImpl(meeting.getDate(), meeting.getContacts(), null);
+		return newPM;
 	}
 
 	/**
@@ -173,9 +186,10 @@ public class ContactManagerImpl implements ContactManager {
 		if(name == null || notes == null){
 			throw (new IllegalArgumentException("test"));
 		}
-		Contact newContact = new ContactImpl(name);
+		Contact newContact = new ContactImpl(name, lastId);
 		newContact.addNotes(notes);
 		contactSet.add(newContact);
+		lastId++;
 	}
 
 	/**
@@ -205,10 +219,8 @@ public class ContactManagerImpl implements ContactManager {
 				Set<Contact> returnSet = new LinkedHashSet<Contact>();;
 				returnSet.add(next);
 				return returnSet;
-			} else {
-				return null;
+				} 
 			}
-		}
 		return null;
 	}
 
