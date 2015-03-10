@@ -19,6 +19,7 @@ public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
 	private int lastId = 1;
+	private int meetingId = 1;
 		
 	/**
 	 * Adds the future meeting.
@@ -32,9 +33,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(currentTime.after(date)){
 			throw new IllegalArgumentException("Date cannot be in the past");	
 		}
-		Meeting newFutureMeeting = new MeetingImpl(date, contacts);
-		FutureMeeting newFM = newFutureMeeting;
-		meetingList.add(newFM);
+		Meeting newFutureMeeting = new FutureMeetingImpl(date, contacts, meetingId);
+		meetingList.add(newFutureMeeting);
+		meetingId++;
 		return newFutureMeeting.getId(); 
 	}
 
@@ -200,8 +201,21 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Set<Contact> getContacts(int... ids) {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Contact> returnSet = new LinkedHashSet<Contact>();
+			for(int id: ids){
+				returnSet.add(getContact(id));
+			}
+		return returnSet;
+	}
+	
+	private Contact getContact(int id){
+		Iterator<Contact> it = contactSet.iterator();
+		while(it.hasNext()){
+			Contact next = it.next();
+				if(next.getId() == id){
+					return next;
+				}
+		}return null;
 	}
 
 	/**
