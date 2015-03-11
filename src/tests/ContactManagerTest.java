@@ -168,4 +168,10 @@ public class ContactManagerTest {
 			String expected = "Some text about the meeting";
 			assertEquals(expected, output);
 		}
+
+		@Test
+		public void getFutureMeetingTest(){
+
+			
+		}
 }
