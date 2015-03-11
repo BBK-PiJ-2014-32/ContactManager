@@ -148,12 +148,12 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
-		updatePastMeeting(getPastMeeting(id).getContacts(), getPastMeeting(id).getId(), getPastMeeting(id).getDate(), text);
+		updatePastMeeting(getMeeting(id).getContacts(), getMeeting(id).getId(), getMeeting(id).getDate(), text);
 		
 	}
 	
 	private void updatePastMeeting(Set<Contact> contacts, int id, Calendar date, String text){
-		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, meetingId);
+		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, id);
 		Iterator<Meeting> it = meetingList.iterator();
 		while(it.hasNext()){
 			Meeting next = it.next();
