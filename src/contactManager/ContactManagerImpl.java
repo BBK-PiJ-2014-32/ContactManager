@@ -60,8 +60,8 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		FutureMeeting returnFM = (FutureMeeting) getMeeting(id);
+		return returnFM;
 	}
 
 	/**
@@ -164,10 +164,10 @@ public class ContactManagerImpl implements ContactManager {
 		meetingList.add(newMeet);
 	}
 	
-	public Meeting futureToPastMeeting(Meeting meeting){
+	/*public Meeting futureToPastMeeting(Meeting meeting){
 		Meeting newPM = new PastMeetingImpl(meeting.getDate(), meeting.getContacts(), meeting.getId());
 		return newPM;
-	}
+	}*/
 
 	/**
 	 * Adds the new contact.
