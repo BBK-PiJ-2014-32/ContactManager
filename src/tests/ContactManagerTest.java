@@ -171,7 +171,13 @@ public class ContactManagerTest {
 
 		@Test
 		public void getFutureMeetingTest(){
-
-			
+			ContactManager testCM = new ContactManagerImpl();
+			Set<Contact> contactSet = new LinkedHashSet<Contact>();
+			Contact contact1 = new ContactImpl("Mr Man", 1);
+			contactSet.add(contact1);
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
+			Calendar output = testCM.getFutureMeeting(1).getDate();
+			Calendar expected = new GregorianCalendar(2015,3,8);
+			assertEquals(expected, output);
 		}
 }
