@@ -91,8 +91,15 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Meeting> returnList = new LinkedList<Meeting>();
+		Iterator<Meeting> it = meetingList.iterator();
+		while(it.hasNext()){
+			Meeting next = it.next();
+			if(next.getClass() == FutureMeeting.class && next.getContacts().contains(contact)){
+				returnList.add(next);
+			}
+		}
+		return returnList;
 	}
 
 	/**
