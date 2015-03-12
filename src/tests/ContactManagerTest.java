@@ -243,5 +243,14 @@ public class ContactManagerTest {
 				i++;
 			}
 		}
+		
+		@Test(expected = NullPointerException.class)
+		public void getContactsExceptionTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			String str = null;
+			testCM.getContacts(str);
+		}
+		
+		
 }
 
