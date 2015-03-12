@@ -212,5 +212,10 @@ public class ContactManagerTest {
 				}
 			
 		}
+		
+		@Test
+		public void getPastMeetingListByContactTest(){
+			
+		}
 }
 
