@@ -215,7 +215,33 @@ public class ContactManagerTest {
 		
 		@Test
 		public void getPastMeetingListByContactTest(){
-			
+			ContactManager testCM = new ContactManagerImpl();
+			Set<Contact> contactSet = new LinkedHashSet<Contact>();
+			Contact contact1 = new ContactImpl("Mr Man", 1);
+			Contact contact2 = new ContactImpl("Some Man", 2);
+			Contact contact3 = new ContactImpl("A Woman", 3);
+			Contact contact4 = new ContactImpl("Anon", 4);
+			contactSet.add(contact1);
+			contactSet.add(contact2);
+			contactSet.add(contact3);
+			contactSet.add(contact4);
+			Set<Contact> contactSet2 = new LinkedHashSet<Contact>();
+			Contact contact5 = new ContactImpl("Andrew", 5);
+			contactSet2.add(contact5);
+			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 3, 15), "notes");
+			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 4, 12), "the meeting was great");
+			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 07, 30), "N/A");
+			testCM.addNewPastMeeting(contactSet2, new GregorianCalendar(2016, 1, 1), "No Actions");
+			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 06, 30), "something");
+			List<PastMeeting> outList = testCM.getPastMeetingList(contact4);
+			int [] expectId = {1, 2, 3, 5};
+			Iterator<PastMeeting> it = outList.iterator();
+			int i = 0;
+			while(it.hasNext()){
+				int outId = it.next().getId();
+				assertEquals(expectId[i], outId);
+				i++;
+			}
 		}
 }
 
