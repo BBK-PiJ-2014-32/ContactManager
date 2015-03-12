@@ -251,6 +251,10 @@ public class ContactManagerTest {
 			testCM.getContacts(str);
 		}
 		
+		@Test(expected = IllegalArgumentException.class)
+		public void getFutureMeetingContactDoesNotExistTest(){
+			
+		}
 		
 }
 
