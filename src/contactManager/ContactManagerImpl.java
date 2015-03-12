@@ -91,13 +91,16 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
+		if(!contactSet.contains(contact)){
+			throw (new IllegalArgumentException("Contact does not exist"));
+		}
 		List<Meeting> returnList = new LinkedList<Meeting>();
 		Iterator<Meeting> it = meetingList.iterator();
 		while(it.hasNext()){
 			Meeting next = it.next();
 			if(next.getClass() == FutureMeeting.class && next.getContacts().contains(contact)){
 				returnList.add(next);
-			}
+			} 
 		}
 		return returnList;
 	}
