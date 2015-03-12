@@ -130,8 +130,15 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PastMeeting> returnList = new LinkedList<PastMeeting>();
+		Iterator<Meeting> it = meetingList.iterator();
+		while(it.hasNext()){
+			Meeting next = it.next();
+			if(next.getClass() == PastMeeting.class && next.getContacts().contains(contact)){
+				returnList.add((PastMeeting) next);
+			}
+		}
+		return returnList;
 	}
 
 	/**
