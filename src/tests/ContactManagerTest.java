@@ -180,4 +180,10 @@ public class ContactManagerTest {
 			Calendar expected = new GregorianCalendar(2015,3,8);
 			assertEquals(expected, output);
 		}
+		
+		@Test
+		public void getFutureMeetingListByContactTest(){
+			
+		}
 }
+
