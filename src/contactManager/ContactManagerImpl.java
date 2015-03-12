@@ -192,7 +192,7 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public void addNewContact(String name, String notes) {
 		if(name == null || notes == null){
-			throw (new IllegalArgumentException("test"));
+			throw (new IllegalArgumentException("Name or notes cannot be null"));
 		}
 		Contact newContact = new ContactImpl(name, lastId);
 		newContact.addNotes(notes);
@@ -233,6 +233,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
+		if(name == null){
+			throw(new NullPointerException("Name cannot be null"));
+		}
 		Iterator<Contact> it = contactSet.iterator();
 		while(it.hasNext()){
 			Contact next = it.next();
