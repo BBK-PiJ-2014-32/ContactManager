@@ -268,7 +268,8 @@ public class ContactManagerTest {
 			testCM.addNewContact("Mr Man", "He's the man");
 			testCM.addNewContact("Miss SomeOne", "She's not a man");
 			testCM.addNewContact("Mr Testy", "Testing");
-
+			testCM.addFutureMeeting(testCM.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
+			testCM.getPastMeeting(1);
 		}
 		
 }
