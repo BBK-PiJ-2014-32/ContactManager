@@ -262,5 +262,14 @@ public class ContactManagerTest {
 			testCM.getFutureMeetingList(contact);
 		}
 		
+		@Test(expected = IllegalArgumentException.class)
+		public void getPastMeetingInTheFutureTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			testCM.addNewContact("Miss SomeOne", "She's not a man");
+			testCM.addNewContact("Mr Testy", "Testing");
+
+		}
+		
 }
 
