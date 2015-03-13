@@ -47,6 +47,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
+		if(currentTime.before(getMeeting(id).getDate())){
+			throw (new IllegalArgumentException("Date cannot be in the future"));
+		}
 		PastMeeting returnPM = (PastMeeting) getMeeting(id);
 		return returnPM;
 	}
