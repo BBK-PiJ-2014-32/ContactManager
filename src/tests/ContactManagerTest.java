@@ -162,7 +162,7 @@ public class ContactManagerTest {
 			contactSet.add(contact1);
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
-			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 13));
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 14));
 			testCM.addMeetingNotes(3, "Some text about the meeting");
 			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";

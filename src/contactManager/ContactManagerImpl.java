@@ -15,6 +15,7 @@ import java.util.Set;
 public class ContactManagerImpl implements ContactManager {
 	
 	/** The current time. */
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Calendar currentTime = Calendar.getInstance();
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
@@ -30,7 +31,8 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		if(currentTime.after(date)){
+		if(currentTime.after(date) && !isItToday(date)){
+			System.out.println(isItToday(date));
 			throw new IllegalArgumentException("Date cannot be in the past");	
 		}
 		Meeting newFutureMeeting = new FutureMeetingImpl(date, contacts, meetingId);
@@ -47,14 +49,22 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
-		if(currentTime.before(getMeeting(id).getDate())){
+		if(currentTime.before(getMeeting(id).getDate())){ 
 			throw (new IllegalArgumentException("Date cannot be in the future"));
 		}
 		PastMeeting returnPM = (PastMeeting) getMeeting(id);
 		return returnPM;
 	}
-
 	
+	private boolean isItToday(Calendar date){
+		if(currentTime.get(Calendar.YEAR) == date.get(Calendar.YEAR) && 
+			currentTime.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH) &&
+            currentTime.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 	/**
 	 * Gets the future meeting.
 	 *
