@@ -333,4 +333,11 @@ public class ContactManagerImpl implements ContactManager {
 	  e.appendChild(createObject(anObject));
 	  return e;
 	  }
+	
+	 private Element createObject(FileObjects anObject){
+	  Element e = doc.createElement("Contact");
+	  Contact aContact = (Contact) anObject.getObject();
+	  e.appendChild(createContact(aContact));
+	  return e;
+	  } 
 }
