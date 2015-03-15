@@ -321,5 +321,9 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		return returnSet;
 	}
-	  
+	private Document build(Set<FileObjects> objects){
+	  doc = builder.newDocument();
+	  doc.appendChild(createObjects(Objects));
+	  return doc;
+	  }  
 }
