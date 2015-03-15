@@ -322,22 +322,30 @@ public class ContactManagerImpl implements ContactManager {
 		return returnSet;
 	}
 	private Document build(Set<FileObjects> objects){
-	  doc = builder.newDocument();
-	  doc.appendChild(createObjects(objects));
-	  return doc;
+		doc = builder.newDocument();
+		doc.appendChild(createObjects(objects));
+		return doc;
 	  }  
 	
 	private Element createObjects(Set<FileObjects> objects){
-	  Element e = doc.createElement("Items");
-	  for (FileObjects anObject : objects)
-	  e.appendChild(createObject(anObject));
-	  return e;
+		Element e = doc.createElement("Items");
+		for (FileObjects anObject : objects)
+			e.appendChild(createObject(anObject));
+		return e;
 	  }
 	
 	 private Element createObject(FileObjects anObject){
-	  Element e = doc.createElement("Contact");
-	  Contact aContact = (Contact) anObject.getObject();
-	  e.appendChild(createContact(aContact));
-	  return e;
+		 Element e = doc.createElement("Contact");
+		 Contact aContact = (Contact) anObject.getObject();
+		 e.appendChild(createContact(aContact));
+		 return e;
 	  } 
+	 
+	 private Element createContact(Contact c){
+		 Element e = doc.createElement("Contact");
+		 e.appendChild(createTextElement("ID", String.valueOf(c.getId())));
+		 e.appendChild(createTextElement("Name", c.getName()));
+		 e.appendChild(createTextElement("Notes", c.getNotes()));
+		 return e;
+	 }
 }
