@@ -10,6 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 // TODO: Auto-generated Javadoc
 /**
  * The Class ContactManagerImpl.
@@ -23,6 +29,8 @@ public class ContactManagerImpl implements ContactManager {
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
 	private int lastId = 1;
 	private int meetingId = 1;
+	private DocumentBuilder builder;
+	private Document doc;
 		
 	/**
 	 * Adds the future meeting.
@@ -273,6 +281,7 @@ public class ContactManagerImpl implements ContactManager {
 	public void flush() {
 		checkForFile();
 		
+		
 	}
 
 	private boolean checkForFile(){
@@ -287,5 +296,15 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace();
 		}
 		return false;
+	}
+	
+	private Set<FileObjects> addObjects(){
+		Set<FileObjects> returnSet = new LinkedHashSet<FileObjects>();
+		Iterator<Contact> it = contactSet.iterator();
+		while(it.hasNext()){
+			FileObjects newObj = new FileObjectsImpl(it.next());
+			returnSet.add(newObj);
+		}
+		return returnSet;
 	}
 }
