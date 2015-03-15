@@ -1,6 +1,7 @@
 package contactManager;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,9 +15,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSSerializer;
+
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class ContactManagerImpl.
@@ -291,6 +297,14 @@ public class ContactManagerImpl implements ContactManager {
 		checkForFile();
 		fileObjectSet = addObjects();
 		build(fileObjectSet);
+		DOMImplementation impl = doc.getImplementation();
+		DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
+		LSSerializer ser = implLS.createLSSerializer();
+		ser.getDomConfig().setParameter("format-pretty-print", true);
+		String out = ser.writeToString(doc);
+		fileWriter(out);
+		 
+		
 		
 		
 	}
@@ -352,4 +366,15 @@ public class ContactManagerImpl implements ContactManager {
 	   e.appendChild(t);
 	   return e;
 	   }
+	 
+	 private void fileWriter(String out){
+		try{
+			FileWriter fw = new FileWriter("ContactManager.xml");
+			fw.write(out);
+			fw.close();
+			System.out.println(out);
+		} catch (IOException ex){
+			ex.printStackTrace();
+		}
+	 }
 }
