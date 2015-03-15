@@ -1,8 +1,5 @@
 package contactManager;
 
-import Contact;
-import Contacts;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -293,7 +290,7 @@ public class ContactManagerImpl implements ContactManager {
 			 }	  
 		checkForFile();
 		fileObjectSet = addObjects();
-		
+		build(fileObjectSet);
 		
 		
 	}
@@ -348,4 +345,11 @@ public class ContactManagerImpl implements ContactManager {
 		 e.appendChild(createTextElement("Notes", c.getNotes()));
 		 return e;
 	 }
+	 
+	 private Element createTextElement(String name, String text){
+	   Text t = doc.createTextNode(text);
+	   Element e = doc.createElement(name);
+	   e.appendChild(t);
+	   return e;
+	   }
 }
