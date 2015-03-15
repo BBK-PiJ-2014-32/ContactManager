@@ -162,7 +162,7 @@ public class ContactManagerTest {
 			contactSet.add(contact1);
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
-			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 14));
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 15));
 			testCM.addMeetingNotes(3, "Some text about the meeting");
 			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";
@@ -270,6 +270,26 @@ public class ContactManagerTest {
 			testCM.addNewContact("Mr Testy", "Testing");
 			testCM.addFutureMeeting(testCM.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
 			testCM.getPastMeeting(1);
+		}
+		
+		@Test
+		public void firstFlushTest(){
+			ContactManager testCM1 = new ContactManagerImpl();
+			testCM1.addNewContact("Mr Man", "He's the man");
+			testCM1.addNewContact("Miss SomeOne", "She's not a man");
+			testCM1.addNewContact("Mr Testy", "Testing");
+			testCM1.flush();
+			ContactManager testCM2 = new ContactManagerImpl();
+			Set<Contact> outSet = new LinkedHashSet<Contact>(); 
+			outSet = testCM2.getContacts(1,2,3);
+			int i = 0;
+			String [] expected = {"Mr Man", "Miss SomeOne", "Mr Testy"};
+			Iterator<Contact> it = outSet.iterator();
+			while(it.hasNext()){
+				Contact output = it.next();
+				assertEquals(expected[i], output.getName());
+			}
+			
 		}
 		
 }
