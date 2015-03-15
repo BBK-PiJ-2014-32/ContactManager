@@ -1,5 +1,8 @@
 package contactManager;
 
+import Contact;
+import Contacts;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,6 +16,7 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -26,12 +30,14 @@ public class ContactManagerImpl implements ContactManager {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Calendar currentTime = Calendar.getInstance();
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
+	private Set<FileObjects> fileObjectSet = new LinkedHashSet<FileObjects>();
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
 	private int lastId = 1;
 	private int meetingId = 1;
 	private DocumentBuilder builder;
 	private Document doc;
 		
+	
 	/**
 	 * Adds the future meeting.
 	 *
@@ -279,7 +285,15 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void flush() {
+			 try{ 
+				 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+				 builder = factory.newDocumentBuilder();
+			 } catch (ParserConfigurationException ex){
+				 ex.printStackTrace();
+			 }	  
 		checkForFile();
+		fileObjectSet = addObjects();
+		
 		
 		
 	}
@@ -307,4 +321,5 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		return returnSet;
 	}
+	  
 }
