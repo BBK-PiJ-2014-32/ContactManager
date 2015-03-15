@@ -323,7 +323,14 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	private Document build(Set<FileObjects> objects){
 	  doc = builder.newDocument();
-	  doc.appendChild(createObjects(Objects));
+	  doc.appendChild(createObjects(objects));
 	  return doc;
 	  }  
+	
+	private Element createObjects(Set<FileObjects> objects){
+	  Element e = doc.createElement("Items");
+	  for (FileObjects anObject : objects)
+	  e.appendChild(createObject(anObject));
+	  return e;
+	  }
 }
