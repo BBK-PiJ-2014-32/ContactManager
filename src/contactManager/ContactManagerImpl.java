@@ -1,5 +1,7 @@
 package contactManager;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -269,8 +271,21 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void flush() {
-		// TODO Auto-generated method stub
+		checkForFile();
 		
 	}
 
+	private boolean checkForFile(){
+		try{
+			File dataStore = new File("ContactManager.xml");
+				if(dataStore.exists() == true){
+					return true;
+				} else {
+					return dataStore.createNewFile();
+				}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
 }
