@@ -281,13 +281,15 @@ public class ContactManagerTest {
 			testCM1.flush();
 			ContactManager testCM2 = new ContactManagerImpl();
 			Set<Contact> outSet = new LinkedHashSet<Contact>(); 
-			outSet = testCM2.getContacts(1,2,3);
+			outSet = testCM2.getContacts(1, 2, 3);
 			int i = 0;
 			String [] expected = {"Mr Man", "Miss SomeOne", "Mr Testy"};
 			Iterator<Contact> it = outSet.iterator();
+			System.out.println(outSet.size());
 			while(it.hasNext()){
 				Contact output = it.next();
 				assertEquals(expected[i], output.getName());
+				i++;
 			}
 			
 		}
