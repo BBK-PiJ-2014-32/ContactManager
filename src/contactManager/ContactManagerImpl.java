@@ -3,6 +3,8 @@ package contactManager;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -20,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 
 
@@ -301,11 +304,14 @@ public class ContactManagerImpl implements ContactManager {
 		DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
 		LSSerializer ser = implLS.createLSSerializer();
 		ser.getDomConfig().setParameter("format-pretty-print", true);
-		String out = ser.writeToString(doc);
-		fileWriter(out);
+		LSOutput lsOutput = implLS.createLSOutput();
+		lsOutput.setEncoding("UTF-8");
+		Writer stringWriter = new StringWriter();
+		lsOutput.setCharacterStream(stringWriter);
+		ser.write(doc, lsOutput);
 		 
-		
-		
+		String out = stringWriter.toString();
+		fileWriter(out);
 		
 	}
 
