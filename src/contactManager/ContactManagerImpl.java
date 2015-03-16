@@ -1,11 +1,13 @@
 package contactManager;
 
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -16,6 +18,9 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -24,6 +29,7 @@ import org.w3c.dom.Text;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.SAXException;
 
 
 // TODO: Auto-generated Javadoc
@@ -42,8 +48,20 @@ public class ContactManagerImpl implements ContactManager {
 	private int meetingId = 1;
 	private DocumentBuilder builder;
 	private Document doc;
+	private XPath path;
 		
-	
+	public ContactManagerImpl(){
+		checkForFile();
+		ParserSetup();
+		ArrayList<FileObjects> fileObjects = Parse("ContactManager.xml");	
+		Iterator<FileObjects> it = fileObjects.iterator();
+		while(it.hasNext()){
+			FileObjects anObject = it.next();
+			Contact aContact = (Contact) anObject.getObject();
+			contactSet.add(aContact);
+		}
+		
+	}
 	/**
 	 * Adds the future meeting.
 	 *
@@ -383,4 +401,42 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace();
 		}
 	 }
+	 
+	private void ParserSetup(){
+		 try{				 
+			 DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
+			 builder = dbfactory.newDocumentBuilder(); 
+			 XPathFactory xpfactory = XPathFactory.newInstance(); 
+			 path = xpfactory.newXPath();
+		} catch (ParserConfigurationException ex){
+			ex.printStackTrace(); 
+		}
+	}
+	public ArrayList<FileObjects> Parse(String fileName){
+		try{
+			File f = new File(fileName);
+			Document doc = builder.parse(f);
+			ArrayList<FileObjects> items = new ArrayList<FileObjects>(); 
+			int itemCount = Integer.parseInt(path.evaluate("count(/Items/Contact)", doc)); 
+			for (int i = 1; i <= itemCount; i++) {
+				 String idStr = path.evaluate("/Items/Contact[" + i + "]/Contact/ID", doc);
+				 int id = Integer.parseInt(idStr);
+				 String name = path.evaluate( "/Items/Contact[" + i + "]/Contact/Name", doc);
+				 String notes = path.evaluate("/Items/Contact[" + i + "]/Contact/Notes", doc);
+				 Contact c = new ContactImpl(name, id);
+				 c.addNotes(notes);
+				 FileObjects it = new FileObjectsImpl(c); 
+				 items.add(it);
+			 	}
+			 return items;
+			
+		} catch (SAXException ex){
+			ex.printStackTrace();
+		} catch (IOException ex){
+			ex.printStackTrace();
+		} catch (XPathExpressionException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
 }
