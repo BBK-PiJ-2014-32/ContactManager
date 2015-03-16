@@ -2,6 +2,11 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 import contactManager.*;
@@ -17,5 +22,18 @@ public class FileObjectsTest {
 		String expected = "Test Con";
 		assertEquals(expected, output);
 	}
-
+	
+	@Test
+	public void getObjectMeetingTest(){
+		Calendar date = new GregorianCalendar(2015, 4, 12);
+		Set<Contact> contactSet = new LinkedHashSet<Contact>();
+		Contact contact1 = new ContactImpl("Mr Man", 1);
+		contactSet.add(contact1);
+		Meeting testMeet = new MeetingImpl(date, contactSet, 1);
+		FileObjects testObj = new FileObjectsImpl(testMeet);
+		Meeting outMeet = (Meeting) testObj.getObject();
+		int output = outMeet.getId();
+		int expected = 1;
+		assertEquals(expected, output);
+	}
 }
