@@ -55,13 +55,20 @@ public class ContactManagerImpl implements ContactManager {
 	public ContactManagerImpl(){
 		if(checkForFile()==true){
 			ParserSetup();
-			ArrayList<FileObjects> fileObjects = ParseContacts("ContactManager.xml");	
-			Iterator<FileObjects> it = fileObjects.iterator();
-			while(it.hasNext()){
-				FileObjects anObject = it.next();
+			ArrayList<FileObjects> contactObjects = ParseContacts("ContactManager.xml");	
+			Iterator<FileObjects> it1 = contactObjects.iterator();
+			while(it1.hasNext()){
+				FileObjects anObject = it1.next();
 				Contact aContact = (Contact) anObject.getObject();
 				contactSet.add(aContact);
 			}
+			/*ArrayList<FileObjects> fmObjects = ParseFutureMeetings("ContactManager.xml");	
+			Iterator<FileObjects> it2 = fmObjects.iterator();
+			while(it2.hasNext()){
+				FileObjects anObject = it2.next();
+				Meeting aMeeting = (Meeting) anObject.getObject();
+				meetingList.add(aMeeting);
+			}*/
 		}
 		
 	}
@@ -367,7 +374,6 @@ public class ContactManagerImpl implements ContactManager {
 		while(it2.hasNext()){
 			FileObjects newObj = new FileObjectsImpl(it2.next());
 			returnSet.add(newObj);
-			System.out.println("added");
 		}
 		return returnSet;
 	}
@@ -385,7 +391,6 @@ public class ContactManagerImpl implements ContactManager {
 	  }
 	
 	 private Element createObject(FileObjects anObject){
-		 System.out.println(anObject.getObject().getClass() == ContactImpl.class);
 		 if(anObject.getObject().getClass() == ContactImpl.class){
 			 Element e = doc.createElement("Items");
 			 Contact aContact = (Contact) anObject.getObject();
@@ -421,7 +426,6 @@ public class ContactManagerImpl implements ContactManager {
 			 while(it.hasNext()){
 				 	 ids += String.valueOf(it.next().getId()) + ", " ;
 			 }
-			 System.out.println(ids);
 			 e.appendChild(createTextElement("ContactIDs", ids));
 			 return e;
 		 } else {
@@ -437,7 +441,6 @@ public class ContactManagerImpl implements ContactManager {
 			 while(it.hasNext()){
 				 	 ids += String.valueOf(it.next().getId()) + ", " ;
 			 }
-			 System.out.println(ids);
 			 e.appendChild(createTextElement("ContactIDs", ids));
 		 return e;
 		 }
@@ -476,9 +479,11 @@ public class ContactManagerImpl implements ContactManager {
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
 			ArrayList<FileObjects> items = new ArrayList<FileObjects>(); 
-			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items)", doc)); 
+			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/Contact)", doc)); 
+			System.out.println(itemCount);
 			for (int i = 1; i <= itemCount; i++) {
 				 String idStr = path.evaluate("/ContactManager/Items[" + i + "]/Contact/ID", doc);
+				 System.out.println(i);
 				 int contactId = Integer.parseInt(idStr);
 				 String name = path.evaluate( "/ContactManager/Items[" + i + "]/Contact/Name", doc);
 				 String notes = path.evaluate("/ContactManager/Items[" + i + "]/Contact/Notes", doc);

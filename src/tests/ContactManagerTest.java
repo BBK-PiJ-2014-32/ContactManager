@@ -70,7 +70,7 @@ public class ContactManagerTest {
 	}
 	
 	@Test
-	public void addContactTest(){
+	public void add3ContactTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("Mr Man", "He's the man");
 		testCM.addNewContact("Miss SomeOne", "She's not a man");
@@ -273,7 +273,7 @@ public class ContactManagerTest {
 		}
 		
 		@Test
-		public void firstFlushTest(){
+		public void zfirstFlushTest(){
 			ContactManager testCM1 = new ContactManagerImpl();
 			testCM1.addNewContact("Mr Man", "He's the man");
 			testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -294,7 +294,7 @@ public class ContactManagerTest {
 		}
 		
 		@Test
-		public void secondFlushTest(){
+		public void zsecondFlushTest(){
 			ContactManager testCM1 = new ContactManagerImpl();
 			testCM1.addNewContact("Mr Man", "He's the man");
 			testCM1.addNewContact("Miss SomeOne", "She's not a man");
