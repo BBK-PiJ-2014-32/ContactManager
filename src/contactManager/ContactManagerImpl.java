@@ -382,10 +382,17 @@ public class ContactManagerImpl implements ContactManager {
 	  }
 	
 	 private Element createObject(FileObjects anObject){
-		 Element e = doc.createElement("Contact");
-		 Contact aContact = (Contact) anObject.getObject();
-		 e.appendChild(createContact(aContact));
-		 return e;
+		 if(anObject.getObject().getClass().equals(ContactImpl.class)){
+			 Element e = doc.createElement("Contact");
+			 Contact aContact = (Contact) anObject.getObject();
+			 e.appendChild(createContact(aContact));
+			 return e;
+		 } else {
+			 Element e = doc.createElement("Meeting");
+			 Meeting aMeeting = (Meeting) anObject.getObject();
+			 e.appendChild(createMeeting(aMeeting));
+			 return e;
+		 }
 	  } 
 	 
 	 private Element createContact(Contact c){
