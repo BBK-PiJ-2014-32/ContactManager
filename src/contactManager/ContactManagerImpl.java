@@ -365,6 +365,7 @@ public class ContactManagerImpl implements ContactManager {
 		while(it2.hasNext()){
 			FileObjects newObj = new FileObjectsImpl(it2.next());
 			returnSet.add(newObj);
+			System.out.println("added");
 		}
 		return returnSet;
 	}
@@ -382,7 +383,8 @@ public class ContactManagerImpl implements ContactManager {
 	  }
 	
 	 private Element createObject(FileObjects anObject){
-		 if(anObject.getObject().getClass().equals(ContactImpl.class)){
+		 System.out.println(anObject.getObject().getClass() == ContactImpl.class);
+		 if(anObject.getObject().getClass() == ContactImpl.class){
 			 Element e = doc.createElement("Contact");
 			 Contact aContact = (Contact) anObject.getObject();
 			 e.appendChild(createContact(aContact));
@@ -401,6 +403,23 @@ public class ContactManagerImpl implements ContactManager {
 		 e.appendChild(createTextElement("Name", c.getName()));
 		 e.appendChild(createTextElement("Notes", c.getNotes()));
 		 return e;
+	 }
+	 
+	 private Element createMeeting(Meeting m){
+		 if(m.getClass().equals(PastMeetingImpl.class)){
+			 PastMeeting newM = (PastMeeting) m;
+			 Element e = doc.createElement("PastMeeting");
+			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
+			 e.appendChild(createTextElement("Date", String.valueOf(newM.getDate())));
+			 e.appendChild(createTextElement("Notes", newM.getNotes()));
+			 return e;
+		 } else {
+			 FutureMeeting newM = (FutureMeeting) m;
+			 Element e = doc.createElement("FutureMeeting");
+			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
+			 e.appendChild(createTextElement("Date", String.valueOf(newM.getDate())));
+			 return e;
+		 }
 	 }
 	 
 	 private Element createTextElement(String name, String text){
