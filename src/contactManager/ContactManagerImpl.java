@@ -9,10 +9,12 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -53,7 +55,7 @@ public class ContactManagerImpl implements ContactManager {
 	public ContactManagerImpl(){
 		if(checkForFile()==true){
 			ParserSetup();
-			ArrayList<FileObjects> fileObjects = Parse("ContactManager.xml");	
+			ArrayList<FileObjects> fileObjects = ParseContacts("ContactManager.xml");	
 			Iterator<FileObjects> it = fileObjects.iterator();
 			while(it.hasNext()){
 				FileObjects anObject = it.next();
@@ -410,7 +412,9 @@ public class ContactManagerImpl implements ContactManager {
 			 PastMeeting newM = (PastMeeting) m;
 			 Element e = doc.createElement("PastMeeting");
 			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
-			 e.appendChild(createTextElement("Date", String.valueOf(newM.getDate())));
+			 e.appendChild(createTextElement("Year", String.valueOf(newM.getDate().get(Calendar.YEAR))));
+			 e.appendChild(createTextElement("Month", String.valueOf(newM.getDate().get(Calendar.MONTH))));
+			 e.appendChild(createTextElement("Day", String.valueOf(newM.getDate().get(Calendar.DAY_OF_MONTH))));
 			 e.appendChild(createTextElement("Notes", newM.getNotes()));
 			 Iterator<Contact> it = newM.getContacts().iterator();
 			 String ids = "";
@@ -467,7 +471,7 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace(); 
 		}
 	}
-	public ArrayList<FileObjects> Parse(String fileName){
+	public ArrayList<FileObjects> ParseContacts(String fileName){
 		try{
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
@@ -475,14 +479,49 @@ public class ContactManagerImpl implements ContactManager {
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items)", doc)); 
 			for (int i = 1; i <= itemCount; i++) {
 				 String idStr = path.evaluate("/ContactManager/Items[" + i + "]/Contact/ID", doc);
-				 int id = Integer.parseInt(idStr);
+				 int contactId = Integer.parseInt(idStr);
 				 String name = path.evaluate( "/ContactManager/Items[" + i + "]/Contact/Name", doc);
 				 String notes = path.evaluate("/ContactManager/Items[" + i + "]/Contact/Notes", doc);
-				 Contact c = new ContactImpl(name, id);
+				 Contact c = new ContactImpl(name, contactId);
 				 c.addNotes(notes);
 				 FileObjects it = new FileObjectsImpl(c); 
 				 items.add(it);
 			 	}
+			 return items;
+			
+		} catch (SAXException ex){
+			ex.printStackTrace();
+		} catch (IOException ex){
+			ex.printStackTrace();
+		} catch (XPathExpressionException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<FileObjects> ParseFutureMeetings(String fileName){
+		try{
+			File f = new File(fileName);
+			Document doc = builder.parse(f);
+			ArrayList<FileObjects> items = new ArrayList<FileObjects>(); 
+			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items)", doc)); 
+			for (int i = 1; i <= itemCount; i++) {
+				String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeetings/ID", doc);
+				int meetingId = Integer.parseInt(idStr);
+				int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeetings/Year", doc));
+				int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeetings/Month", doc));
+				int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeetings/Day", doc));
+				String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeetings/ContactIDs", doc);
+				Scanner sc = new Scanner(contactIds);
+				Set<Contact> contactSet = new LinkedHashSet<Contact>();
+				while (!sc.hasNextInt()) sc.next();
+				    Contact c = getContact(sc.nextInt());
+				    contactSet.add(c);
+				Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, meetingId);
+				FileObjects it = new FileObjectsImpl(m); 
+				items.add(it);
+				sc.close();
+			}
 			 return items;
 			
 		} catch (SAXException ex){
