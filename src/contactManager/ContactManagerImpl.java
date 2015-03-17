@@ -422,9 +422,12 @@ public class ContactManagerImpl implements ContactManager {
 			 return e;
 		 } else {
 			 FutureMeeting newM = (FutureMeeting) m;
+			 System.out.println(newM.getDate().get(Calendar.YEAR));
 			 Element e = doc.createElement("FutureMeeting");
 			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
-			 e.appendChild(createTextElement("Date", String.valueOf(newM.getDate())));
+			 e.appendChild(createTextElement("Year", String.valueOf(newM.getDate().get(Calendar.YEAR))));
+			 e.appendChild(createTextElement("Month", String.valueOf(newM.getDate().get(Calendar.MONTH))));
+			 e.appendChild(createTextElement("Day", String.valueOf(newM.getDate().get(Calendar.DAY_OF_MONTH))));
 			 Iterator<Contact> it = newM.getContacts().iterator();
 			 String ids = "";
 			 while(it.hasNext()){
@@ -491,4 +494,5 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		return null;
 	}
+	
 }
