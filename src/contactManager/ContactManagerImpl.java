@@ -51,14 +51,15 @@ public class ContactManagerImpl implements ContactManager {
 	private XPath path;
 		
 	public ContactManagerImpl(){
-		checkForFile();
-		ParserSetup();
-		ArrayList<FileObjects> fileObjects = Parse("ContactManager.xml");	
-		Iterator<FileObjects> it = fileObjects.iterator();
-		while(it.hasNext()){
-			FileObjects anObject = it.next();
-			Contact aContact = (Contact) anObject.getObject();
-			contactSet.add(aContact);
+		if(checkForFile()==true){
+			ParserSetup();
+			ArrayList<FileObjects> fileObjects = Parse("ContactManager.xml");	
+			Iterator<FileObjects> it = fileObjects.iterator();
+			while(it.hasNext()){
+				FileObjects anObject = it.next();
+				Contact aContact = (Contact) anObject.getObject();
+				contactSet.add(aContact);
+			}
 		}
 		
 	}
@@ -315,7 +316,9 @@ public class ContactManagerImpl implements ContactManager {
 			 } catch (ParserConfigurationException ex){
 				 ex.printStackTrace();
 			 }	  
-		checkForFile();
+		if(!checkForFile()){
+			createFile();
+		}
 		fileObjectSet = addObjects();
 		build(fileObjectSet);
 		DOMImplementation impl = doc.getImplementation();
@@ -332,26 +335,35 @@ public class ContactManagerImpl implements ContactManager {
 		fileWriter(out);
 		
 	}
-
-	private boolean checkForFile(){
+	
+	private void createFile(){
 		try{
 			File dataStore = new File("ContactManager.xml");
-				if(dataStore.exists() == true){
-					return true;
-				} else {
-					return dataStore.createNewFile();
-				}
+			dataStore.createNewFile();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		return false;
+	}
+	
+	private boolean checkForFile(){
+		File dataStore = new File("ContactManager.xml");
+			if(dataStore.exists() == true){
+				return true;
+			} else {
+				return false;		
+			}
 	}
 	
 	private Set<FileObjects> addObjects(){
 		Set<FileObjects> returnSet = new LinkedHashSet<FileObjects>();
-		Iterator<Contact> it = contactSet.iterator();
-		while(it.hasNext()){
-			FileObjects newObj = new FileObjectsImpl(it.next());
+		Iterator<Contact> it1 = contactSet.iterator();
+		while(it1.hasNext()){
+			FileObjects newObj = new FileObjectsImpl(it1.next());
+			returnSet.add(newObj);
+		}
+		Iterator<Meeting> it2 = meetingList.iterator();
+		while(it2.hasNext()){
+			FileObjects newObj = new FileObjectsImpl(it2.next());
 			returnSet.add(newObj);
 		}
 		return returnSet;
