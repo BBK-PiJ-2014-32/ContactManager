@@ -412,13 +412,27 @@ public class ContactManagerImpl implements ContactManager {
 			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
 			 e.appendChild(createTextElement("Date", String.valueOf(newM.getDate())));
 			 e.appendChild(createTextElement("Notes", newM.getNotes()));
+			 Iterator<Contact> it = newM.getContacts().iterator();
+			 String ids = "";
+			 while(it.hasNext()){
+				 	 ids += String.valueOf(it.next().getId()) + ", " ;
+			 }
+			 System.out.println(ids);
+			 e.appendChild(createTextElement("ContactIDs", ids));
 			 return e;
 		 } else {
 			 FutureMeeting newM = (FutureMeeting) m;
 			 Element e = doc.createElement("FutureMeeting");
 			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
 			 e.appendChild(createTextElement("Date", String.valueOf(newM.getDate())));
-			 return e;
+			 Iterator<Contact> it = newM.getContacts().iterator();
+			 String ids = "";
+			 while(it.hasNext()){
+				 	 ids += String.valueOf(it.next().getId()) + ", " ;
+			 }
+			 System.out.println(ids);
+			 e.appendChild(createTextElement("ContactIDs", ids));
+		 return e;
 		 }
 	 }
 	 
