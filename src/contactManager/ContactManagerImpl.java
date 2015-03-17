@@ -376,7 +376,7 @@ public class ContactManagerImpl implements ContactManager {
 	  }  
 	
 	private Element createObjects(Set<FileObjects> objects){
-		Element e = doc.createElement("Items");
+		Element e = doc.createElement("ContactManager");
 		for (FileObjects anObject : objects)
 			e.appendChild(createObject(anObject));
 		return e;
@@ -385,12 +385,12 @@ public class ContactManagerImpl implements ContactManager {
 	 private Element createObject(FileObjects anObject){
 		 System.out.println(anObject.getObject().getClass() == ContactImpl.class);
 		 if(anObject.getObject().getClass() == ContactImpl.class){
-			 Element e = doc.createElement("Contact");
+			 Element e = doc.createElement("Items");
 			 Contact aContact = (Contact) anObject.getObject();
 			 e.appendChild(createContact(aContact));
 			 return e;
 		 } else {
-			 Element e = doc.createElement("Meeting");
+			 Element e = doc.createElement("Items");
 			 Meeting aMeeting = (Meeting) anObject.getObject();
 			 e.appendChild(createMeeting(aMeeting));
 			 return e;
@@ -469,12 +469,12 @@ public class ContactManagerImpl implements ContactManager {
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
 			ArrayList<FileObjects> items = new ArrayList<FileObjects>(); 
-			int itemCount = Integer.parseInt(path.evaluate("count(/Items/Contact)", doc)); 
+			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items)", doc)); 
 			for (int i = 1; i <= itemCount; i++) {
-				 String idStr = path.evaluate("/Items/Contact[" + i + "]/Contact/ID", doc);
+				 String idStr = path.evaluate("/ContactManager/Items[" + i + "]/Contact/ID", doc);
 				 int id = Integer.parseInt(idStr);
-				 String name = path.evaluate( "/Items/Contact[" + i + "]/Contact/Name", doc);
-				 String notes = path.evaluate("/Items/Contact[" + i + "]/Contact/Notes", doc);
+				 String name = path.evaluate( "/ContactManager/Items[" + i + "]/Contact/Name", doc);
+				 String notes = path.evaluate("/ContactManager/Items[" + i + "]/Contact/Notes", doc);
 				 Contact c = new ContactImpl(name, id);
 				 c.addNotes(notes);
 				 FileObjects it = new FileObjectsImpl(c); 
