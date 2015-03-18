@@ -78,7 +78,6 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		if(currentTime.after(date) && !isItToday(date)){
-			System.out.println(isItToday(date));
 			throw new IllegalArgumentException("Date cannot be in the past");	
 		}
 		Meeting newFutureMeeting = new FutureMeetingImpl(date, contacts, meetingId);
@@ -430,7 +429,6 @@ public class ContactManagerImpl implements ContactManager {
 			 return e;
 		 } else {
 			 FutureMeeting newM = (FutureMeeting) m;
-			 System.out.println(newM.getDate().get(Calendar.YEAR));
 			 Element e = doc.createElement("FutureMeeting");
 			 e.appendChild(createTextElement("ID", String.valueOf(newM.getId())));
 			 e.appendChild(createTextElement("Year", String.valueOf(newM.getDate().get(Calendar.YEAR))));

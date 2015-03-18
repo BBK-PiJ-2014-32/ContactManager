@@ -29,7 +29,6 @@ public class ContactManagerFlushTests {
 		int i = 0;
 		String [] expected = {"Mr Man", "Miss SomeOne", "Mr Testy"};
 		Iterator<Contact> it = outSet.iterator();
-		System.out.println(outSet.size());
 		while(it.hasNext()){
 			Contact output = it.next();
 			assertEquals(expected[i], output.getName());
@@ -47,7 +46,6 @@ public class ContactManagerFlushTests {
 		testCM1.flush();
 		ContactManager testCM2 = new ContactManagerImpl();
 		Meeting testMeet = testCM2.getFutureMeeting(1);
-		System.out.println(testMeet);
 		Set<Contact> outSet = new LinkedHashSet<Contact>();
 		outSet = testMeet.getContacts();
 		int i = 0;
