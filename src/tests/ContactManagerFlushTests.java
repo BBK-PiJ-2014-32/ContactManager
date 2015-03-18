@@ -8,16 +8,16 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.junit.FixMethodOrder;
 
-import contactManager.Contact;
-import contactManager.ContactManager;
-import contactManager.ContactManagerImpl;
-import contactManager.Meeting;
+import contactManager.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContactManagerFlushTests {
 
 	@Test
-	public void a1firstFlushTest(){
+	public void firstFlushTest(){
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -37,7 +37,7 @@ public class ContactManagerFlushTests {
 	}
 	
 	@Test
-	public void a2secondFlushTest(){
+	public void secondFlushTest(){
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -56,5 +56,20 @@ public class ContactManagerFlushTests {
 			assertEquals(expected[i], output.getName());
 			i++;
 		}
+	}
+	
+	@Test
+	public void thirdFlushTest(){
+		ContactManager testCM1 = new ContactManagerImpl();
+		testCM1.addNewContact("Mr Man", "He's the man");
+		testCM1.addNewContact("Miss SomeOne", "She's not a man");
+		testCM1.addNewContact("Mr Testy", "Testing");
+		testCM1.addNewPastMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 15), "some notes");
+		testCM1.flush();
+		ContactManager testCM2 = new ContactManagerImpl();
+		PastMeeting testMeet = testCM2.getPastMeeting(2);
+		String output = testMeet.getNotes();
+		String expected = "some notes";
+		assertEquals(expected, output);
 	}
 }
