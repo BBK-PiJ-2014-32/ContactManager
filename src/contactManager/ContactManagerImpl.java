@@ -55,20 +55,9 @@ public class ContactManagerImpl implements ContactManager {
 	public ContactManagerImpl(){
 		if(checkForFile()==true){
 			ParserSetup();
-			ArrayList<FileObjects> contactObjects = ParseContacts("ContactManager.xml");	
-			Iterator<FileObjects> it1 = contactObjects.iterator();
-			while(it1.hasNext()){
-				FileObjects anObject = it1.next();
-				Contact aContact = (Contact) anObject.getObject();
-				contactSet.add(aContact);
-			}
-			/*ArrayList<FileObjects> fmObjects = ParseFutureMeetings("ContactManager.xml");	
-			Iterator<FileObjects> it2 = fmObjects.iterator();
-			while(it2.hasNext()){
-				FileObjects anObject = it2.next();
-				Meeting aMeeting = (Meeting) anObject.getObject();
-				meetingList.add(aMeeting);
-			}*/
+			contactSet = ParseContacts("ContactManager.xml");	
+			//meetingList = ParseFutureMeetings("ContactManager.xml");
+			
 		}
 		
 	}
@@ -474,11 +463,11 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace(); 
 		}
 	}
-	public ArrayList<FileObjects> ParseContacts(String fileName){
+	public Set<Contact> ParseContacts(String fileName){
 		try{
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
-			ArrayList<FileObjects> items = new ArrayList<FileObjects>(); 
+			Set<Contact> items = new LinkedHashSet<Contact>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/Contact)", doc)); 
 			System.out.println(itemCount);
 			for (int i = 1; i <= itemCount; i++) {
@@ -488,9 +477,8 @@ public class ContactManagerImpl implements ContactManager {
 				 String name = path.evaluate( "/ContactManager/Items[" + i + "]/Contact/Name", doc);
 				 String notes = path.evaluate("/ContactManager/Items[" + i + "]/Contact/Notes", doc);
 				 Contact c = new ContactImpl(name, contactId);
-				 c.addNotes(notes);
-				 FileObjects it = new FileObjectsImpl(c); 
-				 items.add(it);
+				 c.addNotes(notes); 
+				 items.add(c);
 			 	}
 			 return items;
 			
@@ -504,11 +492,11 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
-	public ArrayList<FileObjects> ParseFutureMeetings(String fileName){
+	public List<Meeting> ParseFutureMeetings(String fileName){
 		try{
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
-			ArrayList<FileObjects> items = new ArrayList<FileObjects>(); 
+			List<Meeting> items = new LinkedList<Meeting>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items)", doc)); 
 			for (int i = 1; i <= itemCount; i++) {
 				String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeetings/ID", doc);
@@ -523,8 +511,7 @@ public class ContactManagerImpl implements ContactManager {
 				    Contact c = getContact(sc.nextInt());
 				    contactSet.add(c);
 				Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, meetingId);
-				FileObjects it = new FileObjectsImpl(m); 
-				items.add(it);
+				items.add(m);
 				sc.close();
 			}
 			 return items;
