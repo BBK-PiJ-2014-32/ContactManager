@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -61,11 +60,11 @@ public class ContactManagerImpl implements ContactManager {
 	private int meetingStart = 0;
 		
 	public ContactManagerImpl(){
-		if(checkForFile()==true){
-			ParserSetup();
+		if(checkForFile()){
 			contactSet = ParseContacts("ContactManager.xml");	
-			meetingList = ParseFutureMeetings("ContactManager.xml");
-			
+			if(doesItContainMeetings("ContactManager.xml")){
+				meetingList = ParseFutureMeetings("ContactManager.xml");	
+			}
 		}
 		
 	}
@@ -353,7 +352,7 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private boolean checkForFile(){
 		File dataStore = new File("ContactManager.xml");
-			if(dataStore.exists() == true){
+			if(dataStore.exists()){
 				return true;
 			} else {
 				return false;		
@@ -362,15 +361,19 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private Set<FileObjects> addObjects(){
 		Set<FileObjects> returnSet = new LinkedHashSet<FileObjects>();
-		Iterator<Contact> it1 = contactSet.iterator();
-		while(it1.hasNext()){
-			FileObjects newObj = new FileObjectsImpl(it1.next());
-			returnSet.add(newObj);
+		if(!contactSet.isEmpty()){
+			Iterator<Contact> it1 = contactSet.iterator();
+			while(it1.hasNext()){
+				FileObjects newObj = new FileObjectsImpl(it1.next());
+				returnSet.add(newObj);
+			}
 		}
-		Iterator<Meeting> it2 = meetingList.iterator();
-		while(it2.hasNext()){
-			FileObjects newObj = new FileObjectsImpl(it2.next());
-			returnSet.add(newObj);
+		if(meetingList != null){
+			Iterator<Meeting> it2 = meetingList.iterator();
+			while(it2.hasNext()){
+				FileObjects newObj = new FileObjectsImpl(it2.next());
+				returnSet.add(newObj);
+			}
 		}
 		return returnSet;
 	}
@@ -461,7 +464,7 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	 }
 	 
-	private void ParserSetup(){
+	/*private void ParserSetup(){
 		 try{				 
 			 DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
 			 builder = dbfactory.newDocumentBuilder(); 
@@ -470,9 +473,13 @@ public class ContactManagerImpl implements ContactManager {
 		} catch (ParserConfigurationException ex){
 			ex.printStackTrace(); 
 		}
-	}
+	}*/
 	private Set<Contact> ParseContacts(String fileName){
 		try{
+			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
+			builder = dbfactory.newDocumentBuilder(); 
+			XPathFactory xpfactory = XPathFactory.newInstance(); 
+			path = xpfactory.newXPath();
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
 			Set<Contact> items = new LinkedHashSet<Contact>(); 
@@ -497,21 +504,28 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace();
 		} catch (XPathExpressionException ex){
 			ex.printStackTrace();
+		} catch (ParserConfigurationException ex){
+			ex.printStackTrace();
 		}
 		return null;
 	}
 	
+	@SuppressWarnings("unused")
 	private List<Meeting> ParseFutureMeetings(String fileName){
 		try{
+			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
+			builder = dbfactory.newDocumentBuilder(); 
+			XPathFactory xpfactory = XPathFactory.newInstance(); 
+			path = xpfactory.newXPath();
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
 			List<Meeting> items = new LinkedList<Meeting>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/FutureMeeting)", doc)); 
+			meetingId = itemCount;
 			if(itemCount > 0){
 				itemCount += meetingStart;
-				for (int i = meetingStart; i <= itemCount; i++) {
+				for (int i = meetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ID", doc);
-					System.out.println("i" + i);
 					int themeetingId = Integer.parseInt(idStr);
 					int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Year", doc));
 					int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Month", doc));
@@ -520,14 +534,16 @@ public class ContactManagerImpl implements ContactManager {
 					Scanner sc = new Scanner(contactIds);
 					sc.useDelimiter(Pattern.compile(","));
 					Set<Contact> contactSet = new LinkedHashSet<Contact>();
-					while (!sc.hasNextInt()){ 
+					while (sc.hasNextInt()){ 
 						int conIn = Integer.parseInt(sc.next());
 						Contact c = getContact(conIn);
 						contactSet.add(c);
 						Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, themeetingId);
 						items.add(m);
-						sc.close();
+						
 				}
+				sc.close();
+				return items;
 			}
 				return items;
 			}
@@ -538,8 +554,36 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace();
 		} catch (XPathExpressionException ex){
 			ex.printStackTrace();
+		} catch (ParserConfigurationException ex){
+			ex.printStackTrace();
 		}
 		return null;
 	}
 	
+	private boolean doesItContainMeetings(String fileName){
+		try{
+			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
+			builder = dbfactory.newDocumentBuilder(); 
+			XPathFactory xpfactory = XPathFactory.newInstance(); 
+			path = xpfactory.newXPath();
+			File f = new File(fileName);
+			Document doc = builder.parse(f);
+			int fmCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/FutureMeeting)", doc)); 
+			int pmCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/FutureMeeting)", doc));
+			if(fmCount > 0 || pmCount > 0){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SAXException ex){
+			ex.printStackTrace();
+		} catch (IOException ex){
+			ex.printStackTrace();
+		} catch (XPathExpressionException ex){
+			ex.printStackTrace();
+		} catch (ParserConfigurationException ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
 }
