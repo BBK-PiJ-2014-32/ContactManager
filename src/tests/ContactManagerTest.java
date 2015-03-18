@@ -162,7 +162,7 @@ public class ContactManagerTest {
 			contactSet.add(contact1);
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
-			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 15));
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 18));
 			testCM.addMeetingNotes(3, "Some text about the meeting");
 			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";
@@ -271,7 +271,7 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(testCM.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
 			testCM.getPastMeeting(1);
 		}
-		
+	
 		/*@Test
 		public void zfirstFlushTest(){
 			ContactManager testCM1 = new ContactManagerImpl();
@@ -291,7 +291,7 @@ public class ContactManagerTest {
 				assertEquals(expected[i], output.getName());
 				i++;
 			}
-		}*/
+		}
 		
 		@Test
 		public void zsecondFlushTest(){
@@ -314,7 +314,7 @@ public class ContactManagerTest {
 				assertEquals(expected[i], output.getName());
 				i++;
 			}
-		}
+		}*/
 		
 }
 
