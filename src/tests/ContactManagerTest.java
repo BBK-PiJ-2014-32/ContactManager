@@ -303,6 +303,7 @@ public class ContactManagerTest {
 			testCM1.flush();
 			ContactManager testCM2 = new ContactManagerImpl();
 			Meeting testMeet = testCM2.getFutureMeeting(1);
+			System.out.println(testMeet);
 			Set<Contact> outSet = new LinkedHashSet<Contact>();
 			outSet = testMeet.getContacts();
 			int i = 0;
