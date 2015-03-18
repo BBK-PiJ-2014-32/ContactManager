@@ -16,17 +16,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
@@ -51,12 +58,13 @@ public class ContactManagerImpl implements ContactManager {
 	private DocumentBuilder builder;
 	private Document doc;
 	private XPath path;
+	private int meetingStart = 0;
 		
 	public ContactManagerImpl(){
 		if(checkForFile()==true){
 			ParserSetup();
 			contactSet = ParseContacts("ContactManager.xml");	
-			//meetingList = ParseFutureMeetings("ContactManager.xml");
+			meetingList = ParseFutureMeetings("ContactManager.xml");
 			
 		}
 		
@@ -463,23 +471,24 @@ public class ContactManagerImpl implements ContactManager {
 			ex.printStackTrace(); 
 		}
 	}
-	public Set<Contact> ParseContacts(String fileName){
+	private Set<Contact> ParseContacts(String fileName){
 		try{
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
 			Set<Contact> items = new LinkedHashSet<Contact>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/Contact)", doc)); 
-			System.out.println(itemCount);
-			for (int i = 1; i <= itemCount; i++) {
-				 String idStr = path.evaluate("/ContactManager/Items[" + i + "]/Contact/ID", doc);
-				 System.out.println(i);
-				 int contactId = Integer.parseInt(idStr);
-				 String name = path.evaluate( "/ContactManager/Items[" + i + "]/Contact/Name", doc);
-				 String notes = path.evaluate("/ContactManager/Items[" + i + "]/Contact/Notes", doc);
-				 Contact c = new ContactImpl(name, contactId);
-				 c.addNotes(notes); 
-				 items.add(c);
-			 	}
+			meetingStart = itemCount + 1;
+			if(itemCount > 0){
+				for (int i = 1; i <= itemCount; i++) {
+					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/Contact/ID", doc);
+					int contactId = Integer.parseInt(idStr);
+					String name = path.evaluate( "/ContactManager/Items[" + i + "]/Contact/Name", doc);
+					String notes = path.evaluate("/ContactManager/Items[" + i + "]/Contact/Notes", doc);
+					Contact c = new ContactImpl(name, contactId);
+					c.addNotes(notes); 
+					items.add(c);
+			 		}
+				}
 			 return items;
 			
 		} catch (SAXException ex){
@@ -492,29 +501,36 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
-	public List<Meeting> ParseFutureMeetings(String fileName){
+	private List<Meeting> ParseFutureMeetings(String fileName){
 		try{
 			File f = new File(fileName);
 			Document doc = builder.parse(f);
 			List<Meeting> items = new LinkedList<Meeting>(); 
-			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items)", doc)); 
-			for (int i = 1; i <= itemCount; i++) {
-				String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeetings/ID", doc);
-				int meetingId = Integer.parseInt(idStr);
-				int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeetings/Year", doc));
-				int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeetings/Month", doc));
-				int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeetings/Day", doc));
-				String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeetings/ContactIDs", doc);
-				Scanner sc = new Scanner(contactIds);
-				Set<Contact> contactSet = new LinkedHashSet<Contact>();
-				while (!sc.hasNextInt()) sc.next();
-				    Contact c = getContact(sc.nextInt());
-				    contactSet.add(c);
-				Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, meetingId);
-				items.add(m);
-				sc.close();
+			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/FutureMeeting)", doc)); 
+			if(itemCount > 0){
+				itemCount += meetingStart;
+				for (int i = meetingStart; i <= itemCount; i++) {
+					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ID", doc);
+					System.out.println("i" + i);
+					int themeetingId = Integer.parseInt(idStr);
+					int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Year", doc));
+					int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Month", doc));
+					int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Day", doc));
+					String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ContactIDs", doc);
+					Scanner sc = new Scanner(contactIds);
+					sc.useDelimiter(Pattern.compile(","));
+					Set<Contact> contactSet = new LinkedHashSet<Contact>();
+					while (!sc.hasNextInt()){ 
+						int conIn = Integer.parseInt(sc.next());
+						Contact c = getContact(conIn);
+						contactSet.add(c);
+						Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, themeetingId);
+						items.add(m);
+						sc.close();
+				}
 			}
-			 return items;
+				return items;
+			}
 			
 		} catch (SAXException ex){
 			ex.printStackTrace();

@@ -272,7 +272,7 @@ public class ContactManagerTest {
 			testCM.getPastMeeting(1);
 		}
 		
-		@Test
+		/*@Test
 		public void zfirstFlushTest(){
 			ContactManager testCM1 = new ContactManagerImpl();
 			testCM1.addNewContact("Mr Man", "He's the man");
@@ -291,7 +291,7 @@ public class ContactManagerTest {
 				assertEquals(expected[i], output.getName());
 				i++;
 			}
-		}
+		}*/
 		
 		@Test
 		public void zsecondFlushTest(){
