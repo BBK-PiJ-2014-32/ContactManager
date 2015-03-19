@@ -2,11 +2,13 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
@@ -16,6 +18,14 @@ import contactManager.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContactManagerFlushTests {
 
+	@Before
+	public void deleteFile(){
+		File file = new File("ContactManager.xml");
+		if(file.exists()){
+			file.delete();
+		}
+	}
+	
 	@Test
 	public void firstFlushTest(){
 		ContactManager testCM1 = new ContactManagerImpl();
@@ -76,4 +86,5 @@ public class ContactManagerFlushTests {
 		String expected = "some notes";
 		assertEquals(expected, output);
 	}
+	
 }
