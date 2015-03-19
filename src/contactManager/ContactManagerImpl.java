@@ -57,13 +57,14 @@ public class ContactManagerImpl implements ContactManager {
 	private DocumentBuilder builder;
 	private Document doc;
 	private XPath path;
-	private int meetingStart = 0;
+	private int fmMeetingStart = 0;
+	private int pmMeetingStart = 0;
 		
 	public ContactManagerImpl(){
 		if(checkForFile()){
 			contactSet = ParseContacts("ContactManager.xml");	
 			if(doesItContainMeetings("ContactManager.xml")){
-				meetingList = ParseFutureMeetings("ContactManager.xml");	
+				meetingList = ParseMeetings("ContactManager.xml");	
 			}
 		}
 		
@@ -493,7 +494,8 @@ public class ContactManagerImpl implements ContactManager {
 			Document doc = builder.parse(f);
 			Set<Contact> items = new LinkedHashSet<Contact>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/Contact)", doc)); 
-			meetingStart = itemCount + 1;
+			fmMeetingStart = itemCount + 1;
+			lastId = itemCount + 1;
 			if(itemCount > 0){
 				for (int i = 1; i <= itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/Contact/ID", doc);
@@ -549,10 +551,12 @@ public class ContactManagerImpl implements ContactManager {
 			Document doc = builder.parse(f);
 			List<Meeting> items = new LinkedList<Meeting>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/FutureMeeting)", doc)); 
-			meetingId = itemCount;
+			pmMeetingStart = fmMeetingStart + itemCount;
 			if(itemCount > 0){
-				itemCount += meetingStart;
-				for (int i = meetingStart; i < itemCount; i++) {
+				meetingId = itemCount + 1;
+				System.out.println(meetingId);
+				itemCount += fmMeetingStart;
+				for (int i = fmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ID", doc);
 					int themeetingId = Integer.parseInt(idStr);
 					int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Year", doc));
@@ -598,10 +602,10 @@ public class ContactManagerImpl implements ContactManager {
 			Document doc = builder.parse(f);
 			List<Meeting> items = new LinkedList<Meeting>(); 
 			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/PastMeeting)", doc)); 
-			meetingId = itemCount;
 			if(itemCount > 0){
-				itemCount += meetingStart;
-				for (int i = meetingStart; i < itemCount; i++) {
+				meetingId += itemCount;
+				itemCount += pmMeetingStart;
+				for (int i = pmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ID", doc);
 					int themeetingId = Integer.parseInt(idStr);
 					int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Year", doc));
