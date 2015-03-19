@@ -508,7 +508,7 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
-	@SuppressWarnings("unused")
+	
 	private List<Meeting> ParseFutureMeetings(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
@@ -529,6 +529,55 @@ public class ContactManagerImpl implements ContactManager {
 					int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Month", doc));
 					int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Day", doc));
 					String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ContactIDs", doc);
+					Scanner sc = new Scanner(contactIds);
+					sc.useDelimiter(Pattern.compile(","));
+					Set<Contact> contactSet = new LinkedHashSet<Contact>();
+					while (sc.hasNextInt()){ 
+						int conIn = Integer.parseInt(sc.next());
+						Contact c = getContact(conIn);
+						contactSet.add(c);
+						Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, themeetingId);
+						items.add(m);
+						
+				}
+				sc.close();
+				return items;
+			}
+				return items;
+			}
+			
+		} catch (SAXException ex){
+			ex.printStackTrace();
+		} catch (IOException ex){
+			ex.printStackTrace();
+		} catch (XPathExpressionException ex){
+			ex.printStackTrace();
+		} catch (ParserConfigurationException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	private List<Meeting> ParsePastMeetings(String fileName){
+		try{
+			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
+			builder = dbfactory.newDocumentBuilder(); 
+			XPathFactory xpfactory = XPathFactory.newInstance(); 
+			path = xpfactory.newXPath();
+			File f = new File(fileName);
+			Document doc = builder.parse(f);
+			List<Meeting> items = new LinkedList<Meeting>(); 
+			int itemCount = Integer.parseInt(path.evaluate("count(/ContactManager/Items/PastMeeting)", doc)); 
+			meetingId = itemCount;
+			if(itemCount > 0){
+				itemCount += meetingStart;
+				for (int i = meetingStart; i < itemCount; i++) {
+					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ID", doc);
+					int themeetingId = Integer.parseInt(idStr);
+					int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Year", doc));
+					int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Month", doc));
+					int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Day", doc));
+					String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ContactIDs", doc);
 					Scanner sc = new Scanner(contactIds);
 					sc.useDelimiter(Pattern.compile(","));
 					Set<Contact> contactSet = new LinkedHashSet<Contact>();
