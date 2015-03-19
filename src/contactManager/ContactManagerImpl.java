@@ -508,6 +508,21 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
+	private List<Meeting> ParseMeetings(String fileName){
+		List<Meeting> fm = ParseFutureMeetings(fileName);
+		List<Meeting> pm = ParsePastMeetings(fileName);
+		List<Meeting> returnList = new LinkedList<Meeting>();
+		Iterator<Meeting> it1 = fm.iterator();
+		Iterator<Meeting> it2 = pm.iterator();
+		while(it1.hasNext()){
+			returnList.add(it1.next());
+		}
+		while(it2.hasNext()){
+			returnList.add(it2.next());
+		}
+		return returnList;
+	}
+	
 	
 	private List<Meeting> ParseFutureMeetings(String fileName){
 		try{
@@ -577,6 +592,7 @@ public class ContactManagerImpl implements ContactManager {
 					int year = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Year", doc));
 					int month = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Month", doc));
 					int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/PastMeeting/Day", doc));
+					String notes = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/Notes", doc);
 					String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ContactIDs", doc);
 					Scanner sc = new Scanner(contactIds);
 					sc.useDelimiter(Pattern.compile(","));
@@ -585,7 +601,7 @@ public class ContactManagerImpl implements ContactManager {
 						int conIn = Integer.parseInt(sc.next());
 						Contact c = getContact(conIn);
 						contactSet.add(c);
-						Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, themeetingId);
+						Meeting m = new PastMeetingImpl(new GregorianCalendar(year, month, day), contactSet, notes, themeetingId);
 						items.add(m);
 						
 				}
