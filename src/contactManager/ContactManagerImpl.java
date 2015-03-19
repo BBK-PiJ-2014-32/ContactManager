@@ -214,6 +214,7 @@ public class ContactManagerImpl implements ContactManager {
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, meetingId);
 		meetingList.add(newMeet);
+		meetingId++;
 	}
 
 	/**
@@ -554,7 +555,6 @@ public class ContactManagerImpl implements ContactManager {
 			pmMeetingStart = fmMeetingStart + itemCount;
 			if(itemCount > 0){
 				meetingId = itemCount + 1;
-				System.out.println(meetingId);
 				itemCount += fmMeetingStart;
 				for (int i = fmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ID", doc);
