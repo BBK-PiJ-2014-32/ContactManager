@@ -370,10 +370,21 @@ public class ContactManagerImpl implements ContactManager {
 		if(meetingList != null){
 			Iterator<Meeting> it2 = meetingList.iterator();
 			while(it2.hasNext()){
-				FileObjects newObj = new FileObjectsImpl(it2.next());
-				returnSet.add(newObj);
+				Meeting m = it2.next();
+				if(m.getClass().equals(FutureMeetingImpl.class)){
+					FileObjects newObj = new FileObjectsImpl(m);
+					returnSet.add(newObj);
+				}
 			}
-		}
+			Iterator<Meeting> it3 = meetingList.iterator();
+			while(it3.hasNext()){
+				Meeting m = it3.next();
+					if(m.getClass().equals(PastMeetingImpl.class)){
+						FileObjects newObj = new FileObjectsImpl(m);
+						returnSet.add(newObj);
+					}
+				}
+			}
 		return returnSet;
 	}
 	private Document build(Set<FileObjects> objects){
@@ -512,14 +523,18 @@ public class ContactManagerImpl implements ContactManager {
 		List<Meeting> fm = ParseFutureMeetings(fileName);
 		List<Meeting> pm = ParsePastMeetings(fileName);
 		List<Meeting> returnList = new LinkedList<Meeting>();
-		Iterator<Meeting> it1 = fm.iterator();
-		Iterator<Meeting> it2 = pm.iterator();
-		while(it1.hasNext()){
-			returnList.add(it1.next());
+		if(fm!=null){
+			Iterator<Meeting> it1 = fm.iterator();
+			while(it1.hasNext()){
+				returnList.add(it1.next());
+			}
 		}
-		while(it2.hasNext()){
-			returnList.add(it2.next());
-		}
+		if(pm!=null){
+			Iterator<Meeting> it2 = pm.iterator();			
+			while(it2.hasNext()){
+				returnList.add(it2.next());
+			}
+		}	
 		return returnList;
 	}
 	

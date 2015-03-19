@@ -65,9 +65,10 @@ public class ContactManagerFlushTests {
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
 		testCM1.addNewContact("Mr Testy", "Testing");
 		testCM1.addNewPastMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 15), "some notes");
+		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
 		testCM1.flush();
 		ContactManager testCM2 = new ContactManagerImpl();
-		PastMeeting testMeet = testCM2.getPastMeeting(2);
+		PastMeeting testMeet = testCM2.getPastMeeting(1);
 		String output = testMeet.getNotes();
 		String expected = "some notes";
 		assertEquals(expected, output);
