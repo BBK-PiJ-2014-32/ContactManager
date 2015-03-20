@@ -67,7 +67,6 @@ public class ContactManagerImpl implements ContactManager {
 			contactSet = ParseContacts("ContactManager.xml");	
 			if(doesItContainMeetings("ContactManager.xml")){
 				meetingList = ParseMeetings("ContactManager.xml");	
-				System.out.println("meetingListsize = " + meetingList.size());
 			}
 		}
 		
@@ -241,7 +240,6 @@ public class ContactManagerImpl implements ContactManager {
 				itm.remove();
 			}
 		}
-		System.out.println("meeting id " + newMeet.getId());
 		meetingList.add(newMeet);
 	}
 
@@ -474,16 +472,6 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	 }
 	 
-	/*private void ParserSetup(){
-		 try{				 
-			 DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
-			 builder = dbfactory.newDocumentBuilder(); 
-			 XPathFactory xpfactory = XPathFactory.newInstance(); 
-			 path = xpfactory.newXPath();
-		} catch (ParserConfigurationException ex){
-			ex.printStackTrace(); 
-		}
-	}*/
 	private Set<Contact> ParseContacts(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
@@ -555,8 +543,6 @@ public class ContactManagerImpl implements ContactManager {
 			if(itemCount > 0){
 				meetingId = itemCount + 1;
 				itemCount += fmMeetingStart;
-				System.out.println(fmMeetingStart + "fm start");
-				System.out.println(itemCount + "it count");
 				for (int i = fmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ID", doc);
 					int themeetingId = Integer.parseInt(idStr);
@@ -604,8 +590,6 @@ public class ContactManagerImpl implements ContactManager {
 			if(itemCount > 0){
 				meetingId += itemCount;
 				itemCount += pmMeetingStart;
-				System.out.println(pmMeetingStart + "pm start");
-				System.out.println(itemCount + "it count");
 				for (int i = pmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ID", doc);
 					int themeetingId = Integer.parseInt(idStr);
