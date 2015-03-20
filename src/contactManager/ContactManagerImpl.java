@@ -237,7 +237,7 @@ public class ContactManagerImpl implements ContactManager {
 		while(itm.hasNext()){
 			Meeting next = itm.next();
 			if(next.getId() == id){
-				meetingList.remove(next);
+				itm.remove();
 			}
 		}
 		meetingList.add(newMeet);
