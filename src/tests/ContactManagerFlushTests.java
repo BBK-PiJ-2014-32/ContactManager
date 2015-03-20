@@ -26,8 +26,9 @@ public class ContactManagerFlushTests {
 		}
 	}
 	
-	/*@Test
+	@Test
 	public void firstFlushTest(){
+		System.out.println("test1");
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -48,6 +49,7 @@ public class ContactManagerFlushTests {
 	
 	@Test
 	public void secondFlushTest(){
+		System.out.println("test2");
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -70,6 +72,7 @@ public class ContactManagerFlushTests {
 	
 	@Test
 	public void thirdFlushTest(){
+		System.out.println("test3");
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -86,7 +89,7 @@ public class ContactManagerFlushTests {
 		String expected = "some notes";
 		assertEquals(expected, output);
 	}
-	*/
+
 	@Test
 	public void forthFlushTest(){
 		ContactManager testCM1 = new ContactManagerImpl();
