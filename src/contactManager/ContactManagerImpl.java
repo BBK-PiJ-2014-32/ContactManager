@@ -67,6 +67,7 @@ public class ContactManagerImpl implements ContactManager {
 			contactSet = ParseContacts("ContactManager.xml");	
 			if(doesItContainMeetings("ContactManager.xml")){
 				meetingList = ParseMeetings("ContactManager.xml");	
+				System.out.println("meetingListsize = " + meetingList.size());
 			}
 		}
 		
@@ -240,6 +241,7 @@ public class ContactManagerImpl implements ContactManager {
 				itm.remove();
 			}
 		}
+		System.out.println("meeting id " + newMeet.getId());
 		meetingList.add(newMeet);
 	}
 
@@ -563,9 +565,9 @@ public class ContactManagerImpl implements ContactManager {
 					int day = Integer.parseInt(path.evaluate( "/ContactManager/Items[" + i + "]/FutureMeeting/Day", doc));
 					String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ContactIDs", doc);
 					Scanner sc = new Scanner(contactIds);
-					sc.useDelimiter(Pattern.compile(","));
+					sc.useDelimiter(Pattern.compile(", "));
 					Set<Contact> contactSet = new LinkedHashSet<Contact>();
-					while (sc.hasNextInt()){ 
+					while (sc.hasNext()){ 
 						int conIn = Integer.parseInt(sc.next());
 						Contact c = getContact(conIn);
 						contactSet.add(c);
@@ -613,19 +615,17 @@ public class ContactManagerImpl implements ContactManager {
 					String notes = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/Notes", doc);
 					String contactIds = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ContactIDs", doc);
 					Scanner sc = new Scanner(contactIds);
-					sc.useDelimiter(Pattern.compile(","));
+					sc.useDelimiter(Pattern.compile(", "));
 					Set<Contact> contactSet = new LinkedHashSet<Contact>();
-					while (sc.hasNextInt()){ 
+					while (sc.hasNext()){ 
 						int conIn = Integer.parseInt(sc.next());
 						Contact c = getContact(conIn);
 						contactSet.add(c);
-						Meeting m = new PastMeetingImpl(new GregorianCalendar(year, month, day), contactSet, notes, themeetingId);
-						items.add(m);
-						
+					}
+					Meeting m = new PastMeetingImpl(new GregorianCalendar(year, month, day), contactSet, notes, themeetingId);
+					items.add(m);
+					sc.close();
 				}
-				sc.close();
-				return items;
-			}
 				return items;
 			}
 			
