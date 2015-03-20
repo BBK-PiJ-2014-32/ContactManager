@@ -26,7 +26,7 @@ public class ContactManagerFlushTests {
 		}
 	}
 	
-	@Test
+	/*@Test
 	public void firstFlushTest(){
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
@@ -86,5 +86,28 @@ public class ContactManagerFlushTests {
 		String expected = "some notes";
 		assertEquals(expected, output);
 	}
-	
+	*/
+	@Test
+	public void forthFlushTest(){
+		ContactManager testCM1 = new ContactManagerImpl();
+		testCM1.addNewContact("Mr Man", "He's the man");
+		testCM1.addNewContact("Miss SomeOne", "She's not a man");
+		testCM1.addNewContact("Mr Testy", "Testing");
+		testCM1.addNewPastMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 15), "some notes");
+		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
+		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 20));
+		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 5, 15));
+		testCM1.flush();
+		ContactManager testCM2 = new ContactManagerImpl();
+		testCM2.addNewContact("Mr Man", "He's the man");
+		testCM2.addNewContact("A Man", "He's the man");
+		testCM2.addNewContact("AN Man", "He's the man");
+		testCM2.addMeetingNotes(3, "has it worked??");
+		testCM2.flush();
+		ContactManager testCM3 = new ContactManagerImpl();
+		PastMeeting testMeet = testCM3.getPastMeeting(3);
+		String output = testMeet.getNotes();
+		String expected = "has it worked??";
+		assertEquals(expected, output);
+	}
 }

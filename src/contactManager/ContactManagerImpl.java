@@ -52,6 +52,8 @@ public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
 	private Set<FileObjects> fileObjectSet = new LinkedHashSet<FileObjects>();
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
+	private Iterator<Meeting> itm;
+	private Iterator<Contact> itc;
 	private int lastId = 1;
 	private int meetingId = 1;
 	private DocumentBuilder builder;
@@ -131,9 +133,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Meeting getMeeting(int id) {
-		Iterator<Meeting> it = meetingList.iterator();
-		while(it.hasNext()){
-			Meeting next = it.next();
+		itm = meetingList.iterator();
+		while(itm.hasNext()){
+			Meeting next = itm.next();
 				if(next.getId() == id){
 					return next;
 				}
@@ -154,9 +156,9 @@ public class ContactManagerImpl implements ContactManager {
 			throw (new IllegalArgumentException("Contact does not exist"));
 		}
 		List<Meeting> returnList = new LinkedList<Meeting>();
-		Iterator<Meeting> it = meetingList.iterator();
-		while(it.hasNext()){
-			Meeting next = it.next();
+		itm = meetingList.iterator();
+		while(itm.hasNext()){
+			Meeting next = itm.next();
 			if(next.getClass() == FutureMeeting.class && next.getContacts().contains(contact)){
 				returnList.add(next);
 			} 
@@ -173,9 +175,9 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
 		List<Meeting> returnList = new LinkedList<Meeting>();
-		Iterator<Meeting> it = meetingList.iterator();
-		while(it.hasNext()){
-			Meeting next = it.next();
+		itm = meetingList.iterator();
+		while(itm.hasNext()){
+			Meeting next = itm.next();
 			if(next.getClass() == FutureMeeting.class){
 				returnList.add(next);
 			}
@@ -193,9 +195,9 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
 		List<PastMeeting> returnList = new LinkedList<PastMeeting>();
-		Iterator<Meeting> it = meetingList.iterator();
-		while(it.hasNext()){
-			Meeting next = it.next();
+		itm = meetingList.iterator();
+		while(itm.hasNext()){
+			Meeting next = itm.next();
 			if(next.getClass() == PastMeeting.class && next.getContacts().contains(contact)){
 				returnList.add((PastMeeting) next);
 			}
@@ -231,20 +233,15 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private void updatePastMeeting(Set<Contact> contacts, int id, Calendar date, String text){
 		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, id);
-		Iterator<Meeting> it = meetingList.iterator();
-		while(it.hasNext()){
-			Meeting next = it.next();
+		itm = meetingList.iterator();
+		while(itm.hasNext()){
+			Meeting next = itm.next();
 			if(next.getId() == id){
 				meetingList.remove(next);
 			}
 		}
 		meetingList.add(newMeet);
 	}
-	
-	/*public Meeting futureToPastMeeting(Meeting meeting){
-		Meeting newPM = new PastMeetingImpl(meeting.getDate(), meeting.getContacts(), meeting.getId());
-		return newPM;
-	}*/
 
 	/**
 	 * Adds the new contact.
@@ -279,9 +276,9 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	private Contact getContact(int id){
-		Iterator<Contact> it = contactSet.iterator();
-		while(it.hasNext()){
-			Contact next = it.next();
+		itc = contactSet.iterator();
+		while(itc.hasNext()){
+			Contact next = itc.next();
 				if(next.getId() == id){
 					return next;
 				}
@@ -299,9 +296,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(name == null){
 			throw(new NullPointerException("Name cannot be null"));
 		}
-		Iterator<Contact> it = contactSet.iterator();
-		while(it.hasNext()){
-			Contact next = it.next();
+		itc = contactSet.iterator();
+		while(itc.hasNext()){
+			Contact next = itc.next();
 			if(next.getName() == name){
 				Set<Contact> returnSet = new LinkedHashSet<Contact>();;
 				returnSet.add(next);
@@ -363,24 +360,24 @@ public class ContactManagerImpl implements ContactManager {
 	private Set<FileObjects> addObjects(){
 		Set<FileObjects> returnSet = new LinkedHashSet<FileObjects>();
 		if(!contactSet.isEmpty()){
-			Iterator<Contact> it1 = contactSet.iterator();
-			while(it1.hasNext()){
-				FileObjects newObj = new FileObjectsImpl(it1.next());
+			itc = contactSet.iterator();
+			while(itc.hasNext()){
+				FileObjects newObj = new FileObjectsImpl(itc.next());
 				returnSet.add(newObj);
 			}
 		}
 		if(meetingList != null){
-			Iterator<Meeting> it2 = meetingList.iterator();
-			while(it2.hasNext()){
-				Meeting m = it2.next();
+			itm = meetingList.iterator();
+			while(itm.hasNext()){
+				Meeting m = itm.next();
 				if(m.getClass().equals(FutureMeetingImpl.class)){
 					FileObjects newObj = new FileObjectsImpl(m);
 					returnSet.add(newObj);
 				}
 			}
-			Iterator<Meeting> it3 = meetingList.iterator();
-			while(it3.hasNext()){
-				Meeting m = it3.next();
+			itm = meetingList.iterator();
+			while(itm.hasNext()){
+				Meeting m = itm.next();
 					if(m.getClass().equals(PastMeetingImpl.class)){
 						FileObjects newObj = new FileObjectsImpl(m);
 						returnSet.add(newObj);
@@ -433,10 +430,10 @@ public class ContactManagerImpl implements ContactManager {
 			 e.appendChild(createTextElement("Month", String.valueOf(newM.getDate().get(Calendar.MONTH))));
 			 e.appendChild(createTextElement("Day", String.valueOf(newM.getDate().get(Calendar.DAY_OF_MONTH))));
 			 e.appendChild(createTextElement("Notes", newM.getNotes()));
-			 Iterator<Contact> it = newM.getContacts().iterator();
+			 itc = newM.getContacts().iterator();
 			 String ids = "";
-			 while(it.hasNext()){
-				 	 ids += String.valueOf(it.next().getId()) + ", " ;
+			 while(itc.hasNext()){
+				 	 ids += String.valueOf(itc.next().getId()) + ", " ;
 			 }
 			 e.appendChild(createTextElement("ContactIDs", ids));
 			 return e;
@@ -447,10 +444,10 @@ public class ContactManagerImpl implements ContactManager {
 			 e.appendChild(createTextElement("Year", String.valueOf(newM.getDate().get(Calendar.YEAR))));
 			 e.appendChild(createTextElement("Month", String.valueOf(newM.getDate().get(Calendar.MONTH))));
 			 e.appendChild(createTextElement("Day", String.valueOf(newM.getDate().get(Calendar.DAY_OF_MONTH))));
-			 Iterator<Contact> it = newM.getContacts().iterator();
+			 itc = newM.getContacts().iterator();
 			 String ids = "";
-			 while(it.hasNext()){
-				 	 ids += String.valueOf(it.next().getId()) + ", " ;
+			 while(itc.hasNext()){
+				 	 ids += String.valueOf(itc.next().getId()) + ", " ;
 			 }
 			 e.appendChild(createTextElement("ContactIDs", ids));
 		 return e;
@@ -527,15 +524,15 @@ public class ContactManagerImpl implements ContactManager {
 		List<Meeting> pm = ParsePastMeetings(fileName);
 		List<Meeting> returnList = new LinkedList<Meeting>();
 		if(fm!=null){
-			Iterator<Meeting> it1 = fm.iterator();
-			while(it1.hasNext()){
-				returnList.add(it1.next());
+			itm = fm.iterator();
+			while(itm.hasNext()){
+				returnList.add(itm.next());
 			}
 		}
 		if(pm!=null){
-			Iterator<Meeting> it2 = pm.iterator();			
-			while(it2.hasNext()){
-				returnList.add(it2.next());
+			itm = pm.iterator();			
+			while(itm.hasNext()){
+				returnList.add(itm.next());
 			}
 		}	
 		return returnList;
@@ -556,6 +553,8 @@ public class ContactManagerImpl implements ContactManager {
 			if(itemCount > 0){
 				meetingId = itemCount + 1;
 				itemCount += fmMeetingStart;
+				System.out.println(fmMeetingStart + "fm start");
+				System.out.println(itemCount + "it count");
 				for (int i = fmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/FutureMeeting/ID", doc);
 					int themeetingId = Integer.parseInt(idStr);
@@ -570,12 +569,10 @@ public class ContactManagerImpl implements ContactManager {
 						int conIn = Integer.parseInt(sc.next());
 						Contact c = getContact(conIn);
 						contactSet.add(c);
-						Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, themeetingId);
-						items.add(m);
-						
-				}
-				sc.close();
-				return items;
+						}
+					Meeting m = new FutureMeetingImpl(new GregorianCalendar(year, month, day), contactSet, themeetingId);
+					items.add(m);
+					sc.close();
 			}
 				return items;
 			}
@@ -605,6 +602,8 @@ public class ContactManagerImpl implements ContactManager {
 			if(itemCount > 0){
 				meetingId += itemCount;
 				itemCount += pmMeetingStart;
+				System.out.println(pmMeetingStart + "pm start");
+				System.out.println(itemCount + "it count");
 				for (int i = pmMeetingStart; i < itemCount; i++) {
 					String idStr = path.evaluate("/ContactManager/Items[" + i + "]/PastMeeting/ID", doc);
 					int themeetingId = Integer.parseInt(idStr);
