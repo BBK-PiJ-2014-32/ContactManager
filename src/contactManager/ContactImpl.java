@@ -1,9 +1,5 @@
 package contactManager;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -38,7 +34,6 @@ public class ContactImpl implements Contact {
 		/* (non-Javadoc)
 		 * @see contactManager.Contact#getName()
 		 */
-		@XmlElement(name = "NAME")
 		public String getName(){
 			return name;
 		}
@@ -46,7 +41,6 @@ public class ContactImpl implements Contact {
 		/* (non-Javadoc)
 		 * @see contactManager.Contact#getId()
 		 */
-		@XmlElement(name = "ID")
 		public int getId() {
 				return id;
 		}
@@ -54,7 +48,6 @@ public class ContactImpl implements Contact {
 		/* (non-Javadoc)
 		 * @see contactManager.Contact#getNotes()
 		 */
-		@XmlElement(name = "NOTES")
 		public String getNotes() {
 			return notes;
 		}
