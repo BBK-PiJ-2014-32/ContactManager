@@ -239,6 +239,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(getMeeting(id) == null){
 			throw (new IllegalArgumentException("Meeting " + id + " does not exist"));
 		}
+		if(currentTime.before(getMeeting(id).getDate()) && !isItToday(getMeeting(id).getDate())){ 
+			throw (new IllegalStateException("Notes cannont be added to a future meeting"));
+		}
 		updatePastMeeting(getMeeting(id).getContacts(), getMeeting(id).getId(), getMeeting(id).getDate(), text);
 		
 	}
