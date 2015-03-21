@@ -339,5 +339,13 @@ public class ContactManagerTest {
 			testCM.addMeetingNotes(1, "text");
 		}
 		
+		@Test(expected = IllegalStateException.class)
+		public void addMeetingNotesIllegalStateExceptionTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(2015, 8, 15));
+			testCM.addMeetingNotes(1, "text");
+		}
+		
 }		
 
