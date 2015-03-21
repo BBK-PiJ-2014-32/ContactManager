@@ -198,9 +198,9 @@ public class ContactManagerTest {
 			testCM.addNewContact("Some Man", "");
 			testCM.addNewContact("A Woman", "");
 			testCM.addNewContact("Anon", "");
+			testCM.addNewContact("Andrew", "");
 			Set<Contact> contactSet = testCM.getContacts(1,2,3,4);
-			Set<Contact> contactSet2 = testCM.getContacts(5);;
-			testCM.addNewContact("Andrew", "");			
+			Set<Contact> contactSet2 = testCM.getContacts(5);		
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 15));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 4, 12));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 07, 30));
@@ -226,24 +226,27 @@ public class ContactManagerTest {
 		@Test
 		public void getPastMeetingListByContactTest(){
 			ContactManager testCM = new ContactManagerImpl();
-			Set<Contact> contactSet = new LinkedHashSet<Contact>();
-			Contact contact1 = new ContactImpl("Mr Man", 1);
-			Contact contact2 = new ContactImpl("Some Man", 2);
-			Contact contact3 = new ContactImpl("A Woman", 3);
-			Contact contact4 = new ContactImpl("Anon", 4);
-			contactSet.add(contact1);
-			contactSet.add(contact2);
-			contactSet.add(contact3);
-			contactSet.add(contact4);
-			Set<Contact> contactSet2 = new LinkedHashSet<Contact>();
-			Contact contact5 = new ContactImpl("Andrew", 5);
-			contactSet2.add(contact5);
+			testCM.addNewContact("Mr Man", "");
+			testCM.addNewContact("Some Man", "");
+			testCM.addNewContact("A Woman", "");
+			testCM.addNewContact("Anon", "");
+			testCM.addNewContact("Andrew", "");
+			Set<Contact> contactSet = testCM.getContacts(1,2,3,4);
+			Set<Contact> contactSet2 = testCM.getContacts(5);
 			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 3, 15), "notes");
 			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 4, 12), "the meeting was great");
 			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 07, 30), "N/A");
 			testCM.addNewPastMeeting(contactSet2, new GregorianCalendar(2016, 1, 1), "No Actions");
 			testCM.addNewPastMeeting(contactSet, new GregorianCalendar(2015, 06, 30), "something");
-			List<PastMeeting> outList = testCM.getPastMeetingList(contact4);
+			Contact contactIn = null;
+			Set<Contact> conSet = testCM.getContacts("Anon");
+			Iterator<Contact> itc = conSet.iterator();
+			while(itc.hasNext()){
+				Contact c = itc.next();
+				if(c.getName().equals("Anon"));
+					contactIn = c;
+			}
+			List<PastMeeting> outList = testCM.getPastMeetingList(contactIn);
 			int [] expectId = {1, 2, 3, 5};
 			Iterator<PastMeeting> it = outList.iterator();
 			int i = 0;
