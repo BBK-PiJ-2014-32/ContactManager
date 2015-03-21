@@ -298,5 +298,16 @@ public class ContactManagerTest {
 			Meeting expected = null;
 			assertEquals(expected, testMeet);
 		}
+		
+		@Test(expected = IllegalArgumentException.class)
+		public void getPastMeetingContactDoesNotExistTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			testCM.addNewContact("Miss SomeOne", "She's not a man");
+			testCM.addNewContact("Mr Testy", "Testing");
+			Contact contact = new ContactImpl("Some Contact", 4);
+			testCM.getPastMeetingList(contact);
+		}
+
 }
 
