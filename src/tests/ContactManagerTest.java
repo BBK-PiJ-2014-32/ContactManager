@@ -346,6 +346,12 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(2015, 8, 15));
 			testCM.addMeetingNotes(1, "text");
 		}
-		
+		@Test(expected = NullPointerException.class)
+		public void addMeetingNotesNullPointerExceptionTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(2015, 2, 21));
+			testCM.addMeetingNotes(1, null);
+		}
 }		
 
