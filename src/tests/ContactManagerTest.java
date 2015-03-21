@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -34,6 +35,14 @@ import contactManager.PastMeetingImpl;
  * The Class ContactManagerTest.
  */
 public class ContactManagerTest {	
+	
+	@Before
+	public void deleteFile(){
+		File file = new File("ContactManager.xml");
+		if(file.exists()){
+			file.delete();
+		}
+	}
 	
 	/**
 	 * Adds the future meeting test.
@@ -272,5 +281,14 @@ public class ContactManagerTest {
 			testCM.getPastMeeting(1);
 		}
 		
+		@Test(expected = IllegalArgumentException.class)
+		public void getPastMeetingFromTheFutureExceptionTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			testCM.addNewContact("Miss SomeOne", "She's not a man");
+			testCM.addNewContact("Mr Testy", "Testing");
+			testCM.addNewPastMeeting(testCM.getContacts(1,2,3), new GregorianCalendar(2015, 2, 1), "test");
+			testCM.getFutureMeeting(1);
+		}
 }
 
