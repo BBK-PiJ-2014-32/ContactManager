@@ -242,6 +242,9 @@ public class ContactManagerImpl implements ContactManager {
 		if(currentTime.before(getMeeting(id).getDate()) && !isItToday(getMeeting(id).getDate())){ 
 			throw (new IllegalStateException("Notes cannont be added to a future meeting"));
 		}
+		if(text.equals(null)){
+			throw (new NullPointerException("Notes cannot be null"));
+		}
 		updatePastMeeting(getMeeting(id).getContacts(), getMeeting(id).getId(), getMeeting(id).getDate(), text);
 		
 	}
