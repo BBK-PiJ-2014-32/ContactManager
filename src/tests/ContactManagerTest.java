@@ -171,7 +171,7 @@ public class ContactManagerTest {
 			contactSet.add(contact1);
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
-			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 18));
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 21));
 			testCM.addMeetingNotes(3, "Some text about the meeting");
 			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";
@@ -289,6 +289,14 @@ public class ContactManagerTest {
 			testCM.addNewContact("Mr Testy", "Testing");
 			testCM.addNewPastMeeting(testCM.getContacts(1,2,3), new GregorianCalendar(2015, 2, 1), "test");
 			testCM.getFutureMeeting(1);
+		}
+		
+		@Test
+		public void getMeetingNullTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			Meeting testMeet = testCM.getMeeting(1);
+			Meeting expected = null;
+			assertEquals(expected, testMeet);
 		}
 }
 
