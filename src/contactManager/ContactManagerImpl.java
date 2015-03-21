@@ -236,6 +236,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
+		if(getMeeting(id) == null){
+			throw (new IllegalArgumentException("Meeting " + id + " does not exist"));
+		}
 		updatePastMeeting(getMeeting(id).getContacts(), getMeeting(id).getId(), getMeeting(id).getDate(), text);
 		
 	}
