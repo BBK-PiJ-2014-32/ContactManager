@@ -311,6 +311,27 @@ public class ContactManagerTest {
 			Contact contact = new ContactImpl("Some Contact", 4);
 			testCM.getPastMeetingList(contact);
 		}
-
-}
+		@Test(expected = NullPointerException.class)
+		public void addNewPastMeetingNullTest1(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewPastMeeting(null, new GregorianCalendar(2015, 2, 1), "text");
+		}
+		
+		@Test(expected = NullPointerException.class)
+		public void addNewPastMeetingNullTest2(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			Set<Contact> conSet = testCM.getContacts("Mr Man");
+			testCM.addNewPastMeeting(conSet, null, "text");
+			
+		}
+		@Test(expected = NullPointerException.class)
+		public void addNewPastMeetingNullTest3(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			Set<Contact> conSet = testCM.getContacts("Mr Man");
+			testCM.addNewPastMeeting(conSet, new GregorianCalendar(2015, 2, 1), null);
+		}
+		
+}		
 
