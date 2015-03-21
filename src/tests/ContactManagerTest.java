@@ -333,5 +333,11 @@ public class ContactManagerTest {
 			testCM.addNewPastMeeting(conSet, new GregorianCalendar(2015, 2, 1), null);
 		}
 		
+		@Test(expected = IllegalArgumentException.class)
+		public void addMeetingNotesIllegalArgumentExceptionTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addMeetingNotes(1, "text");
+		}
+		
 }		
 
