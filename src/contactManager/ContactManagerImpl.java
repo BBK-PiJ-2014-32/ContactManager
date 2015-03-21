@@ -121,6 +121,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
+		if(getMeeting(id).getClass().equals(PastMeetingImpl.class)){
+			throw (new IllegalArgumentException("The meeting " + id + " is in the past"));
+		}
 		FutureMeeting returnFM = (FutureMeeting) getMeeting(id);
 		return returnFM;
 	}
