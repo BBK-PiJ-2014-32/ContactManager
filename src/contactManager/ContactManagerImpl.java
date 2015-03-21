@@ -220,6 +220,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+		if(contacts.equals(null) || date.equals(null) || text.equals(null)){
+			throw (new NullPointerException("ContactSet, date or text cannot be null"));
+		}
 		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, meetingId);
 		meetingList.add(newMeet);
 		meetingId++;
