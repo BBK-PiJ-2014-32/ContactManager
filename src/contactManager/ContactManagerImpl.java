@@ -197,6 +197,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
+		if(!contactSet.contains(contact)){
+			throw (new IllegalArgumentException("Contact does not exist"));
+		}
 		List<PastMeeting> returnList = new LinkedList<PastMeeting>();
 		itm = meetingList.iterator();
 		while(itm.hasNext()){
