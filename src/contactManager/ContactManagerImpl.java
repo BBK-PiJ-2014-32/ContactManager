@@ -286,6 +286,11 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Set<Contact> getContacts(int... ids) {
+		for(int id: ids){
+			if(getContact(id) == null){
+				throw (new IllegalArgumentException("Contact " + id + " does not exist"));
+			}
+		}
 		Set<Contact> returnSet = new LinkedHashSet<Contact>();
 			for(int id: ids){
 				returnSet.add(getContact(id));
