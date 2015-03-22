@@ -361,6 +361,14 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(year, month, day));
 			testCM.addMeetingNotes(1, null);
 		}
+		@Test(expected = IllegalArgumentException.class)
+		public void getContactsSetIllegalArgumentExceptionTest(){
+			ContactManager testCM = new ContactManagerImpl();
+			testCM.addNewContact("Mr Man", "He's the man");
+			testCM.addNewContact("Miss SomeOne", "She's not a man");
+			testCM.addNewContact("Mr Testy", "Testing");
+			testCM.getContacts(1,2,3,4);
+		}
 		
 }		
 
