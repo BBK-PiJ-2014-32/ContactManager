@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 /**
  * The Class FutureMeetingImpl extends the MeetingImpl class and implements the FutureMeeting interface.
+ * @see contactManager.FutureMeeting
  */
 public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 
