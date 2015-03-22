@@ -10,14 +10,17 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
-import org.junit.FixMethodOrder;
 
 import contactManager.*;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+/**
+ * The Class ContactManagerFlushTests.
+ */
 public class ContactManagerFlushTests {
 
+	/**
+	 * Delete file.
+	 */
 	@Before
 	public void deleteFile(){
 		File file = new File("ContactManager.xml");
@@ -26,9 +29,11 @@ public class ContactManagerFlushTests {
 		}
 	}
 	
+	/**
+	 * First flush test.
+	 */
 	@Test
 	public void firstFlushTest(){
-		System.out.println("test1");
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -47,9 +52,11 @@ public class ContactManagerFlushTests {
 		}
 	}
 	
+	/**
+	 * Second flush test.
+	 */
 	@Test
 	public void secondFlushTest(){
-		System.out.println("test2");
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -70,9 +77,11 @@ public class ContactManagerFlushTests {
 		}
 	}
 	
+	/**
+	 * Third flush test.
+	 */
 	@Test
 	public void thirdFlushTest(){
-		System.out.println("test3");
 		ContactManager testCM1 = new ContactManagerImpl();
 		testCM1.addNewContact("Mr Man", "He's the man");
 		testCM1.addNewContact("Miss SomeOne", "She's not a man");
@@ -90,6 +99,9 @@ public class ContactManagerFlushTests {
 		assertEquals(expected, output);
 	}
 
+	/**
+	 * Forth flush test.
+	 */
 	@Test
 	public void forthFlushTest(){
 		ContactManager testCM1 = new ContactManagerImpl();
@@ -98,7 +110,7 @@ public class ContactManagerFlushTests {
 		testCM1.addNewContact("Mr Testy", "Testing");
 		testCM1.addNewPastMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 15), "some notes");
 		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
-		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 20));
+		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 22));
 		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 5, 15));
 		testCM1.flush();
 		ContactManager testCM2 = new ContactManagerImpl();
