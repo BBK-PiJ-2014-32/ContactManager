@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -21,47 +20,67 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 
-
-// TODO: Auto-generated Javadoc
 /**
- * The Class ContactManagerImpl.
+ * The Class ContactManagerImpl that implements the Contact Manager interface.
+ * 
+ * @see contactManager.ContactManager
  */
 public class ContactManagerImpl implements ContactManager {
 	
 	/** The current time. */
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private Calendar currentTime = Calendar.getInstance();
+	
+	/** The contact set. */
 	private Set<Contact> contactSet = new LinkedHashSet<Contact>();
+	
+	/** The file object set. */
 	private Set<FileObjects> fileObjectSet = new LinkedHashSet<FileObjects>();
+	
+	/** The meeting list. */
 	private List<Meeting> meetingList = new LinkedList<Meeting>();
+	
+	/** The meeting iterator. */
 	private Iterator<Meeting> itm;
+	
+	/** The contact iterator. */
 	private Iterator<Contact> itc;
+	
+	/** The last contact id. */
 	private int lastId = 1;
+	
+	/** The meeting id. */
 	private int meetingId = 1;
+	
+	/** The builder. */
 	private DocumentBuilder builder;
+	
+	/** The doc. */
 	private Document doc;
+	
+	/** The path. */
 	private XPath path;
+	
+	/** The Future Meeting starting point when parsing. */
 	private int fmMeetingStart = 0;
+	
+	/** The Past Meeting starting point when parsing. */
 	private int pmMeetingStart = 0;
 		
+	/**
+	 * Instantiates a new contact manager.
+	 */
 	public ContactManagerImpl(){
 		if(checkForFile()){
 			contactSet = ParseContacts("ContactManager.xml");	
@@ -72,11 +91,7 @@ public class ContactManagerImpl implements ContactManager {
 		
 	}
 	/**
-	 * Adds the future meeting.
-	 *
-	 * @param contacts the contacts
-	 * @param date the date
-	 * @return the int
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
@@ -90,10 +105,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the past meeting.
-	 *
-	 * @param id the id
-	 * @return the past meeting
+	 * {@inheritDoc}
 	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
@@ -104,6 +116,12 @@ public class ContactManagerImpl implements ContactManager {
 		return returnPM;
 	}
 	
+	/**
+	 * Private helper method to check if the date entered is today's date.
+	 *
+	 * @param date is the date to be checked.
+	 * @return true, if is it today.
+	 */
 	private boolean isItToday(Calendar date){
 		if(currentTime.get(Calendar.YEAR) == date.get(Calendar.YEAR) && 
 			currentTime.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
@@ -114,10 +132,7 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	}
 	/**
-	 * Gets the future meeting.
-	 *
-	 * @param id the id
-	 * @return the future meeting
+	 * {@inheritDoc}
 	 */
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
@@ -129,10 +144,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the meeting.
-	 *
-	 * @param id the id
-	 * @return the meeting
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Meeting getMeeting(int id) {
@@ -148,10 +160,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the future meeting list.
-	 *
-	 * @param contact the contact
-	 * @return the future meeting list
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
@@ -170,10 +179,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the future meeting list.
-	 *
-	 * @param date the date
-	 * @return the future meeting list
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
@@ -190,10 +196,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the past meeting list.
-	 *
-	 * @param contact the contact
-	 * @return the past meeting list
+	 * {@inheritDoc}
 	 */
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
@@ -212,11 +215,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Adds the new past meeting.
-	 *
-	 * @param contacts the contacts
-	 * @param date the date
-	 * @param text the text
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
@@ -229,10 +228,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Adds the meeting notes.
-	 *
-	 * @param id the id
-	 * @param text the text
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
@@ -249,6 +245,14 @@ public class ContactManagerImpl implements ContactManager {
 		
 	}
 	
+	/**
+	 * Private helper method to update a Future Meeting to a Past Meeting so notes can added.
+	 *
+	 * @param contacts are the contact set from the original meeting.
+	 * @param id the id of the meeting.
+	 * @param date the date of the meeting.
+	 * @param text the notes to be added for the meeting.
+	 */
 	private void updatePastMeeting(Set<Contact> contacts, int id, Calendar date, String text){
 		PastMeeting newMeet = new PastMeetingImpl(date, contacts, text, id);
 		itm = meetingList.iterator();
@@ -262,10 +266,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Adds the new contact.
-	 *
-	 * @param name the name
-	 * @param notes the notes
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void addNewContact(String name, String notes) {
@@ -279,10 +280,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the contacts.
-	 *
-	 * @param ids the ids
-	 * @return the contacts
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Set<Contact> getContacts(int... ids) {
@@ -298,6 +296,12 @@ public class ContactManagerImpl implements ContactManager {
 		return returnSet;
 	}
 	
+	/**
+	 * Private helper method to get and return single contact from stored contact set.
+	 *
+	 * @param id the id of the contact.
+	 * @return the contact.
+	 */
 	private Contact getContact(int id){
 		itc = contactSet.iterator();
 		while(itc.hasNext()){
@@ -309,10 +313,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Gets the contacts.
-	 *
-	 * @param name the name
-	 * @return the contacts
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
@@ -332,36 +333,39 @@ public class ContactManagerImpl implements ContactManager {
 	}
 
 	/**
-	 * Flush.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void flush() {
 			 try{ 
 				 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 				 builder = factory.newDocumentBuilder();
+			 	  
+				 if(!checkForFile()){
+					 createFile();
+				 }
+				 fileObjectSet = addObjects();
+				 build(fileObjectSet);
+				 DOMImplementation impl = doc.getImplementation();
+				 DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
+				 LSSerializer ser = implLS.createLSSerializer();
+				 ser.getDomConfig().setParameter("format-pretty-print", true);
+				 LSOutput lsOutput = implLS.createLSOutput();
+				 lsOutput.setEncoding("UTF-8");
+				 Writer stringWriter = new StringWriter();
+				 lsOutput.setCharacterStream(stringWriter);
+				 ser.write(doc, lsOutput);
+		 
+				 String out = stringWriter.toString();
+				 fileWriter(out);
 			 } catch (ParserConfigurationException ex){
 				 ex.printStackTrace();
-			 }	  
-		if(!checkForFile()){
-			createFile();
-		}
-		fileObjectSet = addObjects();
-		build(fileObjectSet);
-		DOMImplementation impl = doc.getImplementation();
-		DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
-		LSSerializer ser = implLS.createLSSerializer();
-		ser.getDomConfig().setParameter("format-pretty-print", true);
-		LSOutput lsOutput = implLS.createLSOutput();
-		lsOutput.setEncoding("UTF-8");
-		Writer stringWriter = new StringWriter();
-		lsOutput.setCharacterStream(stringWriter);
-		ser.write(doc, lsOutput);
-		 
-		String out = stringWriter.toString();
-		fileWriter(out);
-		
+			 }
 	}
 	
+	/**
+	 * Creates new instance of the ContactManager xml file.
+	 */
 	private void createFile(){
 		try{
 			File dataStore = new File("ContactManager.xml");
@@ -371,6 +375,11 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	}
 	
+	/**
+	 * Checks if an instance of the ContactManager xml file already exists.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean checkForFile(){
 		File dataStore = new File("ContactManager.xml");
 			if(dataStore.exists()){
@@ -380,6 +389,11 @@ public class ContactManagerImpl implements ContactManager {
 			}
 	}
 	
+	/**
+	 * Adds the contents of the contact set and meeting list to a File Objects list the
+	 * in preparation for being written to file.
+	 * @return the set of File Objects to be written.
+	 */
 	private Set<FileObjects> addObjects(){
 		Set<FileObjects> returnSet = new LinkedHashSet<FileObjects>();
 		if(!contactSet.isEmpty()){
@@ -409,12 +423,25 @@ public class ContactManagerImpl implements ContactManager {
 			}
 		return returnSet;
 	}
+	
+	/**
+	 * Builds the DOM document for the list of File Objects.
+	 *
+	 * @param objects the set File Objects to be written.
+	 * @return the DOM document
+	 */
 	private Document build(Set<FileObjects> objects){
 		doc = builder.newDocument();
 		doc.appendChild(createObjects(objects));
 		return doc;
 	  }  
 	
+	/**
+	 * Creates the objects to be written.
+	 *
+	 * @param objects the set File Objects to be written.
+	 * @return the element
+	 */
 	private Element createObjects(Set<FileObjects> objects){
 		Element e = doc.createElement("ContactManager");
 		for (FileObjects anObject : objects)
@@ -422,7 +449,13 @@ public class ContactManagerImpl implements ContactManager {
 		return e;
 	  }
 	
-	 private Element createObject(FileObjects anObject){
+	 /**
+ 	 * Creates the DOM elements for the items.
+ 	 *
+ 	 * @param anObject the contact or meeting held in the File Objects Set.
+ 	 * @return the element
+ 	 */
+ 	private Element createObject(FileObjects anObject){
 		 if(anObject.getObject().getClass() == ContactImpl.class){
 			 Element e = doc.createElement("Items");
 			 Contact aContact = (Contact) anObject.getObject();
@@ -436,7 +469,13 @@ public class ContactManagerImpl implements ContactManager {
 		 }
 	  } 
 	 
-	 private Element createContact(Contact c){
+	 /**
+ 	 * Creates the contact DOM element to be written.
+ 	 *
+ 	 * @param c the Contact
+ 	 * @return the element
+ 	 */
+ 	private Element createContact(Contact c){
 		 Element e = doc.createElement("Contact");
 		 e.appendChild(createTextElement("ID", String.valueOf(c.getId())));
 		 e.appendChild(createTextElement("Name", c.getName()));
@@ -444,7 +483,13 @@ public class ContactManagerImpl implements ContactManager {
 		 return e;
 	 }
 	 
-	 private Element createMeeting(Meeting m){
+	 /**
+ 	 * Creates the meeting DOM element to be written.
+ 	 *
+ 	 * @param m the Meeting
+ 	 * @return the element
+ 	 */
+ 	private Element createMeeting(Meeting m){
 		 if(m.getClass().equals(PastMeetingImpl.class)){
 			 PastMeeting newM = (PastMeeting) m;
 			 Element e = doc.createElement("PastMeeting");
@@ -477,24 +522,42 @@ public class ContactManagerImpl implements ContactManager {
 		 }
 	 }
 	 
-	 private Element createTextElement(String name, String text){
+	 /**
+ 	 * Creates the text element to be written.
+ 	 *
+ 	 * @param name the name(tag) to be written
+ 	 * @param text the text to be written
+ 	 * @return the element
+ 	 */
+ 	private Element createTextElement(String name, String text){
 	   Text t = doc.createTextNode(text);
 	   Element e = doc.createElement(name);
 	   e.appendChild(t);
 	   return e;
 	   }
 	 
-	 private void fileWriter(String out){
+	 /**
+ 	 * Writes the file to the ContactManager xml file.
+ 	 *
+ 	 * @param out the String to be written to file.
+ 	 */
+ 	private void fileWriter(String out){
 		try{
 			FileWriter fw = new FileWriter("ContactManager.xml");
 			fw.write(out);
 			fw.close();
-			System.out.println(out);
 		} catch (IOException ex){
 			ex.printStackTrace();
 		}
 	 }
 	 
+	/**
+	 * Parses the contacts from the ContactManager xml and adds them to a set, also sets the last contact id
+	 * for the next contact to be added.
+	 *
+	 * @param fileName the name of the file to be parsed.
+	 * @return the Contact Set.
+	 */
 	private Set<Contact> ParseContacts(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
@@ -532,6 +595,13 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
+	/**
+	 * Parses the Meetings from the ContactManager xml by calling the future and past meeting parsers,
+	 * combines and returns the two lists returned from these meethods.
+	 *
+	 * @param fileName the name of the file to be parsed.
+	 * @return a list of the Meetings parsed.
+	 */
 	private List<Meeting> ParseMeetings(String fileName){
 		List<Meeting> fm = ParseFutureMeetings(fileName);
 		List<Meeting> pm = ParsePastMeetings(fileName);
@@ -552,6 +622,13 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	
+	/**
+	 * Parses the Future Meetings from the ContactManager xml and adds them to a list to be combined 
+	 * with the Past Meetings.
+	 *
+	 * @param fileName the name of the file to be parsed.
+	 * @return a list of the Past Meetings parsed.
+	 */
 	private List<Meeting> ParseFutureMeetings(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
@@ -600,6 +677,13 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
+	/**
+	 * Parses the Past Meetings from the ContactManager xml and adds them to a list to be combined 
+	 * with the Future Meetings.
+	 *
+	 * @param fileName the name of the file to be parsed.
+	 * @return a list of the Past Meetings parsed.
+	 */
 	private List<Meeting> ParsePastMeetings(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
@@ -648,6 +732,12 @@ public class ContactManagerImpl implements ContactManager {
 		return null;
 	}
 	
+	/**
+	 * Checks if the file contains any meetings.
+	 *
+	 * @param fileName the name of the file to be parsed.
+	 * @return true, if successful.
+	 */
 	private boolean doesItContainMeetings(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
