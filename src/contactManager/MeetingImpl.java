@@ -3,26 +3,27 @@ package contactManager;
 import java.util.Calendar;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class MeetingImpl.
+ * The Class MeetingImpl which implements the Meeting interface.
  */
 public class MeetingImpl implements Meeting {
 
-	/** The id. */
+	/** The id of the meeting. */
 	private int id = 0;
 	
-	/** The date. */
+	/** The date of the meeting. */
 	private Calendar date;
 	
-	/** The contact set. */
+	/** The contact set to be added to the meeting. */
 	private Set<Contact> contactSet;
 	
+	
 	/**
-	 * Instantiates a new meeting impl.
+	 * Instantiates a new meeting.
 	 *
-	 * @param date the date
-	 * @param contactSet the contact set
+	 * @param date the date of the meeting
+	 * @param contactSet the set of contacts to be added to the meeting
+	 * @param id the id of the meeting
 	 */
 	public MeetingImpl(Calendar date, Set<Contact> contactSet, int id){
 		if(contactSet == null){
@@ -33,24 +34,24 @@ public class MeetingImpl implements Meeting {
 		this.contactSet = contactSet;
 	}
 	
-	/* (non-Javadoc)
-	 * @see contactManager.Meeting#getId()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public int getId() {
 		return id;
 	}
 
-	/* (non-Javadoc)
-	 * @see contactManager.Meeting#getDate()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Calendar getDate() {
 		return date;
 	}
 
-	/* (non-Javadoc)
-	 * @see contactManager.Meeting#getContacts()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Set<Contact> getContacts() {
