@@ -5,6 +5,7 @@ import java.util.Set;
 
 /**
  * The Class MeetingImpl which implements the Meeting interface.
+ * @see contactManager.Meeting
  */
 public class MeetingImpl implements Meeting {
 
