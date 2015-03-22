@@ -2,14 +2,11 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.text.*;
-import java.time.*;
 import java.util.Set;
 
 import org.junit.Test;
@@ -19,16 +16,13 @@ import contactManager.ContactImpl;
 import contactManager.Meeting;
 import contactManager.MeetingImpl;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MeetingTest.
  */
 public class MeetingTest {
 
 	/**
-	 * Gets the id test.
-	 *
-	 * @return the id test
+	 * Tests if the meeting id is returned correctly.
 	 */
 	@Test
 	public void getIdTest() {
@@ -43,9 +37,7 @@ public class MeetingTest {
 	}
 	
 	/**
-	 * Gets the date test.
-	 *
-	 * @return the date test
+	 * Tests if the meeting date is returned correctly.
 	 */
 	@Test
 	public void getDateTest(){
@@ -66,9 +58,7 @@ public class MeetingTest {
 	}
 	
 	/**
-	 * Gets the contacts test.
-	 *
-	 * @return the contacts test
+	 * Tests if the meeting contact set is returned correctly.
 	 */
 	@Test
 	public void getContactsTest(){
@@ -95,7 +85,7 @@ public class MeetingTest {
 	}
 	
 	/**
-	 * Null contact set test.
+	 * Tests that a meeting with a null contact set cannot be added. 
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullContactSetTest(){
