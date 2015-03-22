@@ -6,6 +6,8 @@ import java.util.Calendar;
 
 /**
  * The Class PastMeetingImpl which extends the MeetingImpl class and implements the PastMeeting interface.
+ * @see contactManager.Meeting
+ * @see contactManager.PastMeeting
  */
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
