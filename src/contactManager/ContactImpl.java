@@ -1,26 +1,28 @@
 package contactManager;
 
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ContactImpl.
+ * The Class ContactImpl that implements Contact.
+ *
+ * @see contactManager.Contact
  */
-
 public class ContactImpl implements Contact {
 
-		/** The name. */
+		/** The contacts name. */
 		private final String name;
 		
-		/** The notes. */
+		/** The notes related to the contact. */
 		private String notes;
 		
-		/** The id. */
+		/** The contact's id. */
 		private int id = 0;
 		
+		
 		/**
-		 * Instantiates a new contact impl.
+		 * Instantiates a new contact.
 		 *
-		 * @param name the name
+		 * @param the contact's name
+		 * @param the contact's id
 		 */
 		public ContactImpl(String name, int id){
 			if(name == null){
@@ -31,29 +33,29 @@ public class ContactImpl implements Contact {
 			
 		}
 		
-		/* (non-Javadoc)
-		 * @see contactManager.Contact#getName()
+		/** 
+		 * {@inheritDoc}
 		 */
 		public String getName(){
 			return name;
 		}
 		
-		/* (non-Javadoc)
-		 * @see contactManager.Contact#getId()
+		/** 
+		 * {@inheritDoc}
 		 */
 		public int getId() {
 				return id;
 		}
 		
-		/* (non-Javadoc)
-		 * @see contactManager.Contact#getNotes()
+		/** 
+		 * {@inheritDoc}
 		 */
 		public String getNotes() {
 			return notes;
 		}
 
-		/* (non-Javadoc)
-		 * @see contactManager.Contact#addNotes(java.lang.String)
+		/** 
+		 * {@inheritDoc}
 		 */
 		public void addNotes(String note) {
 			this.notes = note;
