@@ -106,7 +106,7 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private boolean isItToday(Calendar date){
 		if(currentTime.get(Calendar.YEAR) == date.get(Calendar.YEAR) && 
-			currentTime.get(Calendar.MONTH) == currentTime.get(Calendar.MONTH) &&
+			currentTime.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
             currentTime.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)){
 			return true;
 		} else {
@@ -239,7 +239,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(getMeeting(id) == null){
 			throw (new IllegalArgumentException("Meeting " + id + " does not exist"));
 		}
-		if(currentTime.before(getMeeting(id).getDate()) && !isItToday(getMeeting(id).getDate())){ 
+		if(currentTime.before(getMeeting(id).getDate()) && !isItToday(getMeeting(id).getDate()) || currentTime.before(getMeeting(id).getDate())){ 
 			throw (new IllegalStateException("Notes cannont be added to a future meeting"));
 		}
 		if(text.equals(null)){
