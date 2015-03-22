@@ -171,7 +171,11 @@ public class ContactManagerTest {
 			contactSet.add(contact1);
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 3, 8));
 			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2019, 5, 01));
-			testCM.addFutureMeeting(contactSet, new GregorianCalendar(2015, 2, 21));
+			Calendar currentTime = Calendar.getInstance();
+			int year = currentTime.get(Calendar.YEAR);
+			int month = currentTime.get(Calendar.MONTH);
+		    int day = currentTime.get(Calendar.DAY_OF_MONTH);
+			testCM.addFutureMeeting(contactSet, new GregorianCalendar(year, month, day));
 			testCM.addMeetingNotes(3, "Some text about the meeting");
 			String output = testCM.getPastMeeting(3).getNotes();
 			String expected = "Some text about the meeting";
@@ -350,8 +354,9 @@ public class ContactManagerTest {
 		public void addMeetingNotesNullPointerExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
 			testCM.addNewContact("Mr Man", "He's the man");
-			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(2015, 2, 21));
+			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(2015, 2, 22));
 			testCM.addMeetingNotes(1, null);
 		}
+		
 }		
 
