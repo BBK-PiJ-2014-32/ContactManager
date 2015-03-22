@@ -16,7 +16,6 @@ import contactManager.FutureMeeting;
 import contactManager.FutureMeetingImpl;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class FutureMeetingTest.
  */
