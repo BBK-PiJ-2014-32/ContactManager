@@ -107,7 +107,7 @@ public class ContactManagerImpl implements ContactManager {
 	private boolean isItToday(Calendar date){
 		if(currentTime.get(Calendar.YEAR) == date.get(Calendar.YEAR) && 
 			currentTime.get(Calendar.MONTH) == date.get(Calendar.MONTH) &&
-            currentTime.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)){
+            currentTime.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH)){
 			return true;
 		} else {
 			return false;
