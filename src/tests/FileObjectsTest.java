@@ -11,8 +11,14 @@ import org.junit.Test;
 
 import contactManager.*;
 
+/**
+ * The Class FileObjectsTest.
+ */
 public class FileObjectsTest {
 
+	/**
+	 * Tests that the FileObjects class is holding a contact correctly.
+	 */
 	@Test
 	public void getObjectTest() {
 		Contact testCon = new ContactImpl("Test Con", 1);
@@ -23,6 +29,9 @@ public class FileObjectsTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Tests that the FileObjects class is holding a meeting correctly.
+	 */
 	@Test
 	public void getObjectMeetingTest(){
 		Calendar date = new GregorianCalendar(2015, 4, 12);
