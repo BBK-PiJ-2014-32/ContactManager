@@ -2,23 +2,18 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Test;
-import org.junit.Before;
 
 import contactManager.Contact;
 import contactManager.ContactImpl;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ContactTest.
  */
 public class ContactTest {
 
 	/**
-	 * Gets the name test.
-	 *
-	 * @return the name test
+	 * Tests that the name of the contact is returned correctly.
 	 */
 	@Test
 	public void getNameTest() {
@@ -29,7 +24,7 @@ public class ContactTest {
 	} 
 
 	/**
-	 * Adds the get notes test.
+	 * Tests that the notes of the contact are added and returned correctly.
 	 */
 	@Test
 	public void addGetNotesTest(){
@@ -41,9 +36,7 @@ public class ContactTest {
 	}
 	
 	/**
-	 * Gets the ID test.
-	 *
-	 * @return the ID test
+	 * Tests that the id of the contact is returned correctly.
 	 */
 	@Test
 	public void getIDTest(){
@@ -54,7 +47,7 @@ public class ContactTest {
 	}
 	
 	/**
-	 * Null contact test.
+	 * Tests that a null contact cannot be added.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullContactTest(){
