@@ -3,36 +3,43 @@ package contactManager;
 import java.util.Set;
 import java.util.Calendar;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class PastMeetingImpl.
+ * The Class PastMeetingImpl which extends the MeetingImpl class and implements the PastMeeting interface.
  */
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
-	/** The notes. */
+	/** The notes to be added to the meeting. */
 	private String notes;
 	
+	
 	/**
-	 * Instantiates a new past meeting impl.
+	 * Instantiates a new past meeting.
 	 *
 	 * @param date the date
 	 * @param contactSet the contact set
 	 * @param notes the notes
+	 * @param id the id
 	 */
 	public PastMeetingImpl(Calendar date, Set<Contact> contactSet, String notes, int id){
 		super(date, contactSet, id);
 		this.notes = notes;
 }
 
-	/* (non-Javadoc)
-	 * @see contactManager.PastMeeting#getNotes()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String getNotes() {
 		return notes;
 	}
 	
-	public void setNotes(String text){
+	/**
+	 * Sets the notes if needed.
+	 *
+	 * @param text the new notes
+	 */
+	private void setNotes(String text){
 		notes = text;
 	}
 }
