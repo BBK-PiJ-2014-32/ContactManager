@@ -13,29 +13,18 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
-import contactManager.Contact;
-import contactManager.ContactImpl;
-import contactManager.ContactManager;
-import contactManager.ContactManagerImpl;
-import contactManager.FutureMeeting;
-import contactManager.FutureMeetingImpl;
-import contactManager.Meeting;
-import contactManager.MeetingImpl;
-import contactManager.PastMeeting;
-import contactManager.PastMeetingImpl;
+import contactManager.*;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class ContactManagerTest.
  */
 public class ContactManagerTest {	
 	
+	/**
+	 * Deletes previous file if present from previous test.
+	 */
 	@Before
 	public void deleteFile(){
 		File file = new File("ContactManager.xml");
@@ -66,7 +55,7 @@ public class ContactManagerTest {
 	}
 	
 	/**
-	 * Date in the past test.
+	 * Date in the past exception test.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void dateInThePastTest(){
@@ -78,8 +67,11 @@ public class ContactManagerTest {
 		testCM.addFutureMeeting(contactSet, date);
 	}
 	
+	/**
+	 * Add contact test.
+	 */
 	@Test
-	public void add3ContactTest(){
+	public void addContactTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("Mr Man", "He's the man");
 		testCM.addNewContact("Miss SomeOne", "She's not a man");
@@ -95,20 +87,29 @@ public class ContactManagerTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Add null contact name exception test.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void addNullContactNameTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact(null, "notes");
 	}
 	
+	/**
+	 * Add null contact notes exception test.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void addNullContactNotesTest(){
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("Anon", null);
 	}
 	
+	/**
+	 * Add new past meeting test.
+	 */
 	@Test
-	public void add2NewPastMeetingTest(){ 
+	public void addNewPastMeetingTest(){ 
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("Mr Man", "none");
 		testCM.addNewContact("Miss Miss", "none");
@@ -123,6 +124,11 @@ public class ContactManagerTest {
 		assertEquals(expected, output);
 		
 	}
+	
+	/**
+	 * Get existing meeting test.
+	 *
+	 */
 	@Test
 	public void getMeetingTest(){
 		ContactManager testCM = new ContactManagerImpl();
@@ -139,6 +145,9 @@ public class ContactManagerTest {
 		assertEquals(expected, output);
 	}
 	
+	/**
+	 * Get future meeting list by date test.
+	 */
 	@Test
 	public void getFutureMeetingListTest(){
 		ContactManager testCM = new ContactManagerImpl();
@@ -163,6 +172,9 @@ public class ContactManagerTest {
 			}
 		}
 		
+		/**
+		 * Add meeting notes test.
+		 */
 		@Test
 		public void addMeetingNotesTest(){ //Also uses getPastMeeting for the first time.
 			ContactManager testCM = new ContactManagerImpl();
@@ -182,6 +194,9 @@ public class ContactManagerTest {
 			assertEquals(expected, output);
 		}
 
+		/**
+		 * Get future meeting by id test.
+		 */
 		@Test
 		public void getFutureMeetingTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -194,6 +209,9 @@ public class ContactManagerTest {
 			assertEquals(expected, output);
 		}
 		
+		/**
+		 * Get future meeting list by contact test.
+		 */
 		@Test
 		public void getFutureMeetingListByContactTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -227,6 +245,9 @@ public class ContactManagerTest {
 			
 		}
 		
+		/**
+		 * Get past meeting list by contact test.
+		 */
 		@Test
 		public void getPastMeetingListByContactTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -261,6 +282,9 @@ public class ContactManagerTest {
 			}
 		}
 		
+		/**
+		 * Null get contact exception test.
+		 */
 		@Test(expected = NullPointerException.class)
 		public void getContactsExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -268,6 +292,9 @@ public class ContactManagerTest {
 			testCM.getContacts(str);
 		}
 		
+		/**
+		 * Get future meeting by contact that does not exist test.
+		 */
 		@Test(expected = IllegalArgumentException.class)
 		public void getFutureMeetingContactDoesNotExistTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -278,6 +305,9 @@ public class ContactManagerTest {
 			testCM.getFutureMeetingList(contact);
 		}
 		
+		/**
+		 * Get past meeting in the future test exception test.
+		 */
 		@Test(expected = IllegalArgumentException.class)
 		public void getPastMeetingInTheFutureTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -288,6 +318,9 @@ public class ContactManagerTest {
 			testCM.getPastMeeting(1);
 		}
 		
+		/**
+		 * Get future meeting that is from the past exception test.
+		 */
 		@Test(expected = IllegalArgumentException.class)
 		public void getPastMeetingFromTheFutureExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -298,6 +331,9 @@ public class ContactManagerTest {
 			testCM.getFutureMeeting(1);
 		}
 		
+		/**
+		 * Get a meeting that doesn't exist null test.
+		 */
 		@Test
 		public void getMeetingNullTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -306,6 +342,9 @@ public class ContactManagerTest {
 			assertEquals(expected, testMeet);
 		}
 		
+		/**
+		 * Gets the past meeting by a contact that does not exist test.
+		 */
 		@Test(expected = IllegalArgumentException.class)
 		public void getPastMeetingContactDoesNotExistTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -315,12 +354,19 @@ public class ContactManagerTest {
 			Contact contact = new ContactImpl("Some Contact", 4);
 			testCM.getPastMeetingList(contact);
 		}
+		
+		/**
+		 * Add a new past meeting with null contact set exception test.
+		 */
 		@Test(expected = NullPointerException.class)
 		public void addNewPastMeetingNullTest1(){
 			ContactManager testCM = new ContactManagerImpl();
 			testCM.addNewPastMeeting(null, new GregorianCalendar(2015, 2, 1), "text");
 		}
 		
+		/**
+		 * Add a new past meeting with a null date exception test.
+		 */
 		@Test(expected = NullPointerException.class)
 		public void addNewPastMeetingNullTest2(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -329,6 +375,10 @@ public class ContactManagerTest {
 			testCM.addNewPastMeeting(conSet, null, "text");
 			
 		}
+		
+		/**
+		 * Add a new past meeting with null notes exception test.
+		 */
 		@Test(expected = NullPointerException.class)
 		public void addNewPastMeetingNullTest3(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -337,12 +387,18 @@ public class ContactManagerTest {
 			testCM.addNewPastMeeting(conSet, new GregorianCalendar(2015, 2, 1), null);
 		}
 		
+		/**
+		 * Add meeting notes to a meeting that doesn't exist exception test.
+		 */
 		@Test(expected = IllegalArgumentException.class)
 		public void addMeetingNotesIllegalArgumentExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
 			testCM.addMeetingNotes(1, "text");
 		}
 		
+		/**
+		 * Add the meeting notes to a future meeting illegal state exception test.
+		 */
 		@Test(expected = IllegalStateException.class)
 		public void addMeetingNotesIllegalStateExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -350,6 +406,10 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(2015, 8, 15));
 			testCM.addMeetingNotes(1, "text");
 		}
+		
+		/**
+		 * Add meeting notes pointer exception test.
+		 */
 		@Test(expected = NullPointerException.class)
 		public void addMeetingNotesNullPointerExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
@@ -361,6 +421,10 @@ public class ContactManagerTest {
 			testCM.addFutureMeeting(testCM.getContacts(1), new GregorianCalendar(year, month, day));
 			testCM.addMeetingNotes(1, null);
 		}
+		
+		/**
+		 * Get contact set by contact that doesn't exist illegal argument exception test.
+		 */
 		@Test(expected = IllegalArgumentException.class)
 		public void getContactsSetIllegalArgumentExceptionTest(){
 			ContactManager testCM = new ContactManagerImpl();
