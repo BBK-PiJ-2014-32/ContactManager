@@ -83,9 +83,9 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	public ContactManagerImpl(){
 		if(checkForFile()){
-			contactSet = ParseContacts("ContactManager.xml");	
+			contactSet = parseContacts("ContactManager.xml");	
 			if(doesItContainMeetings("ContactManager.xml")){
-				meetingList = ParseMeetings("ContactManager.xml");	
+				meetingList = parseMeetings("ContactManager.xml");	
 			}
 		}
 		
@@ -558,7 +558,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @param fileName the name of the file to be parsed.
 	 * @return the Contact Set.
 	 */
-	private Set<Contact> ParseContacts(String fileName){
+	private Set<Contact> parseContacts(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
 			builder = dbfactory.newDocumentBuilder(); 
@@ -602,9 +602,9 @@ public class ContactManagerImpl implements ContactManager {
 	 * @param fileName the name of the file to be parsed.
 	 * @return a list of the Meetings parsed.
 	 */
-	private List<Meeting> ParseMeetings(String fileName){
-		List<Meeting> fm = ParseFutureMeetings(fileName);
-		List<Meeting> pm = ParsePastMeetings(fileName);
+	private List<Meeting> parseMeetings(String fileName){
+		List<Meeting> fm = parseFutureMeetings(fileName);
+		List<Meeting> pm = parsePastMeetings(fileName);
 		List<Meeting> returnList = new LinkedList<Meeting>();
 		if(fm!=null){
 			itm = fm.iterator();
@@ -629,7 +629,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @param fileName the name of the file to be parsed.
 	 * @return a list of the Past Meetings parsed.
 	 */
-	private List<Meeting> ParseFutureMeetings(String fileName){
+	private List<Meeting> parseFutureMeetings(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
 			builder = dbfactory.newDocumentBuilder(); 
@@ -684,7 +684,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @param fileName the name of the file to be parsed.
 	 * @return a list of the Past Meetings parsed.
 	 */
-	private List<Meeting> ParsePastMeetings(String fileName){
+	private List<Meeting> parsePastMeetings(String fileName){
 		try{
 			DocumentBuilderFactory dbfactory = DocumentBuilderFactory.newInstance(); 
 			builder = dbfactory.newDocumentBuilder(); 
