@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -110,7 +111,11 @@ public class ContactManagerFlushTests {
 		testCM1.addNewContact("Mr Testy", "Testing");
 		testCM1.addNewPastMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 15), "some notes");
 		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 8, 15));
-		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 2, 22));
+		Calendar currentTime = Calendar.getInstance();
+		int year = currentTime.get(Calendar.YEAR);
+		int month = currentTime.get(Calendar.MONTH);
+	    int day = currentTime.get(Calendar.DAY_OF_MONTH);
+		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(year, month, day));
 		testCM1.addFutureMeeting(testCM1.getContacts(1,2,3), new GregorianCalendar(2015, 5, 15));
 		testCM1.flush();
 		ContactManager testCM2 = new ContactManagerImpl();
